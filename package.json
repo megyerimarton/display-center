@@ -24,5 +24,8 @@
   "devDependencies": {
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.4"
+  },
+  "engines": {
+    "node": "8.8.1"
   }
 }
