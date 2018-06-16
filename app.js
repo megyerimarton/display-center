@@ -2,6 +2,7 @@ const cartSize = require('./middleware/cartsize');
 const query = require('./middleware/query');
 const user = require('./middleware/user');
 const connection = require('./middleware/connection');
+const connectionRelease = require('./middleware/connectionRelease');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -19,6 +20,7 @@ app.use(connection);
 app.use(cartSize);
 app.use(query);
 app.use(user);
+app.use(connectionRelease);
 
 
 require('./startup/routes')(app);
