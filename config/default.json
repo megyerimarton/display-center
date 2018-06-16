@@ -1,9 +1,9 @@
 {
   "jwtPrivateKey": "displaycenter",
   "db": {
-    "host": "mysql://h47728tn79ommjdh:kg6mae1lpa9b7v8b@lt80glfe2gj8p5n2.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306",
+    "host": "lt80glfe2gj8p5n2.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
     "user": "h47728tn79ommjdh",
     "password": "kg6mae1lpa9b7v8b",
-    "database": "akotvmh0y7hngsba"
+    "database": "webshop"
   }
 }
