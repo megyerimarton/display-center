@@ -1,5 +1,6 @@
 {
+  "jwtPrivateKey": "JWT_PRIVATE_KEY",
   "db": {
-    "password": "db_password"
+    "password": "DB_PASSWORD"
   }
 }

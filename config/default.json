@@ -1,9 +1,7 @@
 {
-  "jwtPrivateKey": "displaycenter",
   "db": {
     "host": "lt80glfe2gj8p5n2.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
     "user": "h47728tn79ommjdh",
-    "password": "",
     "database": "akotvmh0y7hngsba"
   }
 }
