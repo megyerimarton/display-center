@@ -1,0 +1,97 @@
+{{> header}}
+
+
+<div class="user-page-container admin-page-container">
+
+    {{> adminmenu}}
+
+    <div class="tab-content">
+        <div class="content-header">
+			<div class="title">Rendelések</div>
+			<div class="link"></div>
+		</div>
+      <div class="lines-container">
+
+        {{#each orders}}
+        <div class="line orders pointer" data-id="{{id}}">
+          <div class="box w-30"><p><span class="bold">{{id}}&nbsp&nbsp&nbsp</span>{{email}}</p></div>
+          <div class="box w-20"><p>{{dateFormat datum}}</p></div>
+          <div class="box w-25"><i class="material-icons status {{#is allapot 'Feldolgozás alatt'}}status-process{{else}}status-accepted{{/is}}">info</i><p>{{allapot}}</p></div>
+          <div class="box price w-15"><p>{{numberFormat ar_osszes}} Ft</p></div>
+          <div class="box w-10 w-10-keep">
+            {{#is allapot_number 1}}<a class="btn-actions accept" data-id="{{../id}}" tooltip="Rendelés jóváhagyása"><i class="material-icons">assignment_turned_in</i></a>{{/is}}
+            {{#is allapot_number 2}}<a class="btn-actions shipping" data-id="{{../id}}" tooltip="Rendelés átadása kézbesítésre"><i class="material-icons">local_shipping</i></a>{{/is}}
+            {{#is allapot_number 3}}<a class="btn-actions finish" data-id="{{../id}}" tooltip="Rendelés teljesítése"><i class="material-icons">done</i></a>{{/is}}
+            {{#isNot allapot_number 4}}<a class="btn-actions delete" data-id="{{../id}}" tooltip="Rendelés törlése"><i class="material-icons">clear</i></a>{{/isNot}}
+          </div>
+        </div>
+        {{/each}}
+
+			<div class="pagination">
+
+        {{#if pagination.prev}}
+        <a href="/admin/orders?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+        <a href="/admin/orders?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+
+        {{#if pagination.next}}
+        <a href="/admin/orders?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+      </div>
+		</div>
+		<div class="orderDescription-modal">
+			<div class="header"><div class="title"></div><i class="material-icons close-orderDescription-modal">close</i></div>
+			<div class="content">
+        <div class="data">
+          <div class="row">
+            <div class="left">Email:</div>
+            <div class="right email"></div>
+          </div>
+          <div class="row">
+            <div class="left">Név:</div>
+            <div class="right name"></div>
+          </div>
+          <div class="row">
+            <div class="left">Telefonszám:</div>
+            <div class="right tel"></div>
+          </div>
+          <div class="row">
+            <div class="left">Település:</div>
+            <div class="right city"></div>
+          </div>
+          <div class="row">
+            <div class="left">Cím:</div>
+            <div class="right address"></div>
+          </div>
+          <div class="row">
+            <div class="left">Rendelés időpontja:</div>
+            <div class="right date"></div>
+          </div>
+          <div class="row">
+            <div class="left">Rendelés állapota:</div>
+            <div class="right status"></div>
+          </div>
+          <div class="divider appendAfter"></div>
+          <div class="divider"></div>
+          <div class="row no-wrap">
+            <div class="left">Teljes összeg:</div>
+            <div class="right finalPrice"></div>
+          </div>
+        </div>
+      </div>
+			<div class="loader active"></div>
+		</div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/adminOrders.bundle.js"></script>
+
+
+{{> footer}}

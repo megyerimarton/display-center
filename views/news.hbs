@@ -1,0 +1,67 @@
+{{> header}}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+
+<div class="container-1200">
+  <article class="article-new">
+
+    {{#each news}}
+    <a class="row" href="/news/{{id}}">
+      <div class="left">
+        <img alt="news_image" src="/images/news/{{#if kep}}{{kep}}{{else}}sample.png{{/if}}" />
+      </div>
+      <div class="right">
+        <div class="top">
+          <div class="title">
+            <h2>{{cim}}</h2>
+          </div>
+          <div class="description">
+            <div class="col">
+              <i class="material-icons">account_circle</i>{{szerzo}}</div>
+            <div class="col">
+              <i class="material-icons">alarm</i>{{dateFormat datum}}</div>
+            <div class="col">
+              <div class="more">Tovább
+                <i class="material-icons">arrow_forward</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="content">{{stripTags tartalom}}</div>
+        </div>
+      </div>
+    </a>'
+    {{/each}}
+
+  </article>
+  <div class="pagination">
+
+    {{#if pagination.prev}}
+    <a href="/news?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
+    {{else}}
+    <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+    {{/if}}
+
+    <a href="/news?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+
+    {{#if pagination.next}}
+    <a href="/news?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
+    {{else}}
+    <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+    {{/if}}
+
+  </div>
+</div>
+
+
+{{> footer}}

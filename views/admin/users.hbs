@@ -1,0 +1,69 @@
+{{> header}}
+
+
+<div class="user-page-container admin-page-container">
+
+  {{> adminmenu}}
+
+  <div class="tab-content">
+    <div class="content-header">
+      <div class="title">Regisztrált felhasználók</div>
+      <div class="link"></div>
+    </div>
+    <div class="lines-container">
+
+      {{#each users}}
+      <div class="line" id="line'.$row['id'].'">
+        <div class="box w-40">
+          <span class="bold">{{id}}&nbsp&nbsp&nbsp</span>
+          <p>{{email}}</p>
+        </div>
+        <div class="box w-30">
+          <p>{{nev}}</p>
+        </div>
+        <div class="box w-20">
+          <p>{{dateFormat lastlogin}}</p>
+        </div>
+        <div class="box w-10">
+
+          {{#is aktiv 1}}
+          <a class="btn-actions archive" data-id="{{../id}}" tooltip="Fiók inaktiválása">
+            <i class="material-icons">clear</i>
+          </a>
+          {{/is}}
+          {{#is aktiv 0}}
+          <a class="btn-actions unarchive" data-id="{{../id}}" tooltip="Fiók aktiválása">
+            <i class="material-icons">done</i>
+          </a>
+          {{/is}}
+
+        </div>
+      </div>
+      {{/each}}
+
+      <div class="pagination">
+
+        {{#if pagination.prev}}
+        <a href="/admin/users?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+        <a href="/admin/users?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+
+        {{#if pagination.next}}
+        <a href="/admin/users?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/adminUsers.bundle.js"></script>
+
+
+{{> footer}}

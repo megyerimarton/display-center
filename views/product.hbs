@@ -1,0 +1,131 @@
+{{> header }}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+
+<div class="container-1500">
+  <div class="half-container product-half-container">
+    <div class="product">
+      <div class="itemImages">
+        <img class="productImage active not-absolute" data-id="1" src="/images/products/{{product.kep1}}" />
+        <img class="productImage" data-id="2" src="/images/products/{{product.kep2}}" />
+        <img class="productImage" data-id="3" src="/images/products/{{product.kep3}}" />
+        <div class="btnPic left">
+          <i class="material-icons">keyboard_arrow_left</i>
+        </div>
+        <div class="btnPic right">
+          <i class="material-icons">keyboard_arrow_right</i>
+        </div>
+      </div>
+      <div class="itemInfo">
+        <div class="itemName">
+          <h2>{{product.gyarto}} {{product.termek}}</h2>
+          <div class="manufacturer">
+            <img src="/images/manufacturers/{{product.gyartokep}}" alt="{{product.gyarto}}" />
+          </div>
+        </div>
+        <div class="itemCode">Termékkód: {{product.id}}</div>
+        <div class="itemDescription">{{product.leiras}}</div>
+        <div class="warranty">
+          <i class="material-icons">verified_user</i>
+          <span>{{garancia}}</span>&nbsp;{{product.gyarto}} gyártói garancia.</div>
+        <div class="extra-info">
+
+          {{#if product.akcios_ar}}
+          <div class="special-offer">
+            <i class="material-icons"></i>-{{savePercent product.ar product.akcios_ar}}%</div>'; {{/if}}
+
+          <div class="stock-status" tooltip="{{product.darab}} db">
+            <i class="material-icons">info</i>
+            {{product.allapot}}
+          </div>
+          <a href="{{product.web}}" target="_blank">
+            <div class="manufacturer-site" tooltip="{{product.web}}">
+              <i class="material-icons">link</i>
+              Gyártó weboldala
+            </div>
+          </a>
+        </div>
+        <div class="itemPrice">
+          <div class="top"></div>
+          <div class="bottom">
+            <div class="left">
+              <p class="price-actual">{{#if product.akcios_ar}}{{numberFormat product.akcios_ar}}{{else}}{{numberFormat product.ar}}{{/if}} Ft</p>
+              <p class="price-old">
+                {{#if product.akcios_ar}}{{numberFormat product.ar}} Ft{{/if}}
+              </p>
+            </div>
+            <div class="right">
+              <a id="addCart" data-id="{{product.id}}" class="addCart btn-1 clickEffect">
+                <i class="material-icons">add_shopping_cart</i>kosárba</a>
+              {{#unless isInWish}}
+              <a id="addWish" data-id="{{product.id}}" class="addWish btn-1 clickEffect">
+                <i class="material-icons">favorite</i>Kívánságlistára</a>
+              {{/unless}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="itemDescriptionMore">
+      <h2>Tulajdonságok</h2>
+      <ul>
+
+        {{#each details}}
+        <li>
+          <div class="propName">{{name}}: </div>
+          <div class="propDescription">{{description}}</div>
+        </li>
+        {{/each}}
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="products-bar-wrapper">
+  <div class="productsBar" id="container1">
+    <div class="title">
+      <div class="badge discount">
+        <p></p>
+      </div>
+      <h2>Akciós termékek</h2>
+    </div>
+    <div class="boxContainer" id="boxContainer2">
+
+      {{#each saleProducts}}
+      <div class="item" id="item{{id}}">
+        <div class="discount">{{savePercent ar akcios_ar}}%</div>
+        <a href="/products/{{id}}">
+          <img class="itemImg" id="itemImg{{ id }}" src="/images/products/{{kep1}}" />
+          <div class="productDescription">
+            <div class="top">
+              {{#if akcios_ar}}
+              <span class="price discounted">{{numberFormat ar}} Ft</span>{{/if}}
+              <span class="price">{{ numberFormat ar }} Ft</span>
+            </div>
+            <div class="bottom">
+              <div class="title">{{gyarto}} {{termek}}</div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {{/each}}
+
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/product.bundle.js"></script>
+
+
+{{> footer }}

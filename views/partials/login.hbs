@@ -1,0 +1,36 @@
+<div id="modal-login" {{#if action}}class="active"{{/if}}>
+  <div id="login">
+    <div id="loginHeader">
+      <i class="material-icons">account_circle</i>
+      <p>Üdvözlünk</p>
+      <a class="closeBtn-login"> &times </a>
+      <div class="error">
+        {{#if action}}Hibás felhasználónév/jelszó.{{/if}}
+      </div>
+    </div>
+    <form class="style1" action="/login" method="post">
+      <ul>
+        <li>
+          <input type="text" id="login_email" name="email" maxlength="50" required/>
+          <label for="login_email">Email</label>
+        </li>
+        <li>
+          <input type="password" id="login_password" name="password" maxlength="50" required />
+          <label for="login_password">Jelszó</label>
+        </li>
+        <div id="loginBottom">
+          <div id="left">
+
+          </div>
+          <div id="right">
+            <input type="submit" name="login" value="Bejelentkezés" />
+          </div>
+        </div>
+      </ul>
+    </form>
+    <div class="bottommost">
+      <a href="/register">Fiók létrehozása</a>
+    </div>
+  </div>
+  <div id="modalBg-login" class="popup-modal-bg"></div>
+</div>

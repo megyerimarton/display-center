@@ -1,0 +1,104 @@
+</div>
+<footer {{#contains page (borderFooter)}} class="border" {{/contains}}>
+  <div class="footer-col4">
+    <div class="col">
+      <div class="footer-head clickEffect" data-id="1">Elérhetőségek
+        <i class="material-icons"></i>
+      </div>
+      <ul class="footer-services">
+        <li class="footer-item">
+          <i class="material-icons">location_on</i>Kossuth tér 1, Vác, 2600</li>
+        <li class="footer-item">
+          <i class="material-icons">access_time</i>H-P: 10:00 - 20:00 Szo: 12:00 - 16:00</li>
+        <li class="footer-item">
+          <a href="tel:+36000000000" class="flex"><i class="material-icons">call</i>+36 00 0000000</li></a>
+        <li class="footer-item">
+          <a href="mailto:megyerimarton@gmail.com" class="flex"><i class="material-icons">mail</i>megyerimarton@gmail.com</li></a>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="footer-head clickEffect" data-id="2">Szolgáltatások
+        <i class="material-icons"></i>
+      </div>
+      <ul class="footer-services">
+        <li class="footer-item">
+          <a href="/info/Pixelgarancia">Pixelgarancia</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Monitorkalibrálás">Monitorkalibrálás</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Bemutatóterem">Bemutatóterem</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Ajándékkártya">Ajándékkártya</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Áruhitel ügyintézés">Áruhitel ügyintézés</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="footer-head clickEffect" data-id="3">Információk
+        <i class="material-icons"></i>
+      </div>
+      <ul class="footer-services">
+        <li class="footer-item">
+          <a href="/info/Vásárlási információk">Vásárlási információk</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Fizetés és szállítás">Fizetés és szállítás</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Gyakran ismételt kérdések">Gyakran ismételt kérdések</a>
+        </li>
+        <li class="footer-item">
+          <a href="/info/Garancia ügyintézés">Garancia ügyintézés</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="footer-head clickEffect" data-id="4">Hírlevél
+        <i class="material-icons"></i>
+      </div>
+      <form method="post" action="index.php" class="style1">
+        <ul class="footer-services">
+          <li class="footer-item">Értesülj elsőként aktuális akcióinkról!</li>
+          <li class="footer-item email">
+            <input type="email" id="email_newsletter" name="email" />
+            <label for="uname">Email címed</label>
+          </li>
+          <li class="footer-item submit">
+            <a id="subscribe" class="btn-1 {{#if user.isAdmin}}disabled{{/if}}">Feliratkozom</a>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <div class="rights-container top">
+    <div class="rights">
+      <a href="/info/Adatvédelmi tájékoztató">Adatvédelmi tájékoztató</a> |
+      <a href="/info/Általános Szerződési Feltételek">Általános Szerződési Feltételek</a>
+    </div>
+  </div>
+  <div class="rights-container bottom">
+    <div class="rights">
+      <p>Minden jog fenntartva © {{ copyrightYear }} - Megyeri Márton</p>
+      <div class="center">
+        <a href="http://www.facebook.com" target="_blank" class="social-icon fb clickEffect">
+          <img src="/images/fb.svg" />
+        </a>
+        <a href="http://www.youtube.com" target="_blank" class="social-icon yt clickEffect">
+          <img src="/images/yt.svg" />
+        </a>
+      </div>
+      <p class="author">Készítette: Megyeri Márton</p>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript" src="/javascripts/main.bundle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+{{> header}}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+<div class="container-1500">
+  <section class="contact-wrapper">
+    <h1>Kérdésed van? Keress minket bátran!</h1>
+    <div class="text">
+      <div class="contact-wrapper-left">
+        <h2>Elérhetőségeink</h2>
+        <div class="center">
+          <div class="contact">
+            <i class="material-icons" style="font-size:25px">place</i>Kossuth tér 1, Vác, 2600</div>
+          <a class="contact" href="tel:+36000000000">
+            <i class="material-icons" style="font-size:25px">call</i>+36&nbsp00&nbsp0000000</a>
+          <a class="contact" href="mailto:megyerimarton@gmail.com">
+            <i class="material-icons" style="font-size:30px">mail</i>megyerimarton@gmail.com</a>
+        </div>
+        <a href="https://www.google.hu/maps/place/V%C3%A1c,+Kossuth+t%C3%A9r+1,+2600/@47.7766504,19.1278102,17z/data=!3m1!4b1!4m5!3m4!1s0x47402aec70c3bfdb:0xae043ce12e29064f!8m2!3d47.7766504!4d19.1299989"
+          target="_blank" class="bottom">
+          <p>Útvonaltervezés</p>
+          <i class="material-icons">arrow_forward</i>
+        </a>
+      </div>
+      <div class="contact-wrapper-right">
+        <div class="center">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Google maps integrációs JS function -->
+<script type="text/javascript">
+  function initMap() {
+    var mapOptions = {
+      zoom: 16,
+      center: new google.maps.LatLng(47.776691, 19.129995),
+      disableDefaultUI: true,
+      styles: [
+        {
+          "featureType": "all",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "all",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "all",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "all",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "all",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "all",
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#444444"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "all",
+          "stylers": [
+            {
+              "color": "#f2f2f2"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#fcc239"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.natural.terrain",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#FFB300"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "all",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "all",
+          "stylers": [
+            {
+              "saturation": -100
+            },
+            {
+              "lightness": 45
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "all",
+          "stylers": [
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "all",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "all",
+          "stylers": [
+            {
+              "color": "#fdcd5d"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        }
+      ]
+    };
+    var mapElement = document.getElementById('map');
+    var map = new google.maps.Map(mapElement, mapOptions);
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(47.776691, 19.129995),
+      map: map,
+      icon: {
+        url: "images/marker.png",
+        scaledSize: new google.maps.Size(48, 48)
+      }
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_5giH5Naa8wp8cMD2nCCKcsvqSo-Wv8Q&callback=initMap">
+</script> {{> footer}}

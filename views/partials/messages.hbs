@@ -1,0 +1,25 @@
+<div class="message warningMsg justOnce">
+  <div class="msg-icon">
+    <i class="material-icons"></i>
+  </div>
+  <div class="msg-content">
+    <div class="msg-text">A weboldal csupán tesztelési célból készült</div>
+  </div>
+  <div class="msg-close">
+    <i class="material-icons">close</i>
+  </div>
+</div>
+
+{{#if query.message}}
+<div class="message {{query.message}}Msg event">
+  <div class="msg-icon">
+    <i class="material-icons"></i>
+  </div>
+  <div class="msg-content">
+    <div class="msg-text">{{query.text}}</div>
+  </div>
+  <div class="msg-close">
+    <i class="material-icons">close</i>
+  </div>
+</div>
+{{/if}}

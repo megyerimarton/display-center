@@ -1,0 +1,47 @@
+{{> header}}
+
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script>tinymce.init({ selector: 'textarea' });</script>
+
+<div class="user-page-container admin-page-container">
+
+  {{> adminmenu}}
+
+  <div class="tab-content">
+    <div class="content-header">
+      <div class="title">{{#if new}}Hír módosítása{{else}}Új hír{{/if}}</div>
+      <div class="link"></div>
+    </div>
+    <form id="news" class="style1 uploadnews" action="/admin/news/upload{{#if new}}/{{new.id}}{{/if}}" method="POST" enctype="multipart/form-data">
+      <div class="top">
+        <div class="upload-wrapper">
+          <input type="file" accept="image/*" id="kep1upload" name="kep">
+          <div class="upload-btn">
+            <i class="material-icons">add</i>
+          </div>
+          <img id="kep1preview" {{#if new}}{{#if new.kep}}src="/images/news/{{new.kep}}"{{/if}}{{/if}} />
+        </div>
+        <ul>
+          <li>
+            <input type="text" id="title" name="title" maxlength="100" value="{{#if new}}{{new.cim}}{{/if}}" {{#if new}}class="used"{{/if}} />
+            <label for="title">Cím</label>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom">
+        <ul>
+          <li>
+            <textarea name="content" placeholder="Tartalom" maxlength="1000">{{#if new}}{{new.tartalom}}{{/if}}</textarea>
+            <input type="submit" value="{{#if new}}Módosítás{{else}}Küldés{{/if}}">
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/adminUploadNews.bundle.js"></script>
+
+
+{{> footer}}

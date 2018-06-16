@@ -1,0 +1,93 @@
+{{> header}}
+
+
+<div class="user-page-container admin-page-container">
+
+    {{> adminmenu}}
+
+    <div class="tab-content">
+        <div class="content-header">
+			<div class="title">Statisztikák</div>
+			<div class="link"></div>
+		</div>
+        <div class="infoBoxes">
+            <a class="infoBox" href="/admin/users">
+                <div class="left">
+                    <div class="row value">{{users}}</div>
+                    <div class="row text">Regisztrált felhasználók</div>
+                </div>
+                <div class="right">
+                    <i class="material-icons">account_circle</i>
+                </div>
+            </a>
+            <a class="infoBox" href="/admin/orders">
+                <div class="left">
+                    <div class="row value">{{ordersToApprove}}</div>
+                    <div class="row text">Elfogadásra váró rendelések</div>
+                </div>
+                <div class="right">
+                    <i class="material-icons">offline_pin</i>
+                </div>
+            </a>
+            <a class="infoBox" href="/admin/orders">
+                <div class="left">
+                    <div class="row value">{{orders}}</div>
+                    <div class="row text">Összes rendelés</div>
+                </div>
+                <div class="right">
+                    <i class="material-icons">shopping_cart</i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Diagram -->
+        <div class="diagram">
+            <canvas id="myChart"></canvas>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [
+                          {{#each dailyOrders}}
+                            '{{date}}',
+                          {{/each}}
+                        ],
+                        datasets: [{
+                            label: "Napi leadott rendelések",
+                            backgroundColor: '#fdcd5d',
+                            borderColor: '#fcc239',
+                            data: [
+                              {{#each dailyOrders}}
+                                {{orders}},
+                              {{/each}}
+                            ],
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        if (value % 1 == 0) {
+                                            return value;
+                                        }
+                                        else {
+                                            return "";
+                                        }
+                                    }
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script>
+
+        </div>
+    </div>
+</div>
+
+
+{{> footer}}

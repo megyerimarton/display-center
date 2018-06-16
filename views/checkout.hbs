@@ -1,0 +1,115 @@
+{{> header}}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+
+<div class="container-1500">
+  <div id="checkout" class="stepsContainer">
+    <div class="progress">
+      <div class="circleP active" data-id="1">
+        <i class="material-icons">home</i>
+        <div class="description left">Cím</div>
+      </div>
+      <div class="lineP"></div>
+      <div class="circleP" data-id="2">
+        <i class="material-icons">attach_money</i>
+        <div class="description">Fizetési mód</div>
+      </div>
+      <div class="lineP"></div>
+      <div class="circleP" data-id="3">
+        <i class="material-icons">reorder</i>
+        <div class="description right">Összegzés</div>
+      </div>
+    </div>
+    <form class="style1" action="/checkout" method="POST">
+
+      <div class="step visible" data-id="1">
+        <div class="title">Cím</div>
+        <ul>
+          <li>
+            <input type="email" id="email" name="email" maxlength="50" value="{{userData.email}}" {{#if userData}}class="used" {{/if}} {{#if user}}readonly{{/if}} required />
+            <label for="email">E-mail</label>
+          </li>
+          <li>
+            <input type="text" id="name" name="name" maxlength="100" value="{{userData.nev}}" {{#if userData}}class="used" {{/if}} required />
+            <label for="name">Név</label>
+          </li>
+          <div class="err" id="err_email"></div>
+          <li>
+            <input type="text" id="mobile" name="mobile" maxlength="11" value="{{userData.tel}}" {{#if userData}}class="used" {{/if}} required />
+            <label for="mobile">Telefonszám</label>
+          </li>
+          <li class="city">
+            <input type="text" id="city" name="city" maxlength="20" value="{{userData.varos}}" {{#if userData}}class="used" {{/if}} required />
+            <label for="city">Város</label>
+          </li>
+          <li class="zip">
+            <input type="text" id="zip" name="zip" maxlength="4" value="{{userData.irszam}}" {{#if userData}}class="used" {{/if}} required />
+            <label for="zip">Irányítószám</label>
+          </li>
+          <li>
+            <input type="text" id="address" name="address" maxlength="50" value="{{userData.utcaHazszam}}" {{#if userData}}class="used"{{/if}} required />
+            <label for="address">Utca, házszám</label>
+          </li>
+        </ul>
+        <a class="btnStep btn-1 {{#unless userData}}disabled{{/unless}} clickEffect" data-id="1">Tovább</a>
+      </div>
+
+      <div class="step" data-id="2">
+        <div class="title">
+          <i class="steps_back material-icons clickEffect" data-id="2">chevron_left</i>Fizetési mód</div>
+        <div class="payMethodContainer">
+          <div class="payMethod" id="payMethod1">
+            <div class="left">
+              <input type="radio" id="utanvet" name="szallitas" value="utanvet" />
+            </div>
+            <div class="right">
+              <div class="headerText">Utánvét</div>
+              <div class="description">A termék kifizetése akkor történik, amikor a futárszolgálat kiszállítja a terméket Önnek.</div>
+            </div>
+          </div>
+        </div>
+        <a class="btnStep btn-1 disabled clickEffect" data-id="2">Tovább</a>
+      </div>
+
+      <div class="step" data-id="3">
+        <div class="title">
+          <i class="steps_back material-icons clickEffect" data-id="3">chevron_left</i>Összegzés</div>
+        <div class="summary">
+
+          {{#each cart}}
+          <div class="row">
+              <div class="col">{{quantity}}x</div>
+              <div class="col">{{gyarto}} {{termek}}</div>
+              <div class="col">{{#if akcios_ar}}{{numberFormat akcios_ar}}{{else}}{{numberFormat ar}}{{/if}} Ft</div>
+          </div>
+          {{/each}}
+
+          <div class="row price-all">
+          <div class="col">Összesen: <p>{{numberFormat totalPrice}} Ft</p></div>
+          </div>
+          <div class="row price-all">
+              <div class="col">Fizetési mód: Utánvét</div>
+          </div>
+          <div class="row price-all">
+              <div class="col">Szállítási mód: Futárszolgálat</div>
+          </div>
+
+        </div>
+        <input type="submit" value="Megrendelés" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript" src="/javascripts/checkout.bundle.js"></script>
+
+{{> footer}}

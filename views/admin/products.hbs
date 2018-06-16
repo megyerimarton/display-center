@@ -1,0 +1,58 @@
+{{> header}}
+
+
+<div class="user-page-container admin-page-container">
+
+  {{> adminmenu}}
+
+  <div class="tab-content">
+    <div class="content-header">
+      <div class="title">Termékek</div>
+      <div class="link">
+        <a class="btn-1" href="/admin/products/upload">
+          <i class="material-icons">add</i> Új termék feltöltése</a>
+      </div>
+    </div>
+    <div class="lines-container">
+
+      {{#each products}}
+			<div class="line" data-id="{{id}}">
+				<div class="box w-40"><span class="bold">{{id}}</span>&nbsp&nbsp&nbsp<p>{{gyarto}} {{termek}}</p></div>
+				<div class="box status w-20"><i class="material-icons status">info</i><p>{{#is aktiv 1}}{{../allapot}}{{else}}Archív{{/is}}</p></div>
+				<div class="box price w-20"><p>
+				{{#if akcios_ar}}<span class="line-through">{{numberFormat ar}} Ft  </span>{{/if}}
+				<span class="{{#if akcios_ar}}red{{/if}}">{{#if akcios_ar}}{{numberFormat akcios_ar}}{{else}}{{numberFormat ar}}{{/if}} Ft</span></p></div>
+				<div class="box w-20">
+					<a class="btn-actions" tooltip="Módosítás" href="/admin/products/upload/{{id}}"><i class="material-icons">mode_edit</i></a>
+					{{#is aktiv 1}}<a class="btn-actions archive" data-id="{{../id}}" tooltip="Arhiválás"><i class="material-icons">archive</i></a>{{/is}}
+					{{#is aktiv 0}}<a class="btn-actions unarchive" data-id="{{../id}}" tooltip="Aktiválás"><i class="material-icons">unarchive</i></a>{{/is}}
+				</div>
+			</div>
+      {{/each}}
+
+      <div class="pagination">
+
+        {{#if pagination.prev}}
+        <a href="/admin/products?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+        <a href="/admin/products?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+
+        {{#if pagination.next}}
+        <a href="/admin/products?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/adminProducts.bundle.js"></script>
+
+
+{{> footer}}

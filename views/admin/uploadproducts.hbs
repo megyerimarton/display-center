@@ -1,0 +1,297 @@
+{{> header}}
+
+<div class="user-page-container admin-page-container">
+
+  {{> adminmenu}}
+
+  <div class="tab-content">
+    <div class="content-header">
+      <div class="title">{{#if product}}Termék adatainak módosítása{{else}}Új termék feltöltése{{/if}}</div>
+      <div class="link"></div>
+    </div>
+    <form class="style1" action="/admin/products/upload{{#if product}}/{{product.id}}{{/if}}" method="POST" enctype="multipart/form-data">
+      <div class="leftside">
+        <ul>
+          <li>
+            <select name="gyarto">
+              <option>Gyártók</option>
+
+              {{#each manufacturers}}
+              <option value="{{id}}" {{#if ../product}}{{#is id ../product.gyarto}}selected{{/is}}{{/if}}>{{name}}</option>
+              {{/each}}
+
+            </select>
+          </li>
+          <li>
+            <input type="text" id="name" name="name" maxlength="20" value="{{#if product}}{{product.termek}}{{/if}}" {{#if product}}class="used"
+              {{/if}} required />
+            <label for="name">Név</label>
+          </li>
+          <li>
+            <input type="text" id="ar" name="ar" maxlength="10" value="{{#if product}}{{product.ar}}{{/if}}" {{#if product}}class="used"
+              {{/if}} required />
+            <label for="ar">Ár</label>
+          </li>
+
+          {{#if product}}
+          <li>
+            <input type="text" id="akcios_ar" name="akcios_ar" maxlength="10" value="{{product.akcios_ar}}" class="used" />
+            <label for="akcios_ar">Akciós ár</label>
+          </li>
+          {{/if}}
+
+          <li>
+            <select name="allapot">
+              <option value="1" {{#if product}}{{#is product.allapot 'Raktáron'}}selected{{/is}}{{/if}}>Raktáron</option>
+              <option value="2" {{#if product}}{{#is product.allapot 'Rendelésre'}}selected{{/is}}{{/if}}>Rendelésre</option>
+            </select>
+          </li>
+          <li>
+            <input type="text" id="darab" name="darab" maxlength="3" value="{{#if product}}{{product.darab}}{{/if}}" {{#if product}}class="used"
+              {{/if}} required />
+            <label for="darab">Darabszám</label>
+          </li>
+          <li class="description">
+            <textarea name="leiras" placeholder="Leírás" maxlength="200">{{#if product}}{{product.leiras}}{{/if}}</textarea>
+          </li>
+
+          {{#each properties}}
+          <li>
+            <input type="text" id="{{name2}}" name="properties[{{name2}}]" maxlength="75" {{#if ../product}}value="{{description}}{{/if}}"
+              {{#if ../product}}class="used" {{/if}} />
+            <label for="{{name2}}">{{name}}</label>
+          </li>
+          {{/each}}
+
+          <li>
+            <input type="submit" value="{{#if product}}Módosítás{{else}}Küldés{{/if}}">
+          </li>
+        </ul>
+      </div>
+      <div class="rightside">
+        <div class="upload-wrapper">
+          <input type="file" accept="image/*" id="kep1upload" name="kep1">
+          <div class="upload-btn">
+            <i class="material-icons">add</i>
+          </div>
+          <img id="kep1preview" {{#if product}}src="/images/products/{{product.kep1}}" {{/if}} />
+        </div>
+        <div class="upload-wrapper">
+          <input type="file" accept="image/*" id="kep2upload" name="kep2">
+          <div class="upload-btn">
+            <i class="material-icons">add</i>
+          </div>
+          <img id="kep2preview" {{#if product}}src="/images/products/{{product.kep2}}" {{/if}} />
+        </div>
+        <div class="upload-wrapper">
+          <input type="file" accept="image/*" id="kep3upload" name="kep3">
+          <div class="upload-btn">
+            <i class="material-icons">add</i>
+          </div>
+          <img id="kep3preview" {{#if product}}src="/images/products/{{product.kep3}}" {{/if}} />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/adminUploadProducts.bundle.js"></script> {{> footer}}
+
+<!--
+<?php
+
+// Asszociatív tömb létrehozása a 'property' nevekkel és id-kkel
+$propArray;
+
+// A legnagyobb id megkeresése a 'product' táblában
+$result_maxid = $conn->command("SELECT max(id) AS id FROM product;");
+$row_maxid = $result_maxid->fetch_assoc();
+$id = ((int)$row_maxid['id']) + 1;
+
+$result_prop = $conn->command("SELECT * FROM property;");
+while ($row_prop = $result_prop->fetch_assoc())
+{
+    $prop = setName($row_prop['name']);
+    $prop = strtolower($prop);
+    
+    $propArray[(int)$row_prop['id']] = $prop;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload'])) {
+
+    $ar = $allapot = $gyarto = $name = $leiras = $darab = "";
+    if (isset($_POST['ar'])) $ar = $conn->getDb()->real_escape_string(preg_replace('/\s+/','',$_POST['ar']));
+    if (isset($_POST['allapot'])) $allapot = $conn->getDb()->real_escape_string($_POST['allapot']);
+    if (isset($_POST['gyarto'])) $gyarto = $conn->getDb()->real_escape_string($_POST['gyarto']);
+    if (isset($_POST['name'])) $name = $conn->getDb()->real_escape_string($_POST['name']);
+    if (isset($_POST['leiras'])) $leiras = $conn->getDb()->real_escape_string($_POST['leiras']);
+    if (isset($_POST['darab'])) $darab = $conn->getDb()->real_escape_string($_POST['darab']);
+
+    $hiba = false;
+
+    //Képek feltöltése
+    $picsFileTypes = [];
+
+    for ($i = 0; $i < 3; $i++)
+    {
+        $kep = "kep" . ($i+1);
+        $picsFileTypes[$i] = upload($kep, $id, $i);
+        if (!$picsFileTypes[$i]) $hiba = true;
+    }
+
+    $sql1 = 'INSERT INTO `product`(ar, allapot, gyarto, termek, leiras, darab, kep1, kep2, kep3) VALUES ('.$ar.', '.$allapot.', '.$gyarto.', "'.$name.'", "'.$leiras.'", "'.$darab.'", "'.$id.'_0.'.$picsFileTypes[0].'",  "'.$id.'_1.'.$picsFileTypes[1].'",  "'.$id.'_2.'.$picsFileTypes[2].'");';
+
+    if(!$hiba) {
+        if ($conn->command($sql1) === false) {
+            $hiba = true;
+        }
+    }
+
+    // A 14 tulajdonság beszúrása az adatbázisba
+    if (!$hiba) {
+        for ($i = 1; $i <= 14; $i++)
+        {
+            $description = $conn->getDb()->real_escape_string($_POST[$propArray[$i]]);
+            $sql2 = 'INSERT INTO property_description (product_id, property_id, description) VALUES ('.$id.', '.$i.', "'.$description.'");';
+            if ($conn->command($sql2) === false)
+            {
+                $hiba = true;
+            }
+        }
+    }
+
+    if ($hiba) {
+        header("location: index.php?p=adminupload&error=uploadproduct&id=".$id);
+    }
+    else {
+        header("location: index.php?p=adminupload&success=uploadproduct&id=".$id);
+    }
+}
+
+// Termék adatainak módosítása esetén az adatok lekezelése
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['modify'])) {
+
+    $sqlCheck = 'SELECT id FROM product WHERE id = "'.$getid.'";';
+    $resultCheck = $conn->command($sqlCheck);
+    $rowcount = mysqli_num_rows($resultCheck);
+
+    if ($rowcount == 1) {
+        $ar = $allapot = $gyarto = $name = $leiras = $darab = "";
+        if (isset($_POST['ar'])) $ar = $conn->getDb()->real_escape_string(preg_replace('/\s+/','',$_POST['ar']));
+        if (isset($_POST['akcios_ar'])) $akcios_ar = $conn->getDb()->real_escape_string(preg_replace('/\s+/','',$_POST['akcios_ar']));
+        if (isset($_POST['allapot'])) $allapot = $conn->getDb()->real_escape_string($_POST['allapot']);
+        if (isset($_POST['gyarto'])) $gyarto = $conn->getDb()->real_escape_string($_POST['gyarto']);
+        if (isset($_POST['name'])) $name = $conn->getDb()->real_escape_string($_POST['name']);
+        if (isset($_POST['leiras'])) $leiras = $conn->getDb()->real_escape_string($_POST['leiras']);
+        if (isset($_POST['darab'])) $darab = $conn->getDb()->real_escape_string($_POST['darab']);
+        $akciosAdd = ($itemMod['akcios_ar'] != null) ? 'akcios_ar = "'.$akcios_ar.'",' : "";
+
+        $hiba = false;
+
+        // Képek feltöltése
+        $picsFileTypesOriginal = [];
+        $sqlPics = 'SELECT kep1, kep2, kep3 FROM product WHERE id = '.$getid.';';
+        $row = $conn->command($sqlPics)->fetch_assoc();
+        $picsFileTypesOriginal[0] = explode('.', $row['kep1'])[1];
+        $picsFileTypesOriginal[1] = explode('.', $row['kep2'])[1];
+        $picsFileTypesOriginal[2] = explode('.', $row['kep3'])[1];
+
+        $picsFileTypes = [];
+
+        for ($i = 0; $i < 3; $i++)
+        {
+            $kep = "kep" . ($i+1);
+            $picsFileTypes[$i] = upload($kep, $getid, $i);
+            if (!$picsFileTypes[$i]) {
+                $picsFileTypes[$i] = $picsFileTypesOriginal[$i];
+            }
+        }
+
+        $sql1 = 'UPDATE product SET ar = "'.$ar.'", '.$akciosAdd.' allapot = "'.$allapot.'", gyarto = "'.$gyarto.'", termek = "'.$name.'", leiras = "'.$leiras.'", darab = "'.$darab.'", kep1 = "'.$getid.'_0.'.$picsFileTypes[0].'", kep2 = "'.$getid.'_1.'.$picsFileTypes[1].'", kep3 = "'.$getid.'_2.'.$picsFileTypes[2].'" WHERE id = "'.$getid.'";';
+
+        
+
+        if(!$hiba) {
+            if ($conn->command($sql1) === false) {
+                $hiba = true;
+            }
+        }
+
+        // A 14 tulajdonság beszúrása az adatbázisba
+        if (!$hiba) {
+            for ($i = 1; $i <= 14; $i++)
+            {
+                $description = $conn->getDb()->real_escape_string($_POST[$propArray[$i]]);
+                $sql2 = 'UPDATE property_description SET description = "'.$description.'" WHERE product_id = "'.$getid.'" AND property_id = "'.$i.'";';
+                if ($conn->command($sql2) === false)
+                {
+                    $hiba = true;
+                }
+            }
+        }
+
+        if ($hiba) {
+            header("location: index.php?p=adminupload&error=uploadproduct&id=".$getid);
+        }
+        else {
+            header("location: index.php?p=adminupload&success=uploadproduct&id=".$getid);
+        }
+    }
+    else {
+        header("location: index.php?p=adminupload&error=uploadproduct&id=".$getid);
+    }
+}
+?>
+
+
+
+<?php 
+// Képfeltöltő function
+
+function upload($kep, $id, $i) {
+    $uploadOk = 1;
+    $target_dir = "images/products/";
+    $justFileType = strtolower(pathinfo($_FILES[$kep]["name"], PATHINFO_EXTENSION));
+    if (!$justFileType) $uploadOk = 0;
+    $target_file = $target_dir . $id . "_" . $i . "." . $justFileType;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // Annak vizsgálata, hogy a file valóban képfájl-e
+    $check = getimagesize($_FILES[$kep]["tmp_name"]);
+    if($check !== false) {
+        $uploadOk = 1;
+    } else {
+        $uploadOk = 0;
+    }
+
+    // Kép méretének vizsgálata
+    if ($_FILES[$kep]["size"] > 5000000) {
+        $uploadOk = 0;
+    }
+
+    // Csak jpg, jpeg, png vagy gif formátumú képek elfogadása
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        $uploadOk = 0;
+    }
+
+    if (!empty($_FILES[$kep]['name'])) {
+        unlink($target_dir . $id . "_" . $i . ".jpeg");
+        unlink($target_dir . $id . "_" . $i . ".jpg");
+        unlink($target_dir . $id . "_" . $i . ".png");
+        unlink($target_dir . $id . "_" . $i . ".gif");
+    }
+
+    // Hiba ellenőrzáse
+    if ($uploadOk == 0) {
+        $hiba = true;
+        return false;
+    // Ha minden rendben, mehet a feltöltés
+    } else {
+        move_uploaded_file($_FILES[$kep]["tmp_name"], $target_file);
+    }
+
+    return $justFileType;
+}
+?>
+
+-->

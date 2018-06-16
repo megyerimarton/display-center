@@ -1,0 +1,16 @@
+{{> header}}
+
+
+<div class="container-1500">
+    <div class="user-menu-mobile">
+        <a class="menu-item clickEffect" href="/admin/dashboard"><i class="material-icons">dashboard</i>Statisztikák</a>
+        <a class="menu-item clickEffect {{#if ordersCount}}show{{/if}}" href="/admin/orders" data-counter="{{ordersCount}}"><i class="material-icons">shopping_cart</i>Rendelések</a>
+        <a class="menu-item clickEffect" href="/admin/products"><i class="material-icons">offline_pin</i>Termékek</a>
+        <a class="menu-item clickEffect" href="/admin/products/upload"><i class="material-icons">add</i>Termék feltöltése</a>
+        <a class="menu-item clickEffect" href="/admin/news"><i class="material-icons">assignment</i>Hírek</a>
+        <a class="menu-item clickEffect" href="/admin/news/upload"><i class="material-icons">present_to_all</i>Új hír</a>
+    </div>
+</div>
+
+
+{{> footer}}

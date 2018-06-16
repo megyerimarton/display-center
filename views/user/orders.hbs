@@ -1,0 +1,54 @@
+{{> header}}
+
+
+<div class="user-page-container">
+
+  {{> usermenu}}
+
+  <div class="tab-content">
+    <div class="content-header">Rendelések</div>
+
+    {{#each orders}}
+    <div class="orderItem cartItem">
+      <div class="col">
+        <div class="row imageRow">
+          <img src="/images/products/{{kep1}}" />
+        </div>
+      </div>
+      <div class="col dataCol">
+        <div class="row">
+          <div class="name">{{gyarto}} {{termek}}</div>
+        </div>
+        <div class="row">
+          <div class="date">{{dateFormat datum}}</div>
+        </div>
+        <div class="row">
+          <div class="quantity">{{darab}} db</div>
+        </div>
+        <div class="row">
+          <div class="price">
+            {{numberFormat ar}}
+            <span class="money">Ft</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="shipping">
+            <i class="material-icons">info</i>{{allapot}}</div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    <div class="cartMessage {{#unless orders}}show{{/unless}}">
+      <div class="text">Nincs leadott rendelésed</div>
+      <i class="material-icons">highlight_off</i>
+      <a class="btn-1" href="/products">Tovább a termékekhez</a>
+    </div>
+
+  </div>
+</div>
+
+
+{{> footer}}

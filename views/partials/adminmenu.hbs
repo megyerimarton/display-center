@@ -1,0 +1,9 @@
+<div class="tab">
+    <a class="tabLink clickEffect {{#is page 'dashboard'}}active{{/is}}" href="/admin/dashboard"><i class="material-icons">dashboard</i>Statisztikák</a>
+    <a class="tabLink clickEffect {{#if ordersCount}}show{{/if}}  {{#is page 'orders'}}active{{/is}}" href="/admin/orders" data-counter="{{ordersCount}}"><i class="material-icons">shopping_cart</i>Rendelések</a>
+    <a class="tabLink clickEffect {{#is page 'adminproducts'}}active{{/is}}" href="/admin/products"><i class="material-icons">dns</i>Termékek</a>
+    <a class="tabLink clickEffect {{#is page 'uploadproduct'}}active{{/is}}" href="/admin/products/upload"><i class="material-icons">add</i>Termék feltöltése</a>
+    <a class="tabLink clickEffect {{#is page 'users'}}active{{/is}}" href="/admin/users"><i class="material-icons">account_circle</i>Felhasználók</a>
+    <a class="tabLink clickEffect {{#is page 'adminnews'}}active{{/is}}" href="/admin/news"><i class="material-icons">assignment</i>Hírek</a>
+    <a class="tabLink clickEffect {{#is page 'uploadnews'}}active{{/is}}" href="/admin/news/upload"><i class="material-icons">present_to_all</i>Új hír</a>
+</div>

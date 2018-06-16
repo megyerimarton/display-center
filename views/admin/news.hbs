@@ -1,0 +1,57 @@
+{{> header}}
+
+<div class="user-page-container admin-page-container">
+
+  {{> adminmenu}}
+
+  <div class="tab-content">
+    <div class="content-header">
+      <div class="title">Hírek</div>
+      <div class="link"></div>
+    </div>
+    <div class="lines-container">
+
+      {{#each news}}
+      <div class="line" data-id="{{id}}">
+          <div class="box w-30"><span class="bold">{{id}}&nbsp&nbsp&nbsp</span><p>{{cim}}</p></div>
+          <div class="box w-20"><p>{{szerzo}}</p></div>
+          <div class="box w-20"><p>{{dateFormat datum}}</p></div>
+          <div class="box w-20">
+            {{#is aktiv 1}}<i class="material-icons status status-accepted">info</i><p>Aktív<p>{{/is}}
+            {{#is aktiv 0}}<i class="material-icons status status-process">info</i><p>Inaktív<p>{{/is}}
+          </div>
+          <div class="box w-10">
+            <a class="btn-actions" tooltip="Módosítás" href="/admin/news/upload/{{id}}"><i class="material-icons">mode_edit</i></a>
+            {{#is aktiv 1}}<a class="btn-actions archive" data-id="{{../id}}" tooltip="Hír inaktiválása"><i class="material-icons">archive</i></a>{{/is}}
+            {{#is aktiv 0}}<a class="btn-actions unarchive" data-id="{{../id}}" tooltip="Hír aktiválása"><i class="material-icons">unarchive</i></a>{{/is}}
+            <a class="btn-actions delete" data-id="{{id}}" tooltip="Hír törlése"><i class="material-icons">clear</i></a>
+          </div>
+      </div>
+      {{/each}}
+
+      <div class="pagination">
+
+        {{#if pagination.prev}}
+        <a href="/admin/news?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+        <a href="/admin/news?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+
+        {{#if pagination.next}}
+        <a href="/admin/news?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
+        {{else}}
+        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/adminNews.bundle.js"></script>
+
+
+{{> footer}}

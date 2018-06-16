@@ -1,0 +1,41 @@
+{{> header}}
+
+
+<div class="user-page-container">
+
+    {{> usermenu}}
+
+    <div class="tab-content">
+        <div class="content-header">Felhasználói adatok módosítása</div>
+        <form class="style1" action="/user/userdata" method="post">
+            <ul>
+                <li>
+                    <input type="text" id="name" name="name" value="{{user.nev}}" class="used" required />
+                    <label for="address">Név</label>
+                </li>
+                <li class="city">
+                    <input type="text" id="city" name="city" value="{{user.varos}}" class="used" required />
+                    <label for="city">Város</label>
+                </li>
+                <li class="zip">
+                    <input type="text" id="zip" name="zip" value="{{user.irszam}}" class="used" required />
+                    <label for="zip">Irányítószám</label>
+                </li>
+                <li>
+                    <input type="text" id="address" name="address" value="{{user.utcaHazszam}}" class="used" required />
+                    <label for="address">Utca, házszám</label>
+                </li>
+                <li>
+                    <input type="text" id="mobile" name="mobile" value="{{user.tel}}" class="used" required />
+                    <label for="mobile">Telefonszám</label>
+                </li>
+                <li>
+                    <input type="submit" value="Adatok mentése" required />
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+
+
+{{> footer}}

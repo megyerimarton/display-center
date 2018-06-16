@@ -1,0 +1,33 @@
+{{> header}}
+
+
+<div class="user-page-container">
+
+    {{> usermenu}}
+
+    <div class="tab-content">
+        <div class="content-header">Jelszó módosítása</div>
+        <form class="style1" action="/user/userpass" method="post">
+            <ul>
+                <li>
+                    <input type="password" id="pass_current" name="pass" required />
+                    <label for="pass">Jelenlegi jelszó</label>
+                </li>
+                <li>
+                    <input type="password" id="pass" name="passNew" required />
+                    <label for="passNew">Új jelszó</label>
+                </li>
+                <li>
+                    <input type="password" id="pass2" name="passNew2" required />
+                    <label for="passNew2">Új jelszó ismét</label>
+                </li>
+                <li>
+                    <input type="submit" id="submitNewPass" name="submitNewPass" value="Új jelszó mentése" required />
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+
+
+{{> footer}}

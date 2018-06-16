@@ -1,0 +1,87 @@
+{{> header}}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+
+<div class="container-1500">
+  <div id="register_form" class="stepsContainer">
+    <div class="progress">
+      <div class="circleP active" data-id="1">
+        <i class="material-icons">face</i>
+        <div class="description left">Felhasználói adatok</div>
+      </div>
+      <div class="lineP"></div>
+      <div class="circleP" data-id="2">
+        <i class="material-icons">home</i>
+        <div class="description">Szállítási cím</div>
+      </div>
+      <div class="lineP"></div>
+      <div class="circleP" data-id="3">
+        <i class="material-icons">done</i>
+        <div class="description right">Regisztráció vége</div>
+      </div>
+    </div>
+    <form class="style1" action="/register" method="POST">
+      <div class="step visible"  data-id="1">
+        <div class="title">Felhasználói adatok</div>
+        <ul>
+          <li>
+            <input type="email" id="email" name="email" maxlength="50" required />
+            <label for="email">E-mail</label>
+          </li>
+          <div class="err" id="err_email"></div>
+          <li>
+            <input type="password" id="password" name="pass" maxlength="50" required />
+            <label for="pass">Jelszó</label>
+          </li>
+          <div class="err " id="err_password"></div>
+          <li>
+            <input type="password" id="password2" name="pass2" maxlength="50" required />
+            <label for="password2">Jelszó ismét</label>
+          </li>
+          <div class="err" id="err_password2"></div>
+        </ul>
+        <a class="btnStep btn-1 disabled clickEffect" data-id="1">Tovább</a>
+      </div>
+      <div class="step" data-id="2">
+        <div class="title">
+          <i class="steps_back material-icons clickEffect" data-id="2">chevron_left</i>Cím</div>
+        <ul>
+          <li>
+            <input type="text" id="name" name="name" maxlength="100" required />
+            <label for="name">Név</label>
+          </li>
+          <li class="city">
+            <input type="text" id="city" name="city" maxlength="20" required />
+            <label for="city">Város</label>
+          </li>
+          <li class="zip">
+            <input type="text" id="zip" name="zip" maxlength="4" required />
+            <label for="zip">Irányítószám</label>
+          </li>
+          <li>
+            <input type="text" id="address" name="address" maxlength="50" required />
+            <label for="address">Utca, házszám</label>
+          </li>
+          <li>
+            <input type="text" id="mobile" name="mobile" maxlength="11" required />
+            <label for="mobile">Telefonszám</label>
+          </li>
+        </ul>
+        <input type="submit" id="regSubmit" class="disabled" name="signup" value="Regisztráció" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript" src="/javascripts/register.bundle.js"></script>
+
+{{> footer}}

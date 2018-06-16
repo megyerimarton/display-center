@@ -1,0 +1,40 @@
+<div id="sidenav">
+	<div class="closeBtn" id="closeBtn">
+		<i class="material-icons">clear</i>
+	</div>
+	<a class="slideMenuItem clickEffect" href="/">
+		<i class="material-icons">home</i>kezdőlap</a>
+	<a class="slideMenuItem clickEffect" href="/products">
+		<i class="material-icons">view_module</i>termékek</a>
+	<a class="slideMenuItem clickEffect" href="/contact">
+		<i class="material-icons">room</i>kapcsolat</a>
+	<a class="slideMenuItem clickEffect" href="/about">
+		<i class="material-icons">subject</i>rólunk</a>
+	<hr />
+
+	{{#unless user}}
+	<a class="slideMenuItem loginBtn clickEffect" href="#">
+		<i class="material-icons">account_circle</i>bejelentkezés</a>
+	<a class="slideMenuItem clickEffect" href="/register">
+		<i class="material-icons">group_add</i>regisztráció</a>
+	{{/unless}}
+
+	{{#if user}}
+	{{#unless user.isAdmin}}
+	<a class="slideMenuItem clickEffect" href="/user/usermenumobile">
+		<i class="material-icons">settings</i>fiók beállítások</a>
+	<a class="slideMenuItem clickEffect" href="/logout">
+		<i class="material-icons">input</i>kijelentkezés</a>
+	{{/unless}}
+	{{/if}}
+
+	{{#if user}}
+	{{#if user.isAdmin}}
+	<a class="slideMenuItem clickEffect" href="/admin/adminmenumobile">
+		<i class="material-icons">settings</i>vezérlőpult</a>
+	<a class="slideMenuItem clickEffect" href="/logout">
+		<i class="material-icons">input</i>kijelentkezés</a>
+	{{/if}}
+	{{/if}}
+
+</div>

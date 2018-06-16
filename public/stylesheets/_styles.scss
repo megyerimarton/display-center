@@ -1,0 +1,929 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Poppins:300,400,500,700,900');
+
+// Colors
+$colorPrimary: #6062f3;
+$colorPrimaryLight: #7275f7;
+$colorAccent: #fcc239;
+$colorAccentLight: #fdcd5d;
+$colorAccentDark: #FFB300;
+
+$fontColor: #6b7c93;
+$light: #f6f9fc;
+$medium: #cfd7df;
+
+$blue: #448AFF;
+$grey: #838995;
+$greyDark: #525761;
+$red: #f4481e;
+$redHover: #ff694f;
+$redDark: #D50000;
+$green: #5cd75c;
+
+
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    &::-webkit-scrollbar {
+        width: 7.5px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #ffffff;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #acacac;
+        border-radius: 2.5px;
+        &:hover {
+            background-color: #8d8d8d;
+        }
+    }
+}
+
+i {
+    user-select: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.bold-extra {
+    font-weight: 800;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.red {
+    color: $red;
+}
+
+.no-margin-top {
+    margin-top: 0 !important;
+}
+
+// Title tooltip ##############################################
+[tooltip] {
+    position: relative;
+}
+
+[tooltip]::after {
+    content: attr(tooltip);
+    color: #ffffff;
+    background: $greyDark;
+    background: rgba(75, 75, 75, 0.75);
+    padding: 5px 15px;
+    border-radius: 2.5px;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    bottom: 100%;
+    right: 0;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    transition: visibility .25s linear .25s, all .25s ease-in-out;
+}
+
+[tooltip]:hover::after {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+//Cart counter
+[data-counter] {
+    position: relative;
+}
+
+[data-counter]::after {
+    content: attr(data-counter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0 1px 1px 0;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: $colorAccent;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 8px;
+    right: 0;
+    font-weight: 800;
+    font-size: 13px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    transition: visibility .25s linear .25s, all .25s ease-in-out;
+}
+
+[data-counter]::before {}
+
+[data-counter].show::after,
+[data-counter].show::before {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+    animation: counterPulse 5s ease-in-out infinite;
+}
+
+@keyframes counterPulse {
+    80% {
+        transform: scale(1);
+    }
+    85% {
+        transform: scale(1.1);
+    }
+    90% {
+        transform: scale(1);
+    }
+    95% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes counterPulseForFixTranslate {
+    80% {
+        transform: scale(1) translate(0, -50%);
+    }
+    85% {
+        transform: scale(1.1) translate(0, -50%);
+    }
+    90% {
+        transform: scale(1) translate(0, -50%);
+    }
+    95% {
+        transform: scale(1.1) translate(0, -50%);
+    }
+    100% {
+        transform: scale(1) translate(0, -50%);
+    }
+}
+
+// Header text 1 ###################################################
+h1 {
+    font-weight: 400;
+    font-size: 27px;
+}
+@media (min-width: 480px) {
+    h1 {
+        font-size: 32px;
+    }
+}
+@media (min-width: 768px) {
+    h1 {
+        font-size: 35px;
+    }
+}
+
+// Header text 2 ###################################################
+h2 {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.75px;
+    margin: 15px 0 5px 25px;
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        margin: 15px 0 15px 10px;
+    }
+}
+
+// Button type1 ###############################################
+.btn-1 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    min-width: 120px;
+    padding: 0 10px;
+    height: 40px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: $colorPrimary;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    -moz-user-select: none;
+    user-select: none;
+    border-radius: 3.5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: .2s ease-out;
+    &::before {
+        content: "";
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        background-color: rgba(255, 255, 255, 0.15);
+        transition: .15s ease-out;
+    }
+    &:hover::before {
+        opacity: 1;
+    }
+    &:hover {
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 15px 0 rgba(0, 0, 0, .1);
+    }
+    &:active {
+        transform: scale(0.975);
+        box-shadow: 0 1.25px 5px rgba(0, 0, 0, 0.2);
+    }
+    &.disabled {
+        background-color: rgba(0, 0, 0, .05);
+        color: rgba(0, 0, 0, .2);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+    }
+}
+
+// Badge ######################################################
+@mixin badge($color, $content) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    position: relative;
+    background-color: $color;
+    border-top-left-radius: 3.5px;
+    border-top-right-radius: 3.5px;
+    box-shadow: inset 0 15px 25px -8px rgba(255, 255, 255, 0.35), 0 5px 10px rgba(0, 0, 0, .2);
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 15px;
+        height: 8px;
+        border-bottom-left-radius: 3.5px;
+        background-color: $color;
+        transform: skewY(-20deg);
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -5px;
+        width: 15px;
+        height: 8px;
+        border-bottom-right-radius: 3.5px;
+        background-color: $color;
+        transform: skewY(20deg);
+    }
+    p {
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 800;
+        margin: 0;
+        margin-top: 4px;
+        z-index: 1;
+        &::before {
+            content: $content;
+        }
+    }
+}
+
+.badge.discount {
+    @include badge($red, "%");
+}
+.badge.new {
+    @include badge($colorAccent, "ÚJ");
+}
+
+// Checkbox ###################################################
+.checkbox1 {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    input {
+        position: absolute;
+        opacity: 0;
+        &:checked~.checkmark i {
+            color: $colorPrimary;
+            &::before {
+                opacity: 0;
+                transform: scale(.75);
+                content: "check_box"
+            }
+            &::after {
+                opacity: 1;
+                transform: scale(1);
+                content: "check_box";
+            }
+        }
+        &:checked~.checkmark::after {}
+    }
+    .checkmark {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        &:hover i {
+            color: $colorPrimary;
+        }
+        i {
+            color: $grey;
+            &::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 1;
+                content: "check_box_outline_blank";
+                transition: .25s ease-in-out;
+            }
+            &::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                transform: scale(.75);
+                content: "check_box";
+                transition: .25s ease-in-out;
+            }
+        }
+    }
+}
+
+// Aspect ratio box ###########################################
+@mixin aspect-ratio($width, $height) {
+    width: 100%;
+    &::before {
+        content: "";
+        width: 1px;
+        margin-left: -1px;
+        float: left;
+        height: 0;
+        padding-top: $height / $width * 100%;
+    }
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// Material click effect ######################################
+.clickEffect {
+    position: relative;
+    overflow: hidden;
+    -moz-user-select: none;
+    user-select: none;
+    >* {
+        position: relative;
+    }
+}
+
+.circle {
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    transform: scale(0);
+    &.animate {
+        animation: ripple 0.65s linear;
+    }
+}
+
+@keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+
+// Universal form style
+form.style1 {
+    margin: 25px 10px;
+    ul {
+        margin: 5px;
+        padding: 0;
+        li {
+            list-style: none;
+            padding-top: 20px;
+            position: relative;
+            &:first-child {
+                padding: 0;
+            }
+            &.city {
+                display: inline-flex;
+                width: 66%;
+            }
+            &.zip {
+                display: inline-flex;
+                width: 33%;
+            }
+        }
+    }
+    label {
+        position: absolute;
+        bottom: 12px;
+        left: 18px;
+        cursor: text;
+        -moz-user-select: none;
+        user-select: none;
+        font-size: 14px;
+        font-weight: 500;
+        color: #9E9E9E;
+        transition: 0.25s;
+    }
+    input {
+        &[type=text]:hover~label,
+        &[type=email]:hover~label,
+        &[type=password]:hover~label {
+            color: $colorPrimary;
+        }
+        &[type=text]:focus~label,
+        &[type=email]:focus~label,
+        &[type=password]:focus~label {
+            color: $colorPrimary;
+            transform: scale(0.85);
+            bottom: 35px;
+            left: 0;
+        }
+        &.used~label {
+            transform: scale(0.85);
+            bottom: 35px;
+            left: 0;
+        }
+        &[type=text],
+        &[type=email],
+        &[type=password] {
+            width: 100%;
+            padding: 8px 20px;
+            margin: 0 0 4px 0;
+            border: none;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.5s;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+        &[type=text]:hover,
+        &[type=email]:hover,
+        &[type=password]:hover,
+        &[type=text]:focus,
+        &[type=email]:focus,
+        &[type=password]:focus {
+            border-bottom: 2px solid $colorPrimary;
+            color: #000;
+        }
+    }
+    input[type=submit] {
+        padding: 10px 15px;
+        background-color: $colorPrimary;
+        cursor: pointer;
+        text-align: center;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 3.5px;
+        outline: none;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: 0.25s;
+        &:hover {
+            box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .1), 0 4px 15px 0 rgba(0, 0, 0, .1);
+            background-color: $colorPrimaryLight;
+        }
+        &:active {
+            transform: scale(0.975);
+            box-shadow: 0 1.25px 5px rgba(0, 0, 0, 0.2);
+        }
+        &.disabled {
+            background-color: rgba(0, 0, 0, .05);
+            color: rgba(0, 0, 0, .2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+        }
+    }
+    select {
+        width: 100%;
+        padding: 8px 15px;
+        margin: 0 0 4px 0;
+        border: none;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        outline: none;
+        position: relative;
+        z-index: 1;
+        background-color: transparent;
+        cursor: pointer;
+        -moz-user-select: none;
+        user-select: none;
+        font-size: 14px;
+        text-shadow: 0 0 0 #9e9e9e;
+        color: #acacac;
+        transition: 0.25s;
+    }
+    .error {
+        border-bottom: 2px solid #F84B4B !important;
+    }
+    .valid {
+        border-bottom: 2px solid #4CAF50 !important;
+    }
+    .err {
+        color: $redDark;
+        opacity: 0;
+        height: 0;
+        font-weight: 600;
+        transform: translate(0, -10px);
+        transition: .35s ease-in-out;
+        &.active {
+            height: 20px;
+            opacity: 1;
+            transform: translate(0);
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    form.style1 ul li {
+        &.city,
+        &.zip {
+            width: 100%;
+        }
+    }
+}
+
+// Products bar ###############
+.products-bar-wrapper {
+    background-color: $light;
+    padding: 30px 0;
+    .line {
+        height: 2px;
+        background: rgba(207, 215, 223, 0.25);
+        width: 100%;
+        margin: 30px 0;
+    }
+    .productsBar {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1500px;
+        margin: 0 auto;
+        .title {
+            display: flex;
+            align-items: center;
+        }
+        .boxContainer {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            .item {
+                margin: 10px 5px;
+                width: 335px;
+                height: 180px;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                border-radius: 3.5px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                will-change: box-shadow;
+                transition: .25s ease-in-out;
+                &:active {
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+                .discount {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 20px;
+                    color: #ffffff;
+                    font-weight: 700;
+                    background-color: $red;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+                    opacity: .85;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 10px;
+                        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.25));
+                    }
+                }
+                a {
+                    text-decoration: none;
+                    .itemImg {
+                        display: block;
+                        height: calc(100% - 40px);
+                        margin: 20px auto;
+                        transition: 0.75s;
+                    }
+                    .productDescription {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        width: 100%;
+                        height: 25%;
+                        border-radius: 2px;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        margin: 0 5px 5px 0;
+                        transition: 0.5s ease-in-out;
+                        .top {
+                            display: flex;
+                            justify-content: flex-end;
+                            position: relative;
+                            .price {
+                                display: flex;
+                                align-items: center;
+                                height: auto;
+                                padding: 0 10px;
+                                font-size: 15px;
+                                color: $grey;
+                                font-weight: 800;
+                                font-style: italic;
+                                letter-spacing: -0.5px;
+                                &.discounted {
+                                    position: absolute;
+                                    top: -15px;
+                                    font-weight: 400;
+                                    font-size: 13px;
+                                    color: $medium;
+                                    text-decoration: line-through;
+                                }
+                            }
+                        }
+                        .bottom {
+                            display: flex;
+                            justify-content: flex-end;
+                            .title {
+                                padding: 0 10px;
+                                font-size: 15px;
+                                color: $grey;
+                                font-weight: 500;
+                                letter-spacing: -1px;
+                                transition: 0.5s ease-in-out;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .products-bar-wrapper .productsBar .boxContainer .item:hover {
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .15);
+    }
+}
+@media (max-width: 480px) {
+    .products-bar-wrapper .productsBar {
+        .headerText {
+            margin: 15px 0 15px 10px;
+        }
+        .boxContainer .box {
+            width: 100%;
+            img {
+                height: calc(100% - 60px);
+            }
+        }
+    }
+}
+
+// Steps ######################
+.stepsContainer {
+    height: 600px;
+    position: relative;
+    margin: 0 auto;
+    .step {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        height: 450px;
+        background-color: #ffffff;
+        padding: 25px 50px;
+        margin-top: 50px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        z-index: -1;
+        transform: translate(-50%, 20px);
+        opacity: 0;
+        will-change: opacity, transform;
+        transition: transform .75s ease-out, opacity 0.25s ease-in-out;
+        &.visible {
+            z-index: 0;
+            opacity: 1;
+            transform: translate(-50%, 0);
+            transition: transform .75s ease-out, opacity .75s ease-in-out;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            i {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 20px;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                -moz-user-select: none;
+                user-select: none;
+                transition: .1s ease-in-out;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.05);
+                }
+                &:active {
+                    transform: scale(0.95);
+                }
+            }
+        }
+        .btnStep, input[type=submit] {
+            align-self: center;
+            margin-top: auto;
+            min-width: 120px;
+            padding: 0 10px;
+            height: 40px;
+        }
+    }
+    .finalStep {
+        justify-content: center;
+        text-align: center;
+        .success {
+            font-size: 25px;
+            color: $colorPrimary;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .more {
+            font-size: 15px;
+            color: #455A64;
+        }
+    }
+    .progress {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 40px;
+        margin: 0 auto;
+        .circleP {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            -moz-user-select: none;
+            user-select: none;
+            cursor: default;
+            position: relative;
+            &::after {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: -3px;
+                left: -3px;
+                display: flex;
+                width: 40px;
+                height: 40px;
+                transform: translate(-20px) scale(0);
+                border-radius: 50%;
+                background-color: #ffffff;
+                transition: .5s ease-in-out;
+            }
+            &.active::after {
+                transform: translate(0) scale(1);
+            }
+            &.active i {
+                color: $colorPrimary;
+                animation: pulse .5s ease-in-out;
+                animation-delay: .35s;
+            }
+            &#circleP2 i {
+                font-size: 24px;
+            }
+            i {
+                color: #ffffff;
+                font-size: 20px;
+            }
+            .description {
+                position: absolute;
+                top: 45px;
+                left: 50%;
+                transform: translate(-50%);
+                color: #ffffff;
+                font-size: 15px;
+                text-align: center;
+            }
+        }
+        .lineP {
+            width: calc((100% - (40px * 3)) / 2);
+            height: 3px;
+            background-color: #ffffff;
+        }
+    }
+}
+
+@keyframes pulse {
+    25% {
+        transform: scale(0.85);
+    }
+    75% {
+        transform: scale(1.15);
+    }
+}
+@keyframes content-show-up {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes content-slide-in-left {
+    0% {
+        transform: translate(-15px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@media (max-width: 650px) {
+    .stepsContainer .progress .circleP .description {
+        bottom: -50px;
+        font-size: 13px;
+        &.left {
+            left: 0;
+            transform:translate(0);
+            text-align: left;
+        }
+        &.right {
+            left: auto;
+            right: 0;
+            transform:translate(0);
+            text-align: right;
+        }
+    }
+}
+@media (max-width: 550px) {
+    .stepsContainer {
+        .step {
+            padding: 20px;
+            width: calc(100% - 60px);
+        }
+        .progress {
+            margin: 0 10px;
+            width: calc(100% - 20px);
+        }
+    }
+}

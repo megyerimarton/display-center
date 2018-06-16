@@ -1,0 +1,99 @@
+{{> header}}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+
+<div class="cart-container">
+  <div class="container-1200">
+
+    {{#if cartSize}}
+    <div id="cart">
+      <div id="productsContainer">
+
+        {{#each cart}}
+        <div class="cartItem" data-id="{{id}}" data-price="{{#if akcios_ar}}{{akcios_ar}}{{else}}{{ar}}{{/if}}" data-quantity="{{quantity}}">
+          <div class="col">
+            <div class="row imageRow">
+              <img src="/images/products/{{kep1}}" />
+            </div>
+          </div>
+          <div class="col dataCol">
+            <div class="row">
+              <div class="name">{{gyarto}} {{termek}}</div>
+            </div>
+            <div class="row">
+              <div class="shipping">
+                <i class="material-icons">local_shipping</i>{{allapot}}</div>
+            </div>
+            <div class="row">
+              <div class="price">
+                {{#if akcios_ar}}
+                {{numberFormat akcios_ar}}
+                {{else}}
+                {{numberFormat ar}}
+                {{/if}}
+                <span class="money"> Ft</span>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="quantity">
+                <p class="quantity-value">{{quantity}}</p>
+                <div class="sub clickEffect">-</div>
+                <div class="add clickEffect">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="removeFromCart">
+                <i class="material-icons clickEffect"></i>
+              </div>
+            </div>
+          </div>
+        </div>'
+        {{/each}}
+
+      </div>
+      <div id="buyPanel" class="{{#unless cartSize}}hidden{{/unless}}">
+        <ul>
+          <li>
+            <span class="label">Ár:</span>
+            <span class="value" id="cartValue">{{numberFormat totalPrice}} Ft</span>
+          </li>
+          <li>
+            <span class="label">Szállítási költség:</span>
+            <span class="value">0 Ft</span>
+          </li>
+          <li>
+            <span class="label">Végösszeg:</span>
+            <span class="value big" id="cartValueEnd">{{numberFormat totalPrice}} Ft</span>
+          </li>
+        </ul>
+        <a class="btn-1 clickEffect" href="/checkout">Vásárlás</a>
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="cartMessage {{#unless cartSize}}show{{/unless}}">
+      <div class="text">A kosarad üres</div>
+      <i class="material-icons">remove_shopping_cart</i>
+      <a class="btn-1" href="/products">Tovább a termékekhez</a>
+    </div>'; ?>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/cart.bundle.js"></script>
+
+
+{{> footer}}

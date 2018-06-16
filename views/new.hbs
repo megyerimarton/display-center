@@ -1,0 +1,37 @@
+{{> header}}
+
+
+<div class="background">
+  <div class="bg-color">
+    <div class="box box-1"></div>
+    <div class="box box-2"></div>
+    <div class="box box-3"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+  </div>
+</div>
+
+<div class="container-1200">
+  <article class="article-new">
+    <div class="top-bar">
+      <img alt="hir_kep" src="/images/news/{{#if new.kep}}{{new.kep}}{{else}}sample.png{{/if}}" />
+      <section class="title">
+        <h1>{{new.cim}}</h1>
+      </section>
+      <section class="description">
+        <div class="col">
+          <i class="material-icons">account_circle</i>{{new.szerzo}}</div>
+        <div class="col">
+          <i class="material-icons">alarm</i>{{dateFormat new.datum}}</div>
+      </section>
+      <div class="share-button clickEffect">
+        <i class="material-icons">share</i>
+      </div>
+    </div>
+    <section class="content">{{{new.tartalom}}}</section>
+  </article>
+  <div class="half-container-bottom hide-1200"></div>
+</div>
+
+
+{{> footer}}
