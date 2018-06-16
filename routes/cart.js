@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  if (res.locals.cartSize === 0) res.render('cart', { title: 'Kosár', page: 'cart' });
+  if (res.locals.cartSize === 0) return res.render('cart', { title: 'Kosár', page: 'cart' });
 
   const cookieCart = JSON.parse(req.cookies.cart);
   const cart = [];
