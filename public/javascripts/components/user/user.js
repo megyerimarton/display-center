@@ -7,7 +7,7 @@ document.querySelectorAll('.wishItem').forEach(item => {
 
 
 function deleteWish(id) {
-  fetch(`http://localhost:3000/api/wish`, {
+  fetch(`${window.location.origin}/api/wish`, {
     method: 'DELETE',
     body: JSON.stringify({ id: id }),
     headers: { 'Content-Type': 'application/json' },

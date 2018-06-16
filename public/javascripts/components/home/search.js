@@ -6,7 +6,7 @@ const loader = searchResult.querySelector('.loader');
 search.addEventListener('keyup', () => {
   loader.classList.add('active');
 
-  fetch(`http://localhost:3000/api/products`, {
+  fetch(`${window.location.origin}/api/products`, {
     method: 'POST',
     body: JSON.stringify({ search: search.value }),
     headers: { 'Content-Type': 'application/json' }

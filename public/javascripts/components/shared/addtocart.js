@@ -1,5 +1,5 @@
 module.exports = function(id) {
-  return fetch(`http://localhost:3000/api/cart`, {
+  return fetch(`${window.location.origin}/api/cart`, {
     method: 'POST',
     body: JSON.stringify({ id: id }),
     headers: { 'Content-Type': 'application/json' },

@@ -4,7 +4,7 @@ const numberFormat = require('../shared/numberformat');
 document.querySelectorAll('.accept').forEach(item => {
   item.addEventListener('click', () => {
     if (confirm(`Jóváhagyod a rendelést?\nRendelés azonosító: ${item.dataset.id}`)) {
-      fetch(`http://localhost:3000/admin/orders/${item.dataset.id}`, {
+      fetch(`${window.location.origin}/admin/orders/${item.dataset.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -17,7 +17,7 @@ document.querySelectorAll('.accept').forEach(item => {
 document.querySelectorAll('.shipping').forEach(item => {
   item.addEventListener('click', () => {
     if (confirm(`A terméket/termékeket átvette a futárszolgálat?\nRendelés azonosító: ${item.dataset.id}`)) {
-      fetch(`http://localhost:3000/admin/orders/${item.dataset.id}`, {
+      fetch(`${window.location.origin}/admin/orders/${item.dataset.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -30,7 +30,7 @@ document.querySelectorAll('.shipping').forEach(item => {
 document.querySelectorAll('.finish').forEach(item => {
   item.addEventListener('click', () => {
     if (confirm(`A rendelés lezárható?\nRendelés azonosító: ${item.dataset.id}`)) {
-      fetch(`http://localhost:3000/admin/orders/${item.dataset.id}`, {
+      fetch(`${window.location.origin}/admin/orders/${item.dataset.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -43,7 +43,7 @@ document.querySelectorAll('.finish').forEach(item => {
 document.querySelectorAll('.delete').forEach(item => {
   item.addEventListener('click', () => {
     if (confirm(`Biztosan törlöd a rendelést?\nRendelés azonosító: ${item.dataset.id}`)) {
-      fetch(`http://localhost:3000/admin/orders/${item.dataset.id}`, {
+      fetch(`${window.location.origin}/admin/orders/${item.dataset.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -69,7 +69,7 @@ document.querySelectorAll('.line').forEach(item => {
     orderModal.classList.add('active');
     orderModal.querySelector('.title').innerHTML = `Rendelés ${item.dataset.id}`;
 
-    fetch(`http://localhost:3000/admin/orders/description/${item.dataset.id}`, {
+    fetch(`${window.location.origin}/admin/orders/description/${item.dataset.id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include'

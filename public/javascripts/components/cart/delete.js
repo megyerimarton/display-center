@@ -20,7 +20,7 @@ module.exports = function(item) {
       document.querySelector('.cartMessage').classList.add('show');
     }
 
-    fetch(`http://localhost:3000/api/cart`, {
+    fetch(`${window.location.origin}/api/cart`, {
       method: 'DELETE',
       body: JSON.stringify({ id: item.dataset.id }),
       headers: { 'Content-Type': 'application/json' },

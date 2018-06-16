@@ -10,7 +10,7 @@ module.exports = function(item) {
 
       updatePrice(item);
 
-      fetch(`http://localhost:3000/api/cart`, {
+      fetch(`${window.location.origin}/api/cart`, {
         method: 'PATCH',
         body: JSON.stringify({ id: item.dataset.id }),
         headers: { 'Content-Type': 'application/json' },
