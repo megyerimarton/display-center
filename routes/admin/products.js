@@ -19,7 +19,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   const offset = (page - 1) * limit;
 
   const products = await res.locals.conn.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.allapot, product.ar, product.akcios_ar, product.aktiv
-    FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id LIMIT ${limit} OFFSET ${offset}`);
+    FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id ORDER BY product.id LIMIT ${limit} OFFSET ${offset}`);
 
   res.render('admin/products', {
     title: 'Termékek',

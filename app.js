@@ -3,8 +3,10 @@ const query = require('./middleware/query');
 const user = require('./middleware/user');
 const connection = require('./middleware/connection');
 const connectionRelease = require('./middleware/connectionRelease');
+const error = require('./middleware/error');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+require('express-async-errors');
 const express = require('express');
 const app = express();
 
@@ -21,6 +23,7 @@ app.use(cartSize);
 app.use(query);
 app.use(user);
 app.use(connectionRelease);
+app.use(error);
 
 
 require('./startup/routes')(app);

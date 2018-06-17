@@ -44,5 +44,6 @@ module.exports = function(app) {
   app.use('/admin/users', adminUsers);
   app.use('/admin/news', adminNews);
   app.use('/', index);
+  app.use('*', index);
 
 };
