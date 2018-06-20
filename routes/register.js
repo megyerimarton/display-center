@@ -15,10 +15,10 @@ router.get('/', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
-  const check = await pool.query(`SELECT email FROM user WHERE email = '${req.body.email}'`);
+  const check = await pool.query(`SELECT email FROM user WHERE email = ${pool.escape(req.body.email)}`);
   if (check.length > 0) return res.redirect('/register?message=error&text=Az email cím már foglalt');
 
-  const city = await pool.query(`SELECT id FROM cim WHERE varos = '${req.body.city}' AND irszam = '${req.body.zip}'`);
+  const city = await pool.query(`SELECT id FROM cim WHERE varos = ${pool.escape(req.body.city)} AND irszam = ${pool.escape(req.body.zip)}`);
   if (city.length === 0) return res.redirect('/register?message=error&text=Érvénytelen település');
   const cimId = city[0].id;
 
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
 
   await pool.query(`INSERT INTO user (nev, email, pwd, cim_id, utcaHazszam, tel, lastlogin, regdt, aktiv)
-  VALUES ('${req.body.name}', '${req.body.email}', '${md5(req.body.pass)}', '${cimId}', '${req.body.address}', '${req.body.mobile}', NOW(), NOW(), 1)`);
+  VALUES (${pool.escape(req.body.name)}, ${pool.escape(req.body.email)}, '${md5(req.body.pass)}', '${cimId}', ${pool.escape(req.body.address)}, ${pool.escape(req.body.mobile)}, NOW(), NOW(), 1)`);
 
   res.redirect('/?message=success&text=Sikeres regisztráció, most már bejelentkezhetsz');
 });

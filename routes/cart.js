@@ -12,7 +12,8 @@ router.get('/', async (req, res) => {
 
   for (const key in cookieCart) {
     if (cookieCart.hasOwnProperty(key)) {
-      let product = await pool.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.allapot, product.ar, product.akcios_ar, product.kep1 FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.id = ${key}`);
+      let product = await pool.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.allapot, product.ar, product.akcios_ar, product.kep1
+        FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.id = ${key}`);
 
       const item = Object.assign(product[0], {});
       item.quantity = cookieCart[key];

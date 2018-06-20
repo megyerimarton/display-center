@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
   const searchArray = req.body.search.split(' ');
 
   for (const item of searchArray) {
-    sql += ` AND (gyarto.name LIKE "%${item}%" OR product.termek LIKE "%${item}%" OR product.leiras LIKE "%${item}%")`;
+    sql += ` AND (gyarto.name LIKE ${pool.escape('%' + item + '%')} OR product.termek LIKE ${pool.escape('%' + item + '%')} OR product.leiras LIKE ${pool.escape('%' + item + '%')})`;
   }
 
   sql += ' LIMIT 3';

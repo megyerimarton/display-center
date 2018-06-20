@@ -96,8 +96,9 @@ router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
     // Upload images
     if (req.files) {
       for (const item of req.files) {
-        const index = req.files.indexOf(item);
-        const tmpPath = req.files[index].path;
+        const tmpIndex = item.fieldname.split('_');
+        const index = tmpIndex[tmpIndex.length - 1];
+        const tmpPath = item.path;
         const targetPath = `./public/images/products/${imageNames[index]}`;
 
         const src = fs.createReadStream(tmpPath);
@@ -112,15 +113,15 @@ router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
     // Set the sql query
     let sql = 'START TRANSACTION;';
     sql += `INSERT INTO product (ar, allapot, gyarto, termek, leiras, darab, kep1, kep2, kep3) VALUES
-      (${req.body.ar}, ${req.body.allapot}, "${req.body.gyarto}", "${req.body.name}", "${req.body.leiras}",
-      ${req.body.darab}, "${imageNames[0]}", "${imageNames[1]}", "${imageNames[2]}");`;
+      (${pool.escape(req.body.ar)}, ${pool.escape(req.body.allapot)}, ${pool.escape(req.body.gyarto)}, ${pool.escape(req.body.name)}, ${pool.escape(req.body.leiras)},
+      ${pool.escape(req.body.darab)}, "${imageNames[0]}", "${imageNames[1]}", "${imageNames[2]}");`;
     sql += 'SET @product_id = LAST_INSERT_ID();';
 
     let i = 1;
     for (const key in properties) {
       if (properties.hasOwnProperty(key)) {
         sql += `INSERT INTO property_description (product_id, property_id, description) VALUES
-          (@product_id, ${i}, '${properties[key]}');`;
+          (@product_id, ${i}, ${pool.escape(properties[key])});`;
         i++;
       }
     }
@@ -141,7 +142,7 @@ router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
 
 
 router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
-  let imageNames = await pool.query(`SELECT kep1, kep2, kep3 FROM product WHERE id = ${req.params.id}`);
+  let imageNames = await pool.query(`SELECT kep1, kep2, kep3 FROM product WHERE id = ${pool.escape(req.params.id)}`);
   imageNames = Object.values(imageNames[0]);
   let properties = JSON.parse(JSON.stringify(req.body.properties));
 
@@ -149,8 +150,9 @@ router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
     // Upload images
     if (req.files) {
       for (const item of req.files) {
-        const index = req.files.indexOf(item);
-        const tmpPath = req.files[index].path;
+        const tmpIndex = item.fieldname.split('_');
+        const index = tmpIndex[tmpIndex.length - 1];
+        const tmpPath = item.path;
         const targetPath = `./public/images/products/${imageNames[index]}`;
 
         const src = fs.createReadStream(tmpPath);
@@ -158,22 +160,22 @@ router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
 
         src.pipe(dest);
         src.on('end', () => fs.unlinkSync(tmpPath));
-        src.on('error', (err) => res.redirect('/admin/products/upload?message=error&text=Hiba történt a képek feltöltése során'));
+        src.on('error', (err) => res.redirect(`/admin/products/upload/${req.params.id}?message=error&text=Hiba történt a képek feltöltése során`));
       }
     }
 
     // Set the sql query
-    const discount = req.body.akcios_ar ? `akcios_ar = ${req.body.akcios_ar},` : '';
+    const discount = req.body.akcios_ar ? pool.escape(req.body.akcios_ar) : 'NULL';
 
     let sql = 'START TRANSACTION;';
-    sql += `UPDATE product SET ar = ${req.body.ar}, ${discount} allapot = ${req.body.allapot},
-      gyarto = "${req.body.gyarto}", termek = "${req.body.name}", leiras = "${req.body.leiras}",
-      darab = "${req.body.darab}" WHERE id = ${req.params.id};`;
+    sql += `UPDATE product SET ar = ${pool.escape(req.body.ar)}, akcios_ar = ${discount}, allapot = ${pool.escape(req.body.allapot)},
+      gyarto = ${pool.escape(req.body.gyarto)}, termek = ${pool.escape(req.body.name)}, leiras = ${pool.escape(req.body.leiras)},
+      darab = ${pool.escape(req.body.darab)} WHERE id = ${pool.escape(req.params.id)};`;
 
     let i = 1;
     for (const key in properties) {
       if (properties.hasOwnProperty(key)) {
-        sql += `UPDATE property_description SET description = "${properties[key]}" WHERE product_id = ${req.params.id} AND property_id = ${i};`;
+        sql += `UPDATE property_description SET description = ${pool.escape(properties[key])} WHERE product_id = ${pool.escape(req.params.id)} AND property_id = ${i};`;
         i++;
       }
     }
@@ -184,7 +186,7 @@ router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
     res.redirect(`/admin/products/upload/${req.params.id}?message=success&text=Sikeres feltöltés`);
 
   } catch (error) {
-    res.redirect(`/admin/products/upload/${req.params.id}?message=error&text=Hiba történt a feltöltés során`);
+    res.redirect(`/admin/products/upload/${req.params.id}?message=error&text=Hiba történt a feltöltés során${error}`);
   }
 });
 

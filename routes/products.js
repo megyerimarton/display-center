@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
   if (req.query.order) sql += ` ORDER BY ${req.query.order}`;
   // Filter end
 
-  let n = await pool.query(sql);
+  let n = await pool.query(sql)
   n = n.length;
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
   sql += ` LIMIT ${limit} OFFSET ${offset}`;
 
-  const result = await pool.query(sql);
+  const result = await pool.query(sql)
   const manufacturers = await pool.query('SELECT * FROM gyarto');
   const minMaxPrice = await pool.query('SELECT MIN(ar) AS "min", MAX(ar) AS "max" FROM product');
   const minMaxSize = await pool.query('SELECT MIN(CAST(property_description.description AS UNSIGNED)) AS "min", MAX(CAST(property_description.description AS UNSIGNED)) AS "max" FROM property_description WHERE property_description.property_id = 1;');

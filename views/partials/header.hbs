@@ -24,81 +24,77 @@
   <link rel="shortcut icon" type="image/x-icon" href="https://display-center.herokuapp.com/images/favicon.png">
 </head>
 
-<body {{#contains page (greyBody)}}class="bg-grey"{{/contains}}>
+<body {{#contains page (greyBody)}}class="bg-grey" {{/contains}}>
 
-  {{> sidenav}}
-  {{> login}}
-  {{> modals}}
-  {{> messages}}
+  {{> loader}}
 
-  <div id="headerContainer" {{#contains page (transparentHeader)}}class="main"{{/contains}}>
-    <header {{#contains page (transparentHeader)}}class="transparent"{{/contains}}>
-      <div id="logo">
-        <a class="clickEffect" href="/">
-          DisplayCenter
-        </a>
-      </div>
-      <div id="navContainer">
-        <nav>
-          <a class="menuitem" href="/products">
-            <p>termékek</p>
+  <div class="page">
+
+    {{> sidenav}} {{> login}} {{> modals}} {{> messages}}
+
+    <div id="headerContainer" {{#contains page (transparentHeader)}}class="main" {{/contains}}>
+      <header {{#contains page (transparentHeader)}}class="transparent" {{/contains}}>
+        <div id="logo">
+          <a class="clickEffect" href="/">
+            DisplayCenter
           </a>
-          <a class="menuitem {{#if cartSize}}show{{/if}}" id="menuitem_cart" data-counter="{{ cartSize }}" href="/cart">
-            <p>kosár</p>
-          </a>
-          <a class="menuitem" href="/contact">
-            <p>kapcsolat</p>
-          </a>
-          <a class="menuitem" href="/about">
-            <p>rólunk</p>
-          </a>
-					<a class="cartBtn {{#if cartSize}} show{{/if}}" id="menuitem_cart_mobile" data-counter="{{cartSize}}" href="/cart"><i class="material-icons">shopping_cart</i></a>
-          <a class="openBtn">
-            <div class="sandwichContainer">
-              <div class="sandwich" id="s1"></div>
-              <div class="sandwich" id="s2"></div>
-              <div class="sandwich" id="s3"></div>
-              <div class="sandwich" id="s4"></div>
+        </div>
+        <div id="navContainer">
+          <nav>
+            <a class="menuitem" href="/products">
+              <p>termékek</p>
+            </a>
+            <a class="menuitem {{#if cartSize}}show{{/if}}" id="menuitem_cart" data-counter="{{ cartSize }}" href="/cart">
+              <p>kosár</p>
+            </a>
+            <a class="menuitem" href="/contact">
+              <p>kapcsolat</p>
+            </a>
+            <a class="menuitem" href="/about">
+              <p>rólunk</p>
+            </a>
+            <a class="cartBtn {{#if cartSize}} show{{/if}}" id="menuitem_cart_mobile" data-counter="{{cartSize}}" href="/cart">
+              <i class="material-icons">shopping_cart</i>
+            </a>
+            <a class="openBtn">
+              <div class="sandwichContainer">
+                <div class="sandwich" id="s1"></div>
+                <div class="sandwich" id="s2"></div>
+                <div class="sandwich" id="s3"></div>
+                <div class="sandwich" id="s4"></div>
+              </div>
+            </a>
+          </nav>
+        </div>
+        <div id="accountBox">
+          <div id="accountContainer">
+            <a class="accountBtn">Saját fiók</a>
+            <div id="dropdown">
+
+              {{#unless user}}
+              <a class="loginBtn clickEffect">
+                <i class="material-icons" style="font-size:22px">account_circle</i>bejelentkezés</a>
+              <a class="clickEffect" href="/register">
+                <i class="material-icons">group_add</i>regisztráció</a>
+              {{/unless}} {{#if user}} {{#unless user.isAdmin}}
+              <a class="userPageDesktop clickEffect" href="/user/orders">
+                <i class="material-icons">settings</i>fiók beállítások</a>
+              <a class="userPageMobile clickEffect" href="/user/usermenumobile">
+                <i class="material-icons">settings</i>fiók beállítások</a>
+              {{/unless}} {{/if}} {{#if user}} {{#if user.isAdmin}}
+              <a class="userPageDesktop clickEffect" href="/admin/dashboard">
+                <i class="material-icons">settings</i>vezérlőpult</a>
+              <a class="userPageMobile clickEffect" href="/admin/adminmenumobile">
+                <i class="material-icons">settings</i>vezérlőpult</a>
+              {{/if}}
+
+              <a class="clickEffect" href="/logout">
+                <i class="material-icons">input</i>kijelentkezés</a>
+              {{/if}}
+
             </div>
-          </a>
-        </nav>
-      </div>
-      <div id="accountBox">
-        <div id="accountContainer">
-          <a class="accountBtn">Saját fiók</a>
-          <div id="dropdown">
-
-            {{#unless user}}
-            <a class="loginBtn clickEffect">
-              <i class="material-icons" style="font-size:22px">account_circle</i>bejelentkezés</a>
-            <a class="clickEffect" href="/register">
-              <i class="material-icons">group_add</i>regisztráció</a>
-            {{/unless}}
-
-            {{#if user}}
-	          {{#unless user.isAdmin}}
-            <a class="userPageDesktop clickEffect" href="/user/orders">
-              <i class="material-icons">settings</i>fiók beállítások</a>
-            <a class="userPageMobile clickEffect" href="/user/usermenumobile">
-              <i class="material-icons">settings</i>fiók beállítások</a>
-            {{/unless}}
-            {{/if}}
-
-            {{#if user}}
-          	{{#if user.isAdmin}}
-            <a class="userPageDesktop clickEffect" href="/admin/dashboard">
-              <i class="material-icons">settings</i>vezérlőpult</a>
-            <a class="userPageMobile clickEffect" href="/admin/adminmenumobile">
-              <i class="material-icons">settings</i>vezérlőpult</a>
-            {{/if}}
-
-            <a class="clickEffect" href="/logout">
-              <i class="material-icons">input</i>kijelentkezés</a>
-            {{/if}}
-
           </div>
         </div>
-      </div>
-    </header>
-  </div>
-  <div id="content" {{#contains page (contentNoPadding)}} class="no-padding"{{/contains}}>
+      </header>
+    </div>
+    <div id="content" {{#contains page (contentNoPadding)}} class="no-padding" {{/contains}}>

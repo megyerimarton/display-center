@@ -9,7 +9,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   let n = await pool.query('SELECT COUNT(*) AS rows FROM user');
   n = n[0]['rows'];
 
-  const page = +req.query.p ? +req.query.p : 1;
+  const page = +req.query.p ? +pool.escape(req.query.p) : 1;
   const limit = 10;
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
@@ -30,7 +30,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
 
 
 router.patch('/:id', authAdmin, async (req, res) => {
-  await pool.query(`UPDATE user SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
+  await pool.query(`UPDATE user SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${pool.escape(req.params.id)}`);
   res.end();
 });
 

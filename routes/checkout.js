@@ -56,17 +56,17 @@ router.post('/', async (req, res) => {
   ) return res.redirect('/checkout?message=error&text=Hibát találtunk a megadott adatokban');
 
   // Check city, zip and set cimID
-  const city = await pool.query(`SELECT id FROM cim WHERE varos = '${req.body.city}' AND irszam = '${req.body.zip}'`);
+  const city = await pool.query(`SELECT id FROM cim WHERE varos = ${pool.escape(req.body.city)} AND irszam = ${pool.escape(req.body.zip)}`);
   if (city.length === 0) return res.redirect('/checkout?message=error&text=Érvénytelen település');
   const cimId = city[0].id;
 
   // If user is logged in, update data, else register the user with an inactive profile
   if (res.locals.user) {
-    await pool.query(`UPDATE user SET nev = "${req.body.name}", cim_id = "${cimId}", utcaHazszam = "${req.body.address}", tel = "${req.body.mobile}" WHERE id = ${res.locals.user.id}`);
+    await pool.query(`UPDATE user SET nev = ${pool.escape(req.body.name)}, cim_id = "${cimId}", utcaHazszam = ${pool.escape(req.body.address)}, tel = ${pool.escape(req.body.mobile)} WHERE id = ${res.locals.user.id}`);
     userId = res.locals.user.id;
   } else {
     const result = await pool.query(`INSERT INTO user (nev, email, cim_id, utcaHazszam, tel, lastlogin, regdt, aktiv)
-      VALUES ('${req.body.name}', '${req.body.email}', '${cimId}', '${req.body.address}', '${req.body.mobile}', NOW(), NOW(), 0)`);
+      VALUES (${pool.escape(req.body.name)}, ${pool.escape(req.body.email)}, '${cimId}', ${pool.escape(req.body.address)}, ${pool.escape(req.body.mobile)}, NOW(), NOW(), 0)`);
     userId = result.insertId;
   }
 

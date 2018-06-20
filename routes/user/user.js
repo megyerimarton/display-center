@@ -44,12 +44,12 @@ router.get('/userdata', auth, async (req, res) => {
 
 
 router.post('/userdata', auth, async (req, res) => {
-  const city = await pool.query(`SELECT id FROM cim WHERE varos = '${req.body.city}' AND irszam = '${req.body.zip}'`);
+  const city = await pool.query(`SELECT id FROM cim WHERE varos = ${pool.escape(req.body.city)} AND irszam = ${pool.escape(req.body.zip)}`);
   if (city.length === 0) return res.redirect('/user/userdata?message=error&text=Érvénytelen település');
   const cimId = city[0].id;
 
   try {
-    await pool.query(`UPDATE user SET nev = "${req.body.name}", cim_id = "${cimId}", utcaHazszam = "${req.body.address}", tel = "${req.body.mobile}" WHERE id = ${res.locals.user.id}`);
+    await pool.query(`UPDATE user SET nev = ${pool.escape(req.body.name)}, cim_id = "${cimId}", utcaHazszam = ${pool.escape(req.body.address)}, tel = ${pool.escape(req.body.mobile)} WHERE id = ${res.locals.user.id}`);
     res.redirect('/user/userdata?message=success&text=Adataid frissítve');
   } catch (error) {
     res.redirect('/user/userdata?message=error&text=A megadott adatokban hibát találtunk');
@@ -66,14 +66,14 @@ router.get('/userpass', auth, async (req, res) => {
 
 
 router.post('/userpass', auth, async (req, res) => {
-  const result = await pool.query(`SELECT pwd FROM user WHERE id = '${res.locals.user.id}' AND pwd = "${md5(req.body.pass)}"`);
+  const result = await pool.query(`SELECT pwd FROM user WHERE id = ${res.locals.user.id} AND pwd = '${md5(req.body.pass)}'`);
 
   if (result.length === 0) return res.redirect('/user/userpass?message=error&text=Hibás jelszó');
   if (req.body.passNew !== req.body.passNew2) return res.redirect('/user/userpass?message=error&text=Az új jelszó nem egyezik');
   if (req.body.passNew.length < 6) return res.redirect('/user/userpass?message=error&text=A jelszó hossza minimum 6 karakter');
 
   try {
-    await pool.query(`UPDATE user SET pwd = "${md5(req.body.passNew)}" WHERE id = ${res.locals.user.id}`);
+    await pool.query(`UPDATE user SET pwd = '${md5(req.body.passNew)}' WHERE id = ${res.locals.user.id}`);
     res.redirect('/user/userpass?message=success&text=Adataid frissítve');
   } catch (error) {
     res.redirect('/user/userpass?message=error&text=A megadott adatokban hibát találtunk');

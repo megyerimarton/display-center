@@ -1,3 +1,4 @@
+require('./load');
 require('./message');
 require('./used');
 require('./login');

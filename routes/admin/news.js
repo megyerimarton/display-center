@@ -13,7 +13,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   let n = await pool.query('SELECT COUNT(*) AS rows FROM news');
   n = n[0]['rows'];
 
-  const page = +req.query.p ? +req.query.p : 1;
+  const page = +req.query.p ? +pool.escape(req.query.p) : 1;
   const limit = 10;
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
@@ -35,13 +35,13 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
 
 
 router.patch('/:id', authAdmin, async (req, res) => {
-  await pool.query(`UPDATE news SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
+  await pool.query(`UPDATE news SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${pool.escape(req.params.id)}`);
   res.end();
 });
 
 
 router.delete('/:id', authAdmin, async (req, res) => {
-  await pool.query(`DELETE FROM news WHERE id = ${req.params.id}`);
+  await pool.query(`DELETE FROM news WHERE id = ${pool.escape(req.params.id)}`);
   res.end();
 });
 
@@ -52,7 +52,7 @@ router.get('/upload', authAdmin, (req, res) => {
 
 
 router.get('/upload/:id', authAdmin, async (req, res) => {
-  let result = await pool.query(`SELECT id, cim, szerzo, datum, tartalom, kep, aktiv FROM news WHERE id = ${req.params.id}`);
+  let result = await pool.query(`SELECT id, cim, szerzo, datum, tartalom, kep, aktiv FROM news WHERE id = ${pool.escape(req.params.id)}`);
   result = result[0];
 
   res.render('admin/uploadnews', {
@@ -85,7 +85,7 @@ router.post('/upload', [authAdmin, upload.single('kep')], async (req, res) => {
 
   try {
     await pool.query(`INSERT INTO news (cim, szerzo, datum, tartalom, kep)
-      VALUES ("${req.body.title}", "admin", NOW(), "${req.body.content}", "${fileName}")`);
+      VALUES (${pool.escape(req.body.title)}, "admin", NOW(), ${pool.escape(req.body.content)}, "${fileName}")`);
   } catch (error) {
     fs.unlink(targetPath);
     return res.redirect('/admin/news/upload?message=error&text=Hiba történt a feltöltés során');
@@ -96,7 +96,7 @@ router.post('/upload', [authAdmin, upload.single('kep')], async (req, res) => {
 
 
 router.post('/upload/:id', [authAdmin, upload.single('kep')], async (req, res) => {
-  const imageName = await pool.query(`SELECT kep FROM news WHERE id = ${req.params.id}`);
+  const imageName = await pool.query(`SELECT kep FROM news WHERE id = ${pool.escape(req.params.id)}`);
 
   let fileName = imageName[0].kep;
   if (!fileName) fileName = req.body.title.replace(/\s/g, '') + Date.now() + path.extname(req.file.originalname);
@@ -118,7 +118,7 @@ router.post('/upload/:id', [authAdmin, upload.single('kep')], async (req, res) =
   }
 
   try {
-    await pool.query(`UPDATE news SET cim = "${req.body.title}", tartalom="${req.body.content}" WHERE id = ${req.params.id}`);
+    await pool.query(`UPDATE news SET cim = ${pool.escape(req.body.title)}, tartalom = ${pool.escape(req.body.content)} WHERE id = ${pool.escape(req.params.id)}`);
   } catch (error) {
     return res.redirect(`/admin/news/upload/${req.params.id}?message=error&text=Hiba történt a feltöltés során`);
   }
