@@ -7,7 +7,6 @@ body {
     flex-direction: column; // <--
     padding: 0;
     margin: 0;
-    overflow-x: hidden;
     font-family: 'Poppins', Arial, sans-serif;
     font-weight: 400;
     font-size: 12px;
@@ -1211,6 +1210,7 @@ footer {
         bottom: 0;
         left: 0;
         z-index: -1;
+        overflow: hidden;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         .box {
             position: absolute;

@@ -1,11 +1,12 @@
 const authAdmin = require('../../middleware/admin');
 const ordersCount = require('../../middleware/getnotapprovedorders');
+const pool = require('../../modules/connection');
 const express = require('express');
 const router = express.Router();
 
 
 router.get('/', [authAdmin, ordersCount], async (req, res) => {
-  let n = await res.locals.conn.query('SELECT COUNT(*) AS rows FROM user');
+  let n = await pool.query('SELECT COUNT(*) AS rows FROM user');
   n = n[0]['rows'];
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -13,7 +14,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
 
-  const users = await res.locals.conn.query(`SELECT id, nev, email, lastlogin, aktiv FROM user LIMIT ${limit} OFFSET ${offset}`);
+  const users = await pool.query(`SELECT id, nev, email, lastlogin, aktiv FROM user LIMIT ${limit} OFFSET ${offset}`);
 
   res.render('admin/users', {
     title: 'Felhasználók',
@@ -29,7 +30,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
 
 
 router.patch('/:id', authAdmin, async (req, res) => {
-  await res.locals.conn.query(`UPDATE user SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
+  await pool.query(`UPDATE user SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
   res.end();
 });
 

@@ -1,3 +1,4 @@
+const pool = require('../../modules/connection');
 const express = require('express');
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post('/', async (req, res) => {
 
   sql += ' LIMIT 3';
 
-  const result = await res.locals.conn.query(sql);
+  const result = await pool.query(sql);
 
   if (req.body.search !== '') {
     if (result.length > 0) {

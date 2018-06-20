@@ -1,3 +1,4 @@
+const pool = require('../modules/connection');
 const express = require('express');
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
   if (req.query.order) sql += ` ORDER BY ${req.query.order}`;
   // Filter end
 
-  let n = await res.locals.conn.query(sql);
+  let n = await pool.query(sql);
   n = n.length;
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -29,16 +30,16 @@ router.get('/', async (req, res) => {
 
   sql += ` LIMIT ${limit} OFFSET ${offset}`;
 
-  const result = await res.locals.conn.query(sql);
-  const manufacturers = await res.locals.conn.query('SELECT * FROM gyarto');
-  const minMaxPrice = await res.locals.conn.query('SELECT MIN(ar) AS "min", MAX(ar) AS "max" FROM product');
-  const minMaxSize = await res.locals.conn.query('SELECT MIN(CAST(property_description.description AS UNSIGNED)) AS "min", MAX(CAST(property_description.description AS UNSIGNED)) AS "max" FROM property_description WHERE property_description.property_id = 1;');
-  const minMaxWarranty = await res.locals.conn.query('SELECT MIN(CAST(property_description.description AS UNSIGNED)) AS "min", MAX(CAST(property_description.description AS UNSIGNED)) AS "max" FROM property_description WHERE property_description.property_id = 14;');
+  const result = await pool.query(sql);
+  const manufacturers = await pool.query('SELECT * FROM gyarto');
+  const minMaxPrice = await pool.query('SELECT MIN(ar) AS "min", MAX(ar) AS "max" FROM product');
+  const minMaxSize = await pool.query('SELECT MIN(CAST(property_description.description AS UNSIGNED)) AS "min", MAX(CAST(property_description.description AS UNSIGNED)) AS "max" FROM property_description WHERE property_description.property_id = 1;');
+  const minMaxWarranty = await pool.query('SELECT MIN(CAST(property_description.description AS UNSIGNED)) AS "min", MAX(CAST(property_description.description AS UNSIGNED)) AS "max" FROM property_description WHERE property_description.property_id = 14;');
 
 
   let wishlist;
   try {
-    wishlist = await res.locals.conn.query(`SELECT item_id FROM wishlist WHERE user_id = ${res.locals.user.id}`);
+    wishlist = await pool.query(`SELECT item_id FROM wishlist WHERE user_id = ${res.locals.user.id}`);
     wishlist = Array.from(new Set(wishlist.map(item => item.item_id)));
   } catch (error) {
     wishlist = [];
@@ -75,14 +76,14 @@ router.get('/', async (req, res) => {
 
 
 router.get('/:id', async (req, res) => {
-  const result = await res.locals.conn.query(`SELECT product.id, product.ar, product.akcios_ar, product.allapot, gyarto.name AS gyarto, product.termek, product.leiras, product.darab, product.kep1, product.kep2, product.kep3, gyarto.kep AS gyartokep, gyarto.web FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.id = ${req.params.id}`);
-  const details = await res.locals.conn.query(`SELECT property_description.description, property.name FROM property_description INNER JOIN property ON property_description.property_id = property.id WHERE product_id = ${req.params.id}`);
+  const result = await pool.query(`SELECT product.id, product.ar, product.akcios_ar, product.allapot, gyarto.name AS gyarto, product.termek, product.leiras, product.darab, product.kep1, product.kep2, product.kep3, gyarto.kep AS gyartokep, gyarto.web FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.id = ${req.params.id}`);
+  const details = await pool.query(`SELECT property_description.description, property.name FROM property_description INNER JOIN property ON property_description.property_id = property.id WHERE product_id = ${req.params.id}`);
   const garancia = details.filter(item => item.name === 'Garancia')[0]['description'];
-  const saleProducts = await res.locals.conn.query('SELECT product.id, product.ar, product.akcios_ar, product.kep1, gyarto.name AS "gyarto", product.termek FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.akcios_ar IS NOT NULL ORDER BY (product.akcios_ar / product.ar) LIMIT 4');
+  const saleProducts = await pool.query('SELECT product.id, product.ar, product.akcios_ar, product.kep1, gyarto.name AS "gyarto", product.termek FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.akcios_ar IS NOT NULL ORDER BY (product.akcios_ar / product.ar) LIMIT 4');
 
   let isInWish = false;
   if (res.locals.user) {
-    const wish = await res.locals.conn.query(`SELECT item_id FROM wishlist WHERE user_id = ${res.locals.user.id} AND item_id = ${result[0].id}`);
+    const wish = await pool.query(`SELECT item_id FROM wishlist WHERE user_id = ${res.locals.user.id} AND item_id = ${result[0].id}`);
     if (wish.length > 0) isInWish = true;
   }
 

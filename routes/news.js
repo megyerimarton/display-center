@@ -1,9 +1,10 @@
+const pool = require('../modules/connection');
 const express = require('express');
 const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  let n = await res.locals.conn.query('SELECT COUNT(*) AS rows FROM news WHERE aktiv = 1');
+  let n = await pool.query('SELECT COUNT(*) AS rows FROM news WHERE aktiv = 1');
   n = n[0]['rows'];
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -11,7 +12,7 @@ router.get('/', async (req, res) => {
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
 
-  const news = await res.locals.conn.query(`SELECT id, cim, szerzo, datum, tartalom, kep FROM news WHERE aktiv = 1 ORDER BY id DESC LIMIT ${limit} OFFSET ${offset}`);
+  const news = await pool.query(`SELECT id, cim, szerzo, datum, tartalom, kep FROM news WHERE aktiv = 1 ORDER BY id DESC LIMIT ${limit} OFFSET ${offset}`);
 
   res.render('news', {
     title: 'Hírek',
@@ -27,7 +28,7 @@ router.get('/', async (req, res) => {
 
 
 router.get('/:id', async (req, res) => {
-  const result = await res.locals.conn.query(`SELECT cim, szerzo, datum, tartalom, kep FROM news WHERE aktiv = 1 AND id = ${req.params.id}`);
+  const result = await pool.query(`SELECT cim, szerzo, datum, tartalom, kep FROM news WHERE aktiv = 1 AND id = ${req.params.id}`);
 
   res.render('new', {
     title: result[0].cim,

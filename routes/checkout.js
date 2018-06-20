@@ -1,3 +1,4 @@
+const pool = require('../modules/connection');
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +7,7 @@ router.get('/', async (req, res) => {
   let userData;
 
   try {
-    userData = await res.locals.conn.query(`SELECT user.nev, user.email, cim.varos, cim.irszam, user.utcaHazszam, user.tel
+    userData = await pool.query(`SELECT user.nev, user.email, cim.varos, cim.irszam, user.utcaHazszam, user.tel
       FROM user INNER JOIN cim ON user.cim_id = cim.id WHERE user.id = ${res.locals.user.id}`);
   } catch (error) {
     userData = [];
@@ -18,7 +19,7 @@ router.get('/', async (req, res) => {
 
   for (const key in cookieCart) {
     if (cookieCart.hasOwnProperty(key)) {
-      let product = await res.locals.conn.query(`SELECT gyarto.name AS "gyarto", product.termek, product.ar, product.akcios_ar
+      let product = await pool.query(`SELECT gyarto.name AS "gyarto", product.termek, product.ar, product.akcios_ar
       FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id WHERE product.id = ${key}`);
 
       const item = Object.assign(product[0], {});
@@ -55,16 +56,16 @@ router.post('/', async (req, res) => {
   ) return res.redirect('/checkout?message=error&text=Hibát találtunk a megadott adatokban');
 
   // Check city, zip and set cimID
-  const city = await res.locals.conn.query(`SELECT id FROM cim WHERE varos = '${req.body.city}' AND irszam = '${req.body.zip}'`);
+  const city = await pool.query(`SELECT id FROM cim WHERE varos = '${req.body.city}' AND irszam = '${req.body.zip}'`);
   if (city.length === 0) return res.redirect('/checkout?message=error&text=Érvénytelen település');
   const cimId = city[0].id;
 
   // If user is logged in, update data, else register the user with an inactive profile
   if (res.locals.user) {
-    await res.locals.conn.query(`UPDATE user SET nev = "${req.body.name}", cim_id = "${cimId}", utcaHazszam = "${req.body.address}", tel = "${req.body.mobile}" WHERE id = ${res.locals.user.id}`);
+    await pool.query(`UPDATE user SET nev = "${req.body.name}", cim_id = "${cimId}", utcaHazszam = "${req.body.address}", tel = "${req.body.mobile}" WHERE id = ${res.locals.user.id}`);
     userId = res.locals.user.id;
   } else {
-    const result = await res.locals.conn.query(`INSERT INTO user (nev, email, cim_id, utcaHazszam, tel, lastlogin, regdt, aktiv)
+    const result = await pool.query(`INSERT INTO user (nev, email, cim_id, utcaHazszam, tel, lastlogin, regdt, aktiv)
       VALUES ('${req.body.name}', '${req.body.email}', '${cimId}', '${req.body.address}', '${req.body.mobile}', NOW(), NOW(), 0)`);
     userId = result.insertId;
   }
@@ -74,7 +75,7 @@ router.post('/', async (req, res) => {
   const cart = [];
   for (const key in cookieCart) {
     if (cookieCart.hasOwnProperty(key)) {
-      let product = await res.locals.conn.query(`SELECT product.id, product.ar, product.akcios_ar FROM product WHERE product.id = ${key}`);
+      let product = await pool.query(`SELECT product.id, product.ar, product.akcios_ar FROM product WHERE product.id = ${key}`);
       const item = Object.assign(product[0], {});
       item.quantity = cookieCart[key];
       cart.push(item);
@@ -93,7 +94,7 @@ router.post('/', async (req, res) => {
     }
 
     sql += 'COMMIT;';
-    await res.locals.conn.query(sql);
+    await pool.query(sql);
     res.clearCookie('cart').redirect('/?message=success&text=Rendelését rögzítettük');
 
   } catch (error) {

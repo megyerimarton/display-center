@@ -5,12 +5,13 @@ const upload = multer({ dest: './public/images/news'});
 const fs = require('fs');
 const path = require('path');
 const removeAccents = require('remove-accents');
+const pool = require('../../modules/connection');
 const express = require('express');
 const router = express.Router();
 
 
 router.get('/', [authAdmin, ordersCount], async (req, res) => {
-  let n = await res.locals.conn.query('SELECT COUNT(*) AS rows FROM product');
+  let n = await pool.query('SELECT COUNT(*) AS rows FROM product');
   n = n[0]['rows'];
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -18,7 +19,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
 
-  const products = await res.locals.conn.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.allapot, product.ar, product.akcios_ar, product.aktiv
+  const products = await pool.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.allapot, product.ar, product.akcios_ar, product.aktiv
     FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id ORDER BY product.id LIMIT ${limit} OFFSET ${offset}`);
 
   res.render('admin/products', {
@@ -35,20 +36,20 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
 
 
 router.patch('/:id', authAdmin, async (req, res) => {
-  await res.locals.conn.query(`UPDATE product SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
+  await pool.query(`UPDATE product SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
   res.end();
 });
 
 
 router.get('/upload', authAdmin, async (req, res) => {
-  let properties = await res.locals.conn.query(`SELECT property_description.description, LOWER(property.name) AS "name"
+  let properties = await pool.query(`SELECT property_description.description, LOWER(property.name) AS "name"
     FROM property_description INNER JOIN property ON property_description.property_id = property.id WHERE product_id = 1`);
   properties = properties.map(item => {
     item.name2 = removeAccents(item.name);
     item.name = item.name[0].toUpperCase() + item.name.slice(1);
     return item;
   });
-  let manufacturers = await res.locals.conn.query('SELECT * FROM gyarto ORDER BY name');
+  let manufacturers = await pool.query('SELECT * FROM gyarto ORDER BY name');
   res.render('admin/uploadproducts', {
     title: 'Termék feltöltése',
     page: 'uploadproducts',
@@ -59,17 +60,17 @@ router.get('/upload', authAdmin, async (req, res) => {
 
 
 router.get('/upload/:id', authAdmin, async (req, res) => {
-  let product = await res.locals.conn.query(`SELECT product.id, product.gyarto, product.termek, product.ar, product.akcios_ar, product.allapot, product.leiras, product.darab, product.kep1, product.kep2, product.kep3
+  let product = await pool.query(`SELECT product.id, product.gyarto, product.termek, product.ar, product.akcios_ar, product.allapot, product.leiras, product.darab, product.kep1, product.kep2, product.kep3
     FROM product WHERE product.id = ${req.params.id}`);
   product = product[0];
-  let properties = await res.locals.conn.query(`SELECT property_description.description, LOWER(property.name) AS "name"
+  let properties = await pool.query(`SELECT property_description.description, LOWER(property.name) AS "name"
     FROM property_description INNER JOIN property ON property_description.property_id = property.id WHERE product_id = ${req.params.id}`);
   properties = properties.map(item => {
     item.name = item.name[0].toUpperCase() + item.name.slice(1);
     item.name2 = removeAccents(item.name);
     return item;
   });
-  let manufacturers = await res.locals.conn.query('SELECT * FROM gyarto ORDER BY name');
+  let manufacturers = await pool.query('SELECT * FROM gyarto ORDER BY name');
 
   res.render('admin/uploadproducts', {
     title: 'Termék feltöltése',
@@ -82,7 +83,7 @@ router.get('/upload/:id', authAdmin, async (req, res) => {
 
 
 router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
-  let manufacturer = await res.locals.conn.query(`SELECT name FROM gyarto WHERE id = ${req.body.gyarto}`);
+  let manufacturer = await pool.query(`SELECT name FROM gyarto WHERE id = ${req.body.gyarto}`);
   manufacturer = manufacturer[0].name;
   let imageNames = new Array(req.files.length);
   for (let i = 0; i < req.files.length; i++) {
@@ -126,7 +127,7 @@ router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
 
     sql += 'COMMIT;';
 
-    await res.locals.conn.query(sql);
+    await pool.query(sql);
     res.redirect('/admin/products/upload?message=success&text=Sikeres feltöltés');
 
   } catch (error) {
@@ -140,7 +141,7 @@ router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
 
 
 router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
-  let imageNames = await res.locals.conn.query(`SELECT kep1, kep2, kep3 FROM product WHERE id = ${req.params.id}`);
+  let imageNames = await pool.query(`SELECT kep1, kep2, kep3 FROM product WHERE id = ${req.params.id}`);
   imageNames = Object.values(imageNames[0]);
   let properties = JSON.parse(JSON.stringify(req.body.properties));
 
@@ -179,7 +180,7 @@ router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
 
     sql += 'COMMIT;';
 
-    await res.locals.conn.query(sql);
+    await pool.query(sql);
     res.redirect(`/admin/products/upload/${req.params.id}?message=success&text=Sikeres feltöltés`);
 
   } catch (error) {

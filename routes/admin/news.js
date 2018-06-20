@@ -4,12 +4,13 @@ const multer = require('multer');
 const upload = multer({ dest: './public/images/news'});
 const fs = require('fs');
 const path = require('path');
+const pool = require('../../modules/connection');
 const express = require('express');
 const router = express.Router();
 
 
 router.get('/', [authAdmin, ordersCount], async (req, res) => {
-  let n = await res.locals.conn.query('SELECT COUNT(*) AS rows FROM news');
+  let n = await pool.query('SELECT COUNT(*) AS rows FROM news');
   n = n[0]['rows'];
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -17,7 +18,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
 
-  const news = await res.locals.conn.query(`SELECT id, cim, szerzo, datum, aktiv
+  const news = await pool.query(`SELECT id, cim, szerzo, datum, aktiv
     FROM news ORDER BY datum DESC LIMIT ${limit} OFFSET ${offset}`);
 
   res.render('admin/news', {
@@ -34,13 +35,13 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
 
 
 router.patch('/:id', authAdmin, async (req, res) => {
-  await res.locals.conn.query(`UPDATE news SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
+  await pool.query(`UPDATE news SET aktiv = IF(aktiv = 1, 0, 1) WHERE id = ${req.params.id}`);
   res.end();
 });
 
 
 router.delete('/:id', authAdmin, async (req, res) => {
-  await res.locals.conn.query(`DELETE FROM news WHERE id = ${req.params.id}`);
+  await pool.query(`DELETE FROM news WHERE id = ${req.params.id}`);
   res.end();
 });
 
@@ -51,7 +52,7 @@ router.get('/upload', authAdmin, (req, res) => {
 
 
 router.get('/upload/:id', authAdmin, async (req, res) => {
-  let result = await res.locals.conn.query(`SELECT id, cim, szerzo, datum, tartalom, kep, aktiv FROM news WHERE id = ${req.params.id}`);
+  let result = await pool.query(`SELECT id, cim, szerzo, datum, tartalom, kep, aktiv FROM news WHERE id = ${req.params.id}`);
   result = result[0];
 
   res.render('admin/uploadnews', {
@@ -83,7 +84,7 @@ router.post('/upload', [authAdmin, upload.single('kep')], async (req, res) => {
   }
 
   try {
-    await res.locals.conn.query(`INSERT INTO news (cim, szerzo, datum, tartalom, kep)
+    await pool.query(`INSERT INTO news (cim, szerzo, datum, tartalom, kep)
       VALUES ("${req.body.title}", "admin", NOW(), "${req.body.content}", "${fileName}")`);
   } catch (error) {
     fs.unlink(targetPath);
@@ -95,7 +96,7 @@ router.post('/upload', [authAdmin, upload.single('kep')], async (req, res) => {
 
 
 router.post('/upload/:id', [authAdmin, upload.single('kep')], async (req, res) => {
-  const imageName = await res.locals.conn.query(`SELECT kep FROM news WHERE id = ${req.params.id}`);
+  const imageName = await pool.query(`SELECT kep FROM news WHERE id = ${req.params.id}`);
 
   let fileName = imageName[0].kep;
   if (!fileName) fileName = req.body.title.replace(/\s/g, '') + Date.now() + path.extname(req.file.originalname);
@@ -117,7 +118,7 @@ router.post('/upload/:id', [authAdmin, upload.single('kep')], async (req, res) =
   }
 
   try {
-    await res.locals.conn.query(`UPDATE news SET cim = "${req.body.title}", tartalom="${req.body.content}" WHERE id = ${req.params.id}`);
+    await pool.query(`UPDATE news SET cim = "${req.body.title}", tartalom="${req.body.content}" WHERE id = ${req.params.id}`);
   } catch (error) {
     return res.redirect(`/admin/news/upload/${req.params.id}?message=error&text=Hiba történt a feltöltés során`);
   }
