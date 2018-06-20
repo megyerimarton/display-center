@@ -989,11 +989,11 @@ hr {
 // Footer ###########################################
 footer {
   padding-top: 45px;
-  background-color: #f6f9fc;
+  background-color: $light;
   position: relative;
   z-index: 1;
   &.border {
-    border-top: 2px solid rgba(207, 215, 223, 0.25);
+    border-top: 2px solid #e9ebf2;
   }
 }
 
@@ -1105,8 +1105,7 @@ footer {
 .rights-container {
   padding: 10px 0;
   &.top {
-    border-top: 2px solid rgba(207, 215, 223, 0.25);
-    border-bottom: 2px solid rgba(207, 215, 223, 0.25);
+    background-color: #f0f3f6;
   }
   .rights {
     display: flex;
@@ -1128,6 +1127,7 @@ footer {
     }
   }
   &.bottom {
+    background-color: #ffffff;
     .rights {
       display: flex;
       justify-content: space-between;
@@ -1245,7 +1245,7 @@ footer {
   padding-top: 10px;
   position: relative;
   .bg-color {
-    background: linear-gradient(90deg, #6062f3 0%, $blue 100%);
+    background-color: $colorPrimary;
     position: absolute;
     top: -60px;
     right: 0;
@@ -1262,31 +1262,31 @@ footer {
       height: 1000px;
       transform: rotate(65deg);
       &.box-5 {
-        background: linear-gradient(to top, #5f62f3 35%, #4c55f6);
+        background: linear-gradient(to top, #585adb 35%, #6062f3)
       }
       &.box-4 {
         top: -500px;
         transform: rotate(75deg) scaleY(2);
         ;
-        background: linear-gradient(to top, #5f64f4, #5666f1);
+        background: linear-gradient(to top, #5b5ddc, #6265f2)
       }
       &.box-3 {
         transform: rotate(85deg) scaleY(5);
-        background: linear-gradient(to top, #586ef6 65%, #2f70e5);
+        background: linear-gradient(to top, #6466f2 65%, #6062f1)
       }
       &.box-2 {
         top: -550px;
         left: auto;
         right: -200px;
         transform: rotate(95deg) scaleY(4);
-        background: linear-gradient(to top, #5278fa 35%, #0066ff);
+        background: linear-gradient(to top, #6668f7 35%, #6062f1)
       }
       &.box-1 {
         top: -520px;
         left: auto;
         right: 0;
         transform: rotate(110deg) scaleY(1);
-        background: linear-gradient(to top, #4b80fc 35%, #4084f8);
+        background: linear-gradient(to top, #6a6dfb 35%, #6062f1)
       }
     }
   }
@@ -1296,39 +1296,52 @@ footer {
     margin: 0 auto;
     width: 480px;
     height: 40px;
-    border-radius: 2.5px;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: 0.15s ease-in-out;
     position: relative;
     z-index: 1;
-    perspective: 1000px;
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
     .zoomIcon {
-      color: #ffffff;
-      margin: 5px 20px 0 10px;
+      position: absolute;
+      z-index: 2;
+      color: $colorPrimary;
+      margin: 3px 20px 0 10px;
       cursor: pointer;
       &:active {
-        color: #dddddd;
+        color: $colorPrimaryLight;
       }
     }
     .search {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      padding-left: 50px;
       background-color: transparent;
       border: none;
       outline: none;
       cursor: pointer;
-      color: #ffffff;
+      border-radius: 20px;
+      background-color: #ffffff;
+      transition: 0.15s ease-in-out;
+      color: $colorPrimary;
+      font-family: Poppins;
       font-size: 15px;
-      width: 100%;
+      font-weight: 500;
+      &:hover {
+        background-color: #eeeeee;
+      }
       &::-webkit-input-placeholder {
-        color: #ffffff;
+        color: $colorPrimaryLight;
+        font-family: Poppins;
+        font-weight: 500;
       }
       &::-moz-placeholder {
-        color: #ffffff;
+        color: $colorPrimaryLight;
+        font-family: Poppins;
+        font-weight: 500;
       }
       &::-ms-input-placeholder {
-        color: #ffffff;
+        color: $colorPrimaryLight;
+        font-family: Poppins;
+        font-weight: 500;
       }
     }
     .searchBtn {
@@ -1339,14 +1352,15 @@ footer {
       flex-direction: column;
       justify-content: center;
       position: absolute;
-      top: 40px;
+      top: 20px;
       left: 0;
       width: 100%;
-      height: 230px;
+      height: 250px;
+      padding-top: 20px;
       overflow: hidden;
       background-color: #ffffff;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
       will-change: height;
       transition: .5s cubic-bezier(0.42, 0, 0.19, 1);

@@ -2086,7 +2086,7 @@ footer {
 }
 
 footer.border {
-  border-top: 2px solid rgba(207, 215, 223, 0.25);
+  border-top: 2px solid #e9ebf2;
 }
 
 .footer-col4 {
@@ -2213,8 +2213,7 @@ footer.border {
 }
 
 .rights-container.top {
-  border-top: 2px solid rgba(207, 215, 223, 0.25);
-  border-bottom: 2px solid rgba(207, 215, 223, 0.25);
+  background-color: #f0f3f6;
 }
 
 .rights-container .rights {
@@ -2237,6 +2236,10 @@ footer.border {
 
 .rights-container .rights a:hover {
   opacity: .5;
+}
+
+.rights-container.bottom {
+  background-color: #ffffff;
 }
 
 .rights-container.bottom .rights {
@@ -2354,7 +2357,7 @@ footer.border {
 }
 
 .background .bg-color {
-  background: linear-gradient(90deg, #6062f3 0%, #448AFF 100%);
+  background-color: #6062f3;
   position: absolute;
   top: -60px;
   right: 0;
@@ -2375,18 +2378,18 @@ footer.border {
 }
 
 .background .bg-color .box.box-5 {
-  background: linear-gradient(to top, #5f62f3 35%, #4c55f6);
+  background: linear-gradient(to top, #585adb 35%, #6062f3);
 }
 
 .background .bg-color .box.box-4 {
   top: -500px;
   transform: rotate(75deg) scaleY(2);
-  background: linear-gradient(to top, #5f64f4, #5666f1);
+  background: linear-gradient(to top, #5b5ddc, #6265f2);
 }
 
 .background .bg-color .box.box-3 {
   transform: rotate(85deg) scaleY(5);
-  background: linear-gradient(to top, #586ef6 65%, #2f70e5);
+  background: linear-gradient(to top, #6466f2 65%, #6062f1);
 }
 
 .background .bg-color .box.box-2 {
@@ -2394,7 +2397,7 @@ footer.border {
   left: auto;
   right: -200px;
   transform: rotate(95deg) scaleY(4);
-  background: linear-gradient(to top, #5278fa 35%, #0066ff);
+  background: linear-gradient(to top, #6668f7 35%, #6062f1);
 }
 
 .background .bg-color .box.box-1 {
@@ -2402,7 +2405,7 @@ footer.border {
   left: auto;
   right: 0;
   transform: rotate(110deg) scaleY(1);
-  background: linear-gradient(to top, #4b80fc 35%, #4084f8);
+  background: linear-gradient(to top, #6a6dfb 35%, #6062f1);
 }
 
 .background .searchBox {
@@ -2411,48 +2414,61 @@ footer.border {
   margin: 0 auto;
   width: 480px;
   height: 40px;
-  border-radius: 2.5px;
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: 0.15s ease-in-out;
   position: relative;
   z-index: 1;
-  perspective: 1000px;
-}
-
-.background .searchBox:hover {
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .background .searchBox .zoomIcon {
-  color: #ffffff;
-  margin: 5px 20px 0 10px;
+  position: absolute;
+  z-index: 2;
+  color: #6062f3;
+  margin: 3px 20px 0 10px;
   cursor: pointer;
 }
 
 .background .searchBox .zoomIcon:active {
-  color: #dddddd;
+  color: #7275f7;
 }
 
 .background .searchBox .search {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding-left: 50px;
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-  color: #ffffff;
+  border-radius: 20px;
+  background-color: #ffffff;
+  transition: 0.15s ease-in-out;
+  color: #6062f3;
+  font-family: Poppins;
   font-size: 15px;
-  width: 100%;
+  font-weight: 500;
+}
+
+.background .searchBox .search:hover {
+  background-color: #eeeeee;
 }
 
 .background .searchBox .search::-webkit-input-placeholder {
-  color: #ffffff;
+  color: #7275f7;
+  font-family: Poppins;
+  font-weight: 500;
 }
 
 .background .searchBox .search::-moz-placeholder {
-  color: #ffffff;
+  color: #7275f7;
+  font-family: Poppins;
+  font-weight: 500;
 }
 
 .background .searchBox .search::-ms-input-placeholder {
-  color: #ffffff;
+  color: #7275f7;
+  font-family: Poppins;
+  font-weight: 500;
 }
 
 .background .searchBox .searchBtn {
@@ -2464,14 +2480,15 @@ footer.border {
   flex-direction: column;
   justify-content: center;
   position: absolute;
-  top: 40px;
+  top: 20px;
   left: 0;
   width: 100%;
-  height: 230px;
+  height: 250px;
+  padding-top: 20px;
   overflow: hidden;
   background-color: #ffffff;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   will-change: height;
   transition: 0.5s cubic-bezier(0.42, 0, 0.19, 1);
