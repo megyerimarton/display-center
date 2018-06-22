@@ -13,7 +13,6 @@
   "dependencies": {
     "config": "^1.30.0",
     "cookie-parser": "^1.4.3",
-    "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "express-async-errors": "^3.0.0",
     "express-handlebars": "^3.0.0",
@@ -23,9 +22,11 @@
     "mysql": "^2.15.0",
     "remove-accents": "^0.4.2",
     "simplebar": "^2.6.1",
-    "style-loader": "^0.21.0"
+    "tiny-slider": "^2.7.3"
   },
   "devDependencies": {
+    "css-loader": "^0.28.11",
+    "style-loader": "^0.21.0",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.4"
   },
