@@ -61,7 +61,7 @@
       <div class="top">
         <div class="header-text">Hírek / Tesztek</div>
       </div>
-      <div class="news" id="news">
+      <div class="news">
 
         {{#each news}}
         <div class="new">
@@ -95,14 +95,14 @@
 <!-- products-bar -->
 <div class="products-bar-wrapper">
 
-  <div class="productsBar" id="container1">
+  <div class="productsBar">
     <div class="title">
       <div class="badge discount">
         <p></p>
       </div>
       <h2>Akciós termékek</h2>
     </div>
-    <div class="boxContainer" id="boxContainer2">
+    <div class="boxContainer" id="saleProducts">
 
       {{#each saleProducts}}
       <div class="item" id="item{{id}}">
@@ -129,14 +129,14 @@
 
   <div class="line"></div>
 
-  <div class="productsBar" id="container2">
+  <div class="productsBar">
     <div class="title">
       <div class="badge new">
         <p></p>
       </div>
       <h2>Legújabb termékek</h2>
     </div>
-    <div class="boxContainer" id="boxContainer2">
+    <div class="boxContainer" id="newProducts">
 
       {{#each newProducts}}
       <div class="item" id="item{{id}}">

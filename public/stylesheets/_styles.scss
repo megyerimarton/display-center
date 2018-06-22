@@ -602,6 +602,7 @@ form.style1 {
         width: 100%;
         max-width: 1500px;
         margin: 0 auto;
+        overflow: hidden;
         .title {
             display: flex;
             align-items: center;
@@ -609,7 +610,7 @@ form.style1 {
         .boxContainer {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            margin: 0 auto;
             margin-bottom: 15px;
             .item {
                 margin: 10px 5px;

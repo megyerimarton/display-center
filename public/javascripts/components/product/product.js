@@ -1,3 +1,6 @@
+import { tns } from 'tiny-slider/src/tiny-slider.module';
+
+
 const addToCart = require('../shared/addtocart');
 const addToWish = require('../shared/addtowish');
 
@@ -82,3 +85,14 @@ function prevPic() {
     });
   }
 }
+
+
+const newProductSlider = tns({
+  container: '#saleProducts',
+  mouseDrag: true,
+  speed: 400,
+  controls: false,
+  loop: false,
+  nav: false,
+  fixedWidth: 350
+});

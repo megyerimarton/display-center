@@ -1,4 +1,3 @@
-// const tns = require('tiny-slider/src/tiny-slider.module');
 import { tns } from 'tiny-slider/src/tiny-slider.module';
 require('simplebar');
 require('simplebar/dist/simplebar.css');
@@ -21,9 +20,28 @@ document.querySelectorAll('.new').forEach(item => {
 });
 
 
-const slider = tns({
-  container: '#news',
-  items: 3,
+const newsSlider = tns({
+  container: '.news',
+  mouseDrag: true,
+  speed: 400,
+  controls: false,
+  loop: false,
+  nav: false,
+  fixedWidth: 350
+});
+
+const saleSlider = tns({
+  container: '#saleProducts',
+  mouseDrag: true,
+  speed: 400,
+  controls: false,
+  loop: false,
+  nav: false,
+  fixedWidth: 350
+});
+
+const newProductSlider = tns({
+  container: '#newProducts',
   mouseDrag: true,
   speed: 400,
   controls: false,

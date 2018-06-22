@@ -631,6 +631,7 @@ form.style1 .err.active {
   width: 100%;
   max-width: 1500px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .products-bar-wrapper .productsBar .title {
@@ -641,7 +642,7 @@ form.style1 .err.active {
 .products-bar-wrapper .productsBar .boxContainer {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  margin: 0 auto;
   margin-bottom: 15px;
 }
 
@@ -2854,7 +2855,7 @@ footer.border {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: auto 0;
+  margin: auto;
 }
 
 .half-container .news-container .news .new {
