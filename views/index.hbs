@@ -46,21 +46,8 @@
 </div>
 <div class="container-1500">
   <div class="half-container half-container-main">
-    <div class="categories-mobile-btn-wrapper">
-      <div class="categories-mobile-btn btn-1">Gyártók
-        <i class="material-icons">expand_more</i>
-      </div>
-      <form method="GET" action="/products" id="cat-form">
-        <select name="manufacturer" id="cat-select">
-          <option value="all">Összes</option>
-          {{#each manufacturers}}
-          <option value="{{name}}">{{name}}</option>
-          {{/each}}
-        </select>
-      </form>
-    </div>
 
-    <div class="categories-container">
+    <div class="categories-container" data-simplebar>
       <div class="header-text">Gyártók</div>
 
       {{#each manufacturers}}

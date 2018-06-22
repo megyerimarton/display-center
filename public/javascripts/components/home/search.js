@@ -25,9 +25,11 @@ search.addEventListener('keyup', () => {
 });
 
 search.addEventListener('focusin', () => {
-searchResult.classList.remove('hide');
+  search.classList.add('active');
+  searchResult.classList.remove('hide');
 });
 
 search.addEventListener('focusout', () => {
-searchResult.classList.add('hide');
+  search.classList.remove('active');
+  searchResult.classList.add('hide');
 });

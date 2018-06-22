@@ -1,3 +1,5 @@
+require('simplebar');
+require('simplebar/dist/simplebar.css');
 require('./promotions');
 require('./search');
 
@@ -8,11 +10,6 @@ document.querySelectorAll('.share-button').forEach(item => {
   item.addEventListener('click', () => {
     modal.classList.add('active');
   });
-});
-
-
-document.querySelector('#cat-select').addEventListener('change', () => {
-  document.querySelector('#cat-form').submit();
 });
 
 

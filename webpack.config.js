@@ -21,5 +21,10 @@ module.exports = {
   output: {
       path: path.resolve(__dirname, 'public/javascripts'),
       filename: '[name].bundle.js'
+  },
+  module: {
+    rules: [
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
+    ]
   }
 };
