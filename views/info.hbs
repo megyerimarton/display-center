@@ -1,69 +1,56 @@
 {{> header}}
 
 
-<div class="background">
-  <div class="bg-color">
-    <div class="box box-1"></div>
-    <div class="box box-2"></div>
-    <div class="box box-3"></div>
-    <div class="box box-4"></div>
-    <div class="box box-5"></div>
-  </div>
-</div>
-
-
-<div class="container-1200">
-  <article class="article-new article-info">
-    <div class="top-bar">
+<article class="article-new">
+  <div class="top-bar">
+    <div class="container-1200 flex flex-column justify-content-center h-100">
+      <img alt="hir_kep" src="/images/news/{{#if new.kep}}{{new.kep}}{{else}}sample.png{{/if}}" />
       <section class="title">
-        <h1>
-          {{caption}}
-        </h1>
+        <h1>{{caption}}</h1>
       </section>
     </div>
-    <section class="content">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam metus felis, porta et nibh quis, mollis tempus erat. In eget
-      tempus enim, sit amet accumsan dolor. Proin urna ante, aliquam at metus sed, euismod consectetur metus. Cras at porttitor
-      elit, vel dapibus metus. Ut sagittis consectetur erat consectetur tincidunt. Fusce non nibh sollicitudin, pretium augue
-      ac, ultrices sem. Sed aliquam tristique sapien at tempus. Aenean sed justo dignissim, volutpat felis eu, tristique
-      sapien. Nunc vitae orci eget sem aliquam rhoncus. Morbi molestie cursus magna, quis finibus libero mattis eu. Nullam
-      mollis mauris sed tempor suscipit. Nunc euismod maximus tortor a tempor. Duis id elit varius, faucibus urna quis, tincidunt
-      nisl. Donec suscipit blandit urna non sollicitudin. Nunc lacus libero, vulputate id tortor at, consequat ultrices diam.
-      Duis ultricies ligula ornare libero viverra malesuada. Nam imperdiet lobortis eros. Morbi aliquam accumsan massa, quis
-      pellentesque nunc rhoncus nec. Duis a massa cursus, fermentum turpis a, viverra est. Etiam aliquet ac erat id ullamcorper.
-      Morbi a mauris massa. Maecenas euismod est id libero tempus, non efficitur elit aliquam. Phasellus ut bibendum arcu.
-      Nam lacinia ligula eros, nec facilisis ante porttitor at. Nullam mollis mauris sed tempor suscipit. Nunc euismod maximus
-      tortor a tempor. Duis id elit varius, faucibus urna quis, tincidunt nisl. Donec suscipit blandit urna non sollicitudin.
-      Nunc lacus libero, vulputate id tortor at, consequat ultrices diam. Duis ultricies ligula ornare libero viverra malesuada.
-      Nam imperdiet lobortis eros. Morbi aliquam accumsan massa, quis pellentesque nunc rhoncus nec. Duis a massa cursus,
-      fermentum turpis a, viverra est. Etiam aliquet ac erat id ullamcorper. Morbi a mauris massa. Maecenas euismod est id
-      libero tempus, non efficitur elit aliquam. Phasellus ut bibendum arcu. Nam lacinia ligula eros, nec facilisis ante
-      porttitor at. Nullam mollis mauris sed tempor suscipit. Nunc euismod maximus tortor a tempor. Duis id elit varius,
-      faucibus urna quis, tincidunt nisl. Donec suscipit blandit urna non sollicitudin. Nunc lacus libero, vulputate id tortor
-      at, consequat ultrices diam. Duis ultricies ligula ornare libero viverra malesuada. Nam imperdiet lobortis eros. Morbi
-      aliquam accumsan massa, quis pellentesque nunc rhoncus nec. Duis a massa cursus, fermentum turpis a, viverra est. Etiam
-      aliquet ac erat id ullamcorper. Morbi a mauris massa. Maecenas euismod est id libero tempus, non efficitur elit aliquam.
-      Phasellus ut bibendum arcu. Nam lacinia ligula eros, nec facilisis ante porttitor at. Etiam efficitur enim eu congue
-      efficitur. Pellentesque felis elit, dictum ut orci sed, euismod mattis massa. Suspendisse et turpis dignissim, imperdiet
-      ligula quis, egestas ligula. Nullam elementum dolor nec augue pretium lobortis sit amet eu augue. Nam gravida turpis
-      at semper iaculis. Suspendisse tincidunt, nunc ut molestie tempus, nisl ligula blandit turpis, fermentum auctor mauris
-      turpis ut massa. Mauris erat libero, feugiat vitae interdum ac, tincidunt quis ligula. Donec varius sagittis eleifend.
-      Sed et sapien ac mauris porttitor ultricies. Pellentesque cursus efficitur ante. Pellentesque viverra odio purus. Curabitur
-      porttitor luctus tellus vitae scelerisque. Nullam dapibus venenatis consectetur. Maecenas maximus nunc euismod, tincidunt
-      massa eget, vestibulum sapien. Maecenas dignissim ultrices enim in placerat. Sed egestas mauris in nulla imperdiet,
-      et fermentum turpis mollis. Integer vitae mattis est. Etiam efficitur enim eu congue efficitur. Pellentesque felis
-      elit, dictum ut orci sed, euismod mattis massa. Suspendisse et turpis dignissim, imperdiet ligula quis, egestas ligula.
-      Nullam elementum dolor nec augue pretium lobortis sit amet eu augue. Nam gravida turpis at semper iaculis. Suspendisse
-      tincidunt, nunc ut molestie tempus, nisl ligula blandit turpis, fermentum auctor mauris turpis ut massa. Mauris erat
-      libero, feugiat vitae interdum ac, tincidunt quis ligula. Donec varius sagittis eleifend. Sed et sapien ac mauris porttitor
-      ultricies. Pellentesque cursus efficitur ante. Pellentesque viverra odio purus. Curabitur porttitor luctus tellus vitae
-      scelerisque. Nullam dapibus venenatis consectetur. Maecenas maximus nunc euismod, tincidunt massa eget, vestibulum
-      sapien. Maecenas dignissim ultrices enim in placerat. Sed egestas mauris in nulla imperdiet, et fermentum turpis mollis.
-      Integer vitae mattis est.
-    </section>
-  </article>
-  <div class="half-container-bottom hide-1200"></div>
-</div>
+  </div>
+  <section class="content container-1200">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam metus felis, porta et nibh quis, mollis tempus erat. In eget
+    tempus enim, sit amet accumsan dolor. Proin urna ante, aliquam at metus sed, euismod consectetur metus. Cras at porttitor
+    elit, vel dapibus metus. Ut sagittis consectetur erat consectetur tincidunt. Fusce non nibh sollicitudin, pretium augue
+    ac, ultrices sem. Sed aliquam tristique sapien at tempus. Aenean sed justo dignissim, volutpat felis eu, tristique sapien.
+    Nunc vitae orci eget sem aliquam rhoncus. Morbi molestie cursus magna, quis finibus libero mattis eu. Nullam mollis mauris
+    sed tempor suscipit. Nunc euismod maximus tortor a tempor. Duis id elit varius, faucibus urna quis, tincidunt nisl. Donec
+    suscipit blandit urna non sollicitudin. Nunc lacus libero, vulputate id tortor at, consequat ultrices diam. Duis ultricies
+    ligula ornare libero viverra malesuada. Nam imperdiet lobortis eros. Morbi aliquam accumsan massa, quis pellentesque
+    nunc rhoncus nec. Duis a massa cursus, fermentum turpis a, viverra est. Etiam aliquet ac erat id ullamcorper. Morbi a
+    mauris massa. Maecenas euismod est id libero tempus, non efficitur elit aliquam. Phasellus ut bibendum arcu. Nam lacinia
+    ligula eros, nec facilisis ante porttitor at. Nullam mollis mauris sed tempor suscipit. Nunc euismod maximus tortor a
+    tempor. Duis id elit varius, faucibus urna quis, tincidunt nisl. Donec suscipit blandit urna non sollicitudin. Nunc lacus
+    libero, vulputate id tortor at, consequat ultrices diam. Duis ultricies ligula ornare libero viverra malesuada. Nam imperdiet
+    lobortis eros. Morbi aliquam accumsan massa, quis pellentesque nunc rhoncus nec. Duis a massa cursus, fermentum turpis
+    a, viverra est. Etiam aliquet ac erat id ullamcorper. Morbi a mauris massa. Maecenas euismod est id libero tempus, non
+    efficitur elit aliquam. Phasellus ut bibendum arcu. Nam lacinia ligula eros, nec facilisis ante porttitor at. Nullam
+    mollis mauris sed tempor suscipit. Nunc euismod maximus tortor a tempor. Duis id elit varius, faucibus urna quis, tincidunt
+    nisl. Donec suscipit blandit urna non sollicitudin. Nunc lacus libero, vulputate id tortor at, consequat ultrices diam.
+    Duis ultricies ligula ornare libero viverra malesuada. Nam imperdiet lobortis eros. Morbi aliquam accumsan massa, quis
+    pellentesque nunc rhoncus nec. Duis a massa cursus, fermentum turpis a, viverra est. Etiam aliquet ac erat id ullamcorper.
+    Morbi a mauris massa. Maecenas euismod est id libero tempus, non efficitur elit aliquam. Phasellus ut bibendum arcu.
+    Nam lacinia ligula eros, nec facilisis ante porttitor at. Etiam efficitur enim eu congue efficitur. Pellentesque felis
+    elit, dictum ut orci sed, euismod mattis massa. Suspendisse et turpis dignissim, imperdiet ligula quis, egestas ligula.
+    Nullam elementum dolor nec augue pretium lobortis sit amet eu augue. Nam gravida turpis at semper iaculis. Suspendisse
+    tincidunt, nunc ut molestie tempus, nisl ligula blandit turpis, fermentum auctor mauris turpis ut massa. Mauris erat
+    libero, feugiat vitae interdum ac, tincidunt quis ligula. Donec varius sagittis eleifend. Sed et sapien ac mauris porttitor
+    ultricies. Pellentesque cursus efficitur ante. Pellentesque viverra odio purus. Curabitur porttitor luctus tellus vitae
+    scelerisque. Nullam dapibus venenatis consectetur. Maecenas maximus nunc euismod, tincidunt massa eget, vestibulum sapien.
+    Maecenas dignissim ultrices enim in placerat. Sed egestas mauris in nulla imperdiet, et fermentum turpis mollis. Integer
+    vitae mattis est. Etiam efficitur enim eu congue efficitur. Pellentesque felis elit, dictum ut orci sed, euismod mattis
+    massa. Suspendisse et turpis dignissim, imperdiet ligula quis, egestas ligula. Nullam elementum dolor nec augue pretium
+    lobortis sit amet eu augue. Nam gravida turpis at semper iaculis. Suspendisse tincidunt, nunc ut molestie tempus, nisl
+    ligula blandit turpis, fermentum auctor mauris turpis ut massa. Mauris erat libero, feugiat vitae interdum ac, tincidunt
+    quis ligula. Donec varius sagittis eleifend. Sed et sapien ac mauris porttitor ultricies. Pellentesque cursus efficitur
+    ante. Pellentesque viverra odio purus. Curabitur porttitor luctus tellus vitae scelerisque. Nullam dapibus venenatis
+    consectetur. Maecenas maximus nunc euismod, tincidunt massa eget, vestibulum sapien. Maecenas dignissim ultrices enim
+    in placerat. Sed egestas mauris in nulla imperdiet, et fermentum turpis mollis.
+  </section>
+</article>
+<div class="half-container-bottom hide-1200"></div>
 
 
 {{> footer}}

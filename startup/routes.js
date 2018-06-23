@@ -1,7 +1,6 @@
 const products = require('../routes/products');
 const cart = require('../routes/cart');
 const contact = require('../routes/contact');
-const about = require('../routes/about');
 const cartApi = require('../routes/api/cart');
 const cityApi = require('../routes/api/city');
 const productsApi = require('../routes/api/products');
@@ -31,7 +30,6 @@ module.exports = function(app) {
   app.use('/cart', cart);
   app.use('/news', news);
   app.use('/contact', contact);
-  app.use('/about', about);
   app.use('/info', info);
   app.use('/login', login);
   app.use('/logout', logout);

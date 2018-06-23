@@ -62,10 +62,8 @@ module.exports = function(app) {
         return (queryArray && !isIncludes) ? `${string}${queryArray[0]}=${queryArray[1]}` : string.slice(0, -1);
       },
 
-      transparentHeader: () => "['index', 'contact', 'about', 'news', 'new', 'info', 'products', 'product', 'cart', 'register', 'checkout']",
-      greyBody: () => "['index', 'orders', 'wishlist', 'news', 'new', 'info', 'products', 'product', 'cart', 'register', 'checkout', 'usermenumobile']",
-      borderFooter: () => "['orders', 'wishlist', 'news', 'new', 'info', 'products', 'product', 'cart', 'register', 'checkout']",
-      contentNoPadding: () => "['index', 'news', 'products', 'product']"
+      borderFooter: () => "['orders', 'wishlist', 'products', 'product', 'cart', 'register', 'checkout']",
+      contentNoPadding: () => "['index', 'news', 'products', 'product', 'cart']"
     }
   }));
 

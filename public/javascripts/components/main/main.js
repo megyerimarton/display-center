@@ -1,3 +1,4 @@
+require('./search');
 require('./load');
 require('./message');
 require('./used');

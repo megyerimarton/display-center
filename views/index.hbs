@@ -2,29 +2,6 @@
 
 
 <div class="background auto">
-  <form method="get" action="/products" class="searchBox" class="clickEffect">
-    <div class="zoomIcon">
-      <i class="material-icons" style="font-size: 27px">search</i>
-    </div>
-    <input type="text" id="search-main" name="search" class="search" placeholder="Keresés" autocomplete="off" />
-    <input type="submit" class="searchBtn" />
-    <div class="results hide" id="search-result">
-      <div class="content">
-        <a class="row none">
-          <i class="material-icons">info_outline</i>
-          Keressen rá kulcsszavakra
-        </a>
-      </div>
-      <div class="loader"></div>
-    </div>
-  </form>
-  <div class="bg-color">
-    <div class="box box-1"></div>
-    <div class="box box-2"></div>
-    <div class="box box-3"></div>
-    <div class="box box-4"></div>
-    <div class="box box-5"></div>
-  </div>
   <div class="promo-container">
     <div class="promotion active" data-id="1">
       <img src="/images/slide1.png" alt="">
@@ -44,46 +21,71 @@
     <div class="load-progress active1"></div>
   </div>
 </div>
-<div class="container-1500">
-  <div class="half-container half-container-main">
 
-    <div class="categories-container" data-simplebar>
-      <div class="header-text">Gyártók</div>
+<div class="categories-container" data-simplebar>
 
-      {{#each manufacturers}}
-      <a class="category" href="/products?manufacturer={{name}}">
-        <img src="/images/manufacturers/{{kep}}" />
-      </a>
-      {{/each}}
+  {{#each manufacturers}}
+  <a class="category" href="/products?manufacturer={{name}}">
+    <img src="/images/manufacturers/{{kep}}" />
+  </a>
+  {{/each}}
 
-    </div>
-    <div class="news-container">
+</div>
+
+<div class="bg-light">
+  <div class="container-1500">
+
+    <div class="news-container-outer">
       <div class="top">
-        <div class="header-text">Hírek / Tesztek</div>
+        <h2 class="extra-bold">Magazin</h2>
       </div>
-      <div class="news">
 
-        {{#each news}}
-        <div class="new">
-          <div class="new-top-image">
+      <div class="news-container">
+        <div class="new big">
+          <div class="share-button clickEffect">
+            <i class="material-icons">share</i>
+          </div>
+          <a href="/news/{{firstNew.id}}">
+            <div class="new-top-image">
+              <div class="date">
+                <p>{{dateFormat firstNew.datum}}</p>
+              </div>
+              <img src="images/news/{{#if firstNew.kep}}{{firstNew.kep}}{{else}}sample.png{{/if}}" alt="Kép" />
+            </div>
+            <div class="new-data-container">
+              <div class="new-title">
+                {{firstNew.cim}}
+              </div>
+              <div class="new-text">{{stripTags firstNew.tartalom}}</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="news">
+
+          {{#each news}}
+          <div class="new">
             <div class="share-button clickEffect">
               <i class="material-icons">share</i>
             </div>
-            <img src="images/news/{{#if kep}}{{kep}}{{else}}sample.png{{/if}}" alt="Kép" />
+            <a href="/news/{{id}}">
+              <div class="new-top-image">
+                <div class="date">
+                  <p>{{dateFormat datum}}</p>
+                </div>
+                <img src="images/news/{{#if kep}}{{kep}}{{else}}sample.png{{/if}}" alt="Kép" />
+              </div>
+              <div class="new-data-container">
+                <div class="new-title">
+                  {{cim}}
+                </div>
+                <div class="new-text">{{stripTags tartalom}}</div>
+              </div>
+            </a>
           </div>
-          <div class="new-title">
-            <div class="left">
-              <div class="content">{{cim}}</div>
-            </div>
-            <div class="right">{{dateFormat datum}}</div>
-          </div>
-          <div class="new-text">{{stripTags tartalom}}</div>
-          <div class="new-bottom">
-            <a class="btn-more clickEffect" href="/news/{{id}}">Tovább</a>
-          </div>
-        </div>
-        {{/each}}
+          {{/each}}
 
+        </div>
       </div>
       <div class="bottom">
         <a class="btn-1" href="/news">Korábbi hírek</a>
@@ -100,13 +102,15 @@
       <div class="badge discount">
         <p></p>
       </div>
-      <h2>Akciós termékek</h2>
+      <h2 class="extra-bold">Akció</h2>
     </div>
     <div class="boxContainer" id="saleProducts">
 
       {{#each saleProducts}}
       <div class="item" id="item{{id}}">
-        <div class="discount">{{savePercent ar akcios_ar}}%</div>
+        <div class="badge inverse discount">
+          <p>{{savePercent ar akcios_ar}}</p>
+        </div>
         <a href="/products/{{id}}">
           <img class="itemImg" id="itemImg{{ id }}" src="/images/products/{{kep1}}" />
           <div class="productDescription">
@@ -134,7 +138,7 @@
       <div class="badge new">
         <p></p>
       </div>
-      <h2>Legújabb termékek</h2>
+      <h2 class="extra-bold">Újdonság</h2>
     </div>
     <div class="boxContainer" id="newProducts">
 
@@ -176,6 +180,4 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/javascripts/home.bundle.js"></script>
-
-{{> footer }}
+<script type="text/javascript" src="/javascripts/home.bundle.js"></script> {{> footer }}

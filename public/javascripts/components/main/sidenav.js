@@ -2,7 +2,7 @@ const nav = document.querySelector('#sidenav');
 const body = document.querySelector('body');
 
 
-document.querySelector('.openBtn').addEventListener('click', () => {
+document.querySelector('.open-btn').addEventListener('click', () => {
   body.classList.add('disableScroll');
   nav.classList.add('sideVisible');
 });

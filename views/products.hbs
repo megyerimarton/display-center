@@ -1,172 +1,142 @@
 {{> header }}
 
-<div class="background">
-  <div class="bg-color">
-    <div class="box box-1"></div>
-    <div class="box box-2"></div>
-    <div class="box box-3"></div>
-    <div class="box box-4"></div>
-    <div class="box box-5"></div>
-  </div>
-</div>
-
 <div class="products-container">
-  <div class="container-1500">
-    <div id="filtersBar">
+
+  <div id="filtersBar">
 
     {{#if products}}
-      <div id="filtersContainer">
-        <div class="fItem clickEffect" id="order">
-          <i class="material-icons" style="font-size:18px">local_offer</i>Rendezés
-          <i class="material-icons arrowDropDown">arrow_drop_down</i>
-        </div>
-        <!-- Sorting -->
-        <div class="fDropdown" id="orderDropdown">
-          <a class="listItem clickEffect" id="priceUp" href="/products{{queryTransform query 'order=ar'}}">
-            <i class="material-icons">vertical_align_top</i>Ár szerint növekvő</a>
-          <a class="listItem clickEffect" id="priceDown" href="/products{{queryTransform query 'order=ar desc'}}">
-            <i class="material-icons">vertical_align_bottom</i>Ár szerint csökkenő</a>
-          <a class="listItem clickEffect" id="priceDown" href="/products{{queryTransform query 'order=gyarto'}}">
-            <i class="material-icons">vertical_align_top</i>Név szerint növekvő</a>
-          <a class="listItem clickEffect" id="priceDown" href="/products{{queryTransform query 'order=gyarto desc'}}">
-            <i class="material-icons">vertical_align_bottom</i>Név szerint csökkenő</a>
-        </div>
-        <!-- Sorting end -->
-        <div class="fItem clickEffect" id="filter">
-          <i class="material-icons" style="font-size:22px">filter_list</i>Szűrés</div>
+    <div id="filtersContainer">
+      <div class="fItem clickEffect" id="order">
+        <i class="material-icons" style="font-size:18px">local_offer</i>Rendezés
+        <i class="material-icons arrowDropDown">arrow_drop_down</i>
       </div>
-      <!-- Filter -->
-      <div class="filtersPopup">
-        <div class="fHeader">
-          <i class="material-icons clickEffect" id="fClose">clear</i>
-          <p class="hText">Szűrés</p>
-          <a class="resetFilters clickEffect" href="/products">Szűrők törlése</a>
-        </div>
-        <form class="style1" method="GET" action="/products">
-          <input type="hidden" name="search" value="{{query.search}}"/>
-          <div class="fContent">
-            <div class="row">
-              <div class="label">Gyártók</div>
-              <select name="manufacturer">
-                <option value="">Összes</option>
-
-                {{#each manufacturers}}
-                <option value="{{name}}" {{#if ../query.manufacturer}}{{#is ../query.manufacturer name}}selected="selected"{{/is}}{{/if}}>{{name}}</option>
-                {{/each}}
-
-              </select>
-            </div>
-
-            <div class="row">
-              <div class="label">Ár</div>
-              <div class="range-slider">
-                <div class="title">
-                  <div class="from" id="price-range-from-1">
-                    {{#if query.priceFrom}}{{numberFormat query.priceFrom}}
-                    {{else}}{{numberFormat filter.price.min}}
-                    {{/if}}
-                  </div>
-                  &nbsp;-&nbsp;
-                  <div class="to" id="price-range-to-1">
-                    {{#if query.priceTo}}{{numberFormat query.priceTo}}
-                    {{else}}{{numberFormat filter.price.max}}
-                    {{/if}}
-                  </div>
-                  &nbsp;Ft
-                </div>
-                <div class="bar-wrapper">
-                  <div class="range-bar" id="range-bar-1"></div>
-                  <input id="price-range-1" type="range" multiple name="priceFrom" min="{{filter.price.min}}" max="{{filter.price.max}}" step="1" value="{{#if query.priceFrom}}{{query.priceFrom}}{{else}}{{filter.price.min}}{{/if}}" />
-                  <input id="price-range-2" type="range" multiple name="priceTo" min="{{filter.price.min}}" max="{{filter.price.max}}" step="1" value="{{#if query.priceTo}}{{query.priceTo}}{{else}}{{filter.price.max}}{{/if}}" />
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="label">Képernyő átmérő</div>
-              <div class="range-slider">
-                <div class="title">
-                  <div class="from" id="size-range-from-1">
-                    {{#if query.sizeFrom}}{{query.sizeFrom}}
-                    {{else}}{{filter.size.min}}
-                    {{/if}}
-                  </div>
-                  &nbsp;-&nbsp;
-                  <div class="to" id="size-range-to-1">
-                    {{#if query.sizeTo}}{{query.sizeTo}}
-                    {{else}}{{filter.size.max}}
-                    {{/if}}
-                  </div>
-                </div>
-                <div class="bar-wrapper">
-                  <div class="range-bar" id="range-bar-2"></div>
-                  <input id="size-range-1" type="range" multiple name="sizeFrom" min="{{filter.size.min}}" max="{{filter.size.max}}" step="1" value="{{#if query.sizeFrom}}{{query.sizeFrom}}{{else}}{{filter.size.min}}{{/if}}" />
-                  <input id="size-range-2" type="range" multiple name="sizeTo" min="{{filter.size.min}}" max="{{filter.size.max}}" step="1" value="{{#if query.sizeTo}}{{query.sizeTo}}{{else}}{{filter.size.max}}{{/if}}" />
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="label">Garancia</div>
-              <div class="range-slider">
-                <div class="title">
-                  <div class="from" id="warranty-range-from-1">
-                    {{#if query.warrantyFrom}}{{query.warrantyFrom}}
-                    {{else}}{{filter.warranty.min}}
-                    {{/if}}
-                  </div>
-                  &nbsp;-&nbsp;
-                  <div class="to" id="warranty-range-to-1">
-                    {{#if query.warrantyTo}}{{query.warrantyTo}}
-                    {{else}}{{filter.warranty.max}}
-                    {{/if}}
-                  </div>
-                </div>
-                <div class="bar-wrapper">
-                  <div class="range-bar" id="range-bar-3"></div>
-                  <input id="warranty-range-1" type="range" multiple name="warrantyFrom" min="{{filter.warranty.min}}" max="{{filter.warranty.max}}" step="1" value="{{#if query.warrantyFrom}}{{query.warrantyFrom}}{{else}}{{filter.warranty.min}}{{/if}}" />
-                  <input id="warranty-range-2" type="range" multiple name="warrantyTo" min="{{filter.warranty.min}}" max="{{filter.warranty.max}}" step="1" value="{{#if query.warrantyTo}}{{query.warrantyTo}}{{else}}{{filter.warranty.max}}{{/if}}" />
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="bottom">
-            <input type="submit" value="Szűrés" />
-          </div>
-        </form>
+      <!-- Sorting -->
+      <div class="fDropdown" id="orderDropdown">
+        <a class="listItem clickEffect" id="priceUp" href="/products{{queryTransform query 'order=ar'}}">
+          <i class="material-icons">vertical_align_top</i>Ár szerint növekvő</a>
+        <a class="listItem clickEffect" id="priceDown" href="/products{{queryTransform query 'order=ar desc'}}">
+          <i class="material-icons">vertical_align_bottom</i>Ár szerint csökkenő</a>
+        <a class="listItem clickEffect" id="priceDown" href="/products{{queryTransform query 'order=gyarto'}}">
+          <i class="material-icons">vertical_align_top</i>Név szerint növekvő</a>
+        <a class="listItem clickEffect" id="priceDown" href="/products{{queryTransform query 'order=gyarto desc'}}">
+          <i class="material-icons">vertical_align_bottom</i>Név szerint csökkenő</a>
       </div>
+      <!-- Sorting end -->
+      <div class="fItem clickEffect" id="filter">
+        <i class="material-icons" style="font-size:22px">filter_list</i>Szűrés</div>
+    </div>
+    <!-- Filter -->
+    <div class="filtersPopup">
+      <div class="fHeader">
+        <i class="material-icons clickEffect" id="fClose">clear</i>
+        <p class="hText">Szűrés</p>
+        <a class="resetFilters clickEffect" href="/products">Szűrők törlése</a>
+      </div>
+      <form class="style1" method="GET" action="/products">
+        <input type="hidden" name="search" value="{{query.search}}" />
+        <div class="fContent">
+          <div class="row">
+            <div class="label">Gyártók</div>
+            <select name="manufacturer">
+              <option value="">Összes</option>
+
+              {{#each manufacturers}}
+              <option value="{{name}}" {{#if ../query.manufacturer}}{{#is ../query.manufacturer name}}selected="selected" {{/is}}{{/if}}>{{name}}</option>
+              {{/each}}
+
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="label">Ár</div>
+            <div class="range-slider">
+              <div class="title">
+                <div class="from" id="price-range-from-1">
+                  {{#if query.priceFrom}}{{numberFormat query.priceFrom}} {{else}}{{numberFormat filter.price.min}} {{/if}}
+                </div>
+                &nbsp;-&nbsp;
+                <div class="to" id="price-range-to-1">
+                  {{#if query.priceTo}}{{numberFormat query.priceTo}} {{else}}{{numberFormat filter.price.max}} {{/if}}
+                </div>
+                &nbsp;Ft
+              </div>
+              <div class="bar-wrapper">
+                <div class="range-bar" id="range-bar-1"></div>
+                <input id="price-range-1" type="range" multiple name="priceFrom" min="{{filter.price.min}}" max="{{filter.price.max}}" step="1"
+                  value="{{#if query.priceFrom}}{{query.priceFrom}}{{else}}{{filter.price.min}}{{/if}}" />
+                <input id="price-range-2" type="range" multiple name="priceTo" min="{{filter.price.min}}" max="{{filter.price.max}}" step="1"
+                  value="{{#if query.priceTo}}{{query.priceTo}}{{else}}{{filter.price.max}}{{/if}}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="label">Képernyő átmérő</div>
+            <div class="range-slider">
+              <div class="title">
+                <div class="from" id="size-range-from-1">
+                  {{#if query.sizeFrom}}{{query.sizeFrom}} {{else}}{{filter.size.min}} {{/if}}
+                </div>
+                &nbsp;-&nbsp;
+                <div class="to" id="size-range-to-1">
+                  {{#if query.sizeTo}}{{query.sizeTo}} {{else}}{{filter.size.max}} {{/if}}
+                </div>
+              </div>
+              <div class="bar-wrapper">
+                <div class="range-bar" id="range-bar-2"></div>
+                <input id="size-range-1" type="range" multiple name="sizeFrom" min="{{filter.size.min}}" max="{{filter.size.max}}" step="1"
+                  value="{{#if query.sizeFrom}}{{query.sizeFrom}}{{else}}{{filter.size.min}}{{/if}}" />
+                <input id="size-range-2" type="range" multiple name="sizeTo" min="{{filter.size.min}}" max="{{filter.size.max}}" step="1"
+                  value="{{#if query.sizeTo}}{{query.sizeTo}}{{else}}{{filter.size.max}}{{/if}}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="label">Garancia</div>
+            <div class="range-slider">
+              <div class="title">
+                <div class="from" id="warranty-range-from-1">
+                  {{#if query.warrantyFrom}}{{query.warrantyFrom}} {{else}}{{filter.warranty.min}} {{/if}}
+                </div>
+                &nbsp;-&nbsp;
+                <div class="to" id="warranty-range-to-1">
+                  {{#if query.warrantyTo}}{{query.warrantyTo}} {{else}}{{filter.warranty.max}} {{/if}}
+                </div>
+              </div>
+              <div class="bar-wrapper">
+                <div class="range-bar" id="range-bar-3"></div>
+                <input id="warranty-range-1" type="range" multiple name="warrantyFrom" min="{{filter.warranty.min}}" max="{{filter.warranty.max}}"
+                  step="1" value="{{#if query.warrantyFrom}}{{query.warrantyFrom}}{{else}}{{filter.warranty.min}}{{/if}}" />
+                <input id="warranty-range-2" type="range" multiple name="warrantyTo" min="{{filter.warranty.min}}" max="{{filter.warranty.max}}"
+                  step="1" value="{{#if query.warrantyTo}}{{query.warrantyTo}}{{else}}{{filter.warranty.max}}{{/if}}" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="bottom">
+          <input type="submit" value="Szűrés" />
+        </div>
+      </form>
+    </div>
     {{/if}}
 
-    </div>
-    <!-- Filter end -->
+  </div>
+  <!-- Filter end -->
 
-    <form method="get" action="/products" id="searchContainer">
-      <div id="searchBar" class="clickEffect">
-        <i class="material-icons">search</i>
-        <input type="text" name="search" id="searchInput" placeholder="Keresés" />
-      </div>
-      <div id="searchIcon" class="clickEffect">
-        <div class="searchCircle"></div>
-        <div class="searchLine"></div>
-        <input type="submit" value="" class="searchBtn" />
-      </div>
-    </form>
+  <div class="container-1500">
 
     <div id="products">
 
-      {{#if products}}
-
-      {{#each products}}
+      {{#if products}} {{#each products}}
       <div class="item" data-id="{{id}}">
 
         {{#if akcios_ar}}
         <div class="badge discount">
           <p></p>
         </div>
-        {{/if}}
-
-        {{#if ujtermek}}
+        {{/if}} {{#if ujtermek}}
         <div class="badge new {{#if akcios_ar}}toright{{/if}}">
           <p></p>
         </div>
@@ -213,9 +183,7 @@
           <i class="material-icons"></i>
         </div>
       </div>
-      {{/each}}
-
-      {{else}}
+      {{/each}} {{else}}
       <div class="searchEmpty">
         <div class="text">Nincs a keresésnek megfelelő találat.</div>
         <i class="material-icons">highlight_off</i>
@@ -248,7 +216,4 @@
 </div>
 
 
-<script type="text/javascript" src="/javascripts/products.bundle.js"></script>
-
-
-{{> footer }}
+<script type="text/javascript" src="/javascripts/products.bundle.js"></script> {{> footer }}

@@ -24,75 +24,97 @@
   <link rel="shortcut icon" type="image/x-icon" href="https://display-center.herokuapp.com/images/favicon.png">
 </head>
 
-<body {{#contains page (greyBody)}}class="bg-grey" {{/contains}}>
+<body>
 
-  {{> loader}}
+  {{> loader}} {{> sidenav}} {{> login}} {{> modals}} {{> messages}}
 
-    {{> sidenav}} {{> login}} {{> modals}} {{> messages}}
+  <header>
+    <div class="col-3">
+      <div id="logo">
+        <a class="clickEffect" href="/">
+          DisplayCenter
+        </a>
+      </div>
+    </div>
 
-    <div id="headerContainer" {{#contains page (transparentHeader)}}class="main" {{/contains}}>
-      <header {{#contains page (transparentHeader)}}class="transparent" {{/contains}}>
-        <div id="logo">
-          <a class="clickEffect" href="/">
-            DisplayCenter
+    <div class="col-3 align-items-center">
+      <form method="get" action="/products" class="searchBox" class="clickEffect">
+        <div class="zoomIcon">
+          <i class="material-icons" style="font-size: 27px">search</i>
+        </div>
+        <input type="text" id="search-main" name="search" class="search" placeholder="Keresés" autocomplete="off" />
+        <input type="submit" class="searchBtn" />
+        <div class="results hide" id="search-result">
+          <div class="content">
+            <a class="row none">
+              <i class="material-icons">info_outline</i>
+              Keressen rá kulcsszavakra
+            </a>
+          </div>
+          <div class="loader"></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-3 justify-content-end">
+      <div class="nav-container">
+        <nav>
+          <a class="menuitem" href="/products">
+            <p>termékek</p>
           </a>
-        </div>
-        <div id="navContainer">
-          <nav>
-            <a class="menuitem" href="/products">
-              <p>termékek</p>
-            </a>
-            <a class="menuitem {{#if cartSize}}show{{/if}}" id="menuitem_cart" data-counter="{{ cartSize }}" href="/cart">
-              <p>kosár</p>
-            </a>
-            <a class="menuitem" href="/contact">
-              <p>kapcsolat</p>
-            </a>
-            <a class="menuitem" href="/about">
-              <p>rólunk</p>
-            </a>
-            <a class="cartBtn {{#if cartSize}} show{{/if}}" id="menuitem_cart_mobile" data-counter="{{cartSize}}" href="/cart">
-              <i class="material-icons">shopping_cart</i>
-            </a>
-            <a class="openBtn">
-              <div class="sandwichContainer">
-                <div class="sandwich" id="s1"></div>
-                <div class="sandwich" id="s2"></div>
-                <div class="sandwich" id="s3"></div>
-                <div class="sandwich" id="s4"></div>
-              </div>
-            </a>
-          </nav>
-        </div>
-        <div id="accountBox">
-          <div id="accountContainer">
-            <a class="accountBtn">Saját fiók</a>
-            <div id="dropdown">
-
-              {{#unless user}}
-              <a class="loginBtn clickEffect">
-                <i class="material-icons" style="font-size:22px">account_circle</i>bejelentkezés</a>
-              <a class="clickEffect" href="/register">
-                <i class="material-icons">group_add</i>regisztráció</a>
-              {{/unless}} {{#if user}} {{#unless user.isAdmin}}
-              <a class="userPageDesktop clickEffect" href="/user/orders">
-                <i class="material-icons">settings</i>fiók beállítások</a>
-              <a class="userPageMobile clickEffect" href="/user/usermenumobile">
-                <i class="material-icons">settings</i>fiók beállítások</a>
-              {{/unless}} {{/if}} {{#if user}} {{#if user.isAdmin}}
-              <a class="userPageDesktop clickEffect" href="/admin/dashboard">
-                <i class="material-icons">settings</i>vezérlőpult</a>
-              <a class="userPageMobile clickEffect" href="/admin/adminmenumobile">
-                <i class="material-icons">settings</i>vezérlőpult</a>
-              {{/if}}
-
-              <a class="clickEffect" href="/logout">
-                <i class="material-icons">input</i>kijelentkezés</a>
-              {{/if}}
-
+          <a class="menuitem" href="/news">
+            <p>magazin</p>
+          </a>
+          <a class="menuitem" href="/contact">
+            <p>kapcsolat</p>
+          </a>
+          <a class="cart-btn {{#if cartSize}} show{{/if}}" id="menuitem_cart_mobile" data-counter="{{cartSize}}" href="/cart">
+            <i class="material-icons">shopping_cart</i>
+          </a>
+          <a class="open-btn">
+            <div class="sandwichContainer">
+              <div class="sandwich" id="s1"></div>
+              <div class="sandwich" id="s2"></div>
+              <div class="sandwich" id="s3"></div>
+              <div class="sandwich" id="s4"></div>
             </div>
+          </a>
+        </nav>
+      </div>
+
+      <div class="account-container-outer">
+        <div class="account-container">
+          <a class="accountBtn">
+            <p>saját fiók</p>
+            <i class="material-icons">account_circle</i>
+          </a>
+          <div id="dropdown">
+
+            {{#unless user}}
+            <a class="loginBtn clickEffect">
+              <i class="material-icons" style="font-size:22px">account_circle</i>bejelentkezés</a>
+            <a class="clickEffect" href="/register">
+              <i class="material-icons">group_add</i>regisztráció</a>
+            {{/unless}} {{#if user}} {{#unless user.isAdmin}}
+            <a class="userPageDesktop clickEffect" href="/user/orders">
+              <i class="material-icons">settings</i>fiók beállítások</a>
+            <a class="userPageMobile clickEffect" href="/user/usermenumobile">
+              <i class="material-icons">settings</i>fiók beállítások</a>
+            {{/unless}} {{/if}} {{#if user}} {{#if user.isAdmin}}
+            <a class="userPageDesktop clickEffect" href="/admin/dashboard">
+              <i class="material-icons">settings</i>vezérlőpult</a>
+            <a class="userPageMobile clickEffect" href="/admin/adminmenumobile">
+              <i class="material-icons">settings</i>vezérlőpult</a>
+            {{/if}}
+
+            <a class="clickEffect" href="/logout">
+              <i class="material-icons">input</i>kijelentkezés</a>
+            {{/if}}
+
           </div>
         </div>
-      </header>
+      </div>
     </div>
-    <div id="content" {{#contains page (contentNoPadding)}} class="no-padding" {{/contains}}>
+  </header>
+
+  <div id="content" {{#contains page (contentNoPadding)}} class="no-padding" {{/contains}}>
