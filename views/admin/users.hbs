@@ -41,23 +41,26 @@
       </div>
       {{/each}}
 
+     {{#if users}}
       <div class="pagination">
 
-        {{#if pagination.prev}}
-        <a href="/admin/users?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
-        {{else}}
-        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
-        {{/if}}
+        <a href="/admin/users{{queryTransform query (add 'p=' pagination.prev)}}" class="prev {{#unless pagination.prev}}inactive{{/unless}}">
+          <i class="material-icons">keyboard_arrow_left</i>
+        </a>
 
-        <a href="/admin/users?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+        <a href="/admin/users{{queryTransform query (add 'p=' pagination.next)}}" class="next {{#unless pagination.next}}inactive{{/unless}}">
+          <i class="material-icons">keyboard_arrow_right</i>
+        </a>
 
-        {{#if pagination.next}}
-        <a href="/admin/users?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
-        {{else}}
-        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
-        {{/if}}
+        <div class="pagination-pages">
+          <input type="number" name="p" value="{{pagination.actual}}" class="pagination-pages-input">
+          <span class="pagination-pages-separator">/</span>
+          <span class="pagination-pages-all">{{pagination.pages}}</span>
+        </div>
 
       </div>
+      {{/if}}
+
     </div>
   </div>
 </div>

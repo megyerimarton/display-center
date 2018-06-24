@@ -1,4 +1,4 @@
-<div id="modal-login" {{#if action}}class="active"{{/if}}>
+<div id="modal-login" {{#is query.action 'tryagain'}}class="active"{{/is}}>
   <div id="login">
     <div id="loginHeader">
       <i class="material-icons">account_circle</i>

@@ -21,13 +21,24 @@
 
   <link rel="stylesheet" href="/stylesheets/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="shortcut icon" type="image/x-icon" href="https://display-center.herokuapp.com/images/favicon.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png">
 </head>
 
 <body>
 
   {{> loader}} {{> sidenav}} {{> login}} {{> modals}} {{> messages}}
 
+  <div class="top-header">
+    <div class="col">
+      <li class="top-header-item">
+        <i class="material-icons">location_on</i>Kossuth tér 1, Budapest, 1055</li>
+      <li class="top-header-item">
+        <i class="material-icons">access_time</i>H-P: 10:00 - 20:00 Szo: 12:00 - 16:00</li>
+    </div>
+    <div class="col">
+      <p class="username">{{#if user}}{{user.username}}{{/if}}</p>
+    </div>
+  </div>
   <header>
     <div class="col-3">
       <div id="logo">
@@ -68,7 +79,7 @@
           <a class="menuitem" href="/contact">
             <p>kapcsolat</p>
           </a>
-          <a class="cart-btn {{#if cartSize}} show{{/if}}" id="menuitem_cart_mobile" data-counter="{{cartSize}}" href="/cart">
+          <a class="cart-btn {{#if cartSize}} show{{/if}}" id="menuitem_cart_mobile" data-cartcounter="{{cartSize}}" href="/cart">
             <i class="material-icons">shopping_cart</i>
           </a>
           <a class="open-btn">

@@ -13,20 +13,20 @@ document.querySelectorAll('.share-button').forEach(item => {
 });
 
 
-const newsSlider = tns({
-  container: '.news',
+const mainProductSlider = tns({
+  container: '#mainProducts',
   mouseDrag: true,
-  speed: 400,
+  speed: 500,
   controls: false,
   loop: false,
   nav: false,
-  fixedWidth: 235
+  fixedWidth: 350
 });
 
 const saleSlider = tns({
   container: '#saleProducts',
   mouseDrag: true,
-  speed: 400,
+  speed: 500,
   controls: false,
   loop: false,
   nav: false,
@@ -36,7 +36,7 @@ const saleSlider = tns({
 const newProductSlider = tns({
   container: '#newProducts',
   mouseDrag: true,
-  speed: 400,
+  speed: 500,
   controls: false,
   loop: false,
   nav: false,

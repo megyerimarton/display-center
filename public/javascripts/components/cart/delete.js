@@ -1,5 +1,4 @@
 const updatePrice = require('./updatePrice');
-const addToCart = require('../shared/addtocart');
 
 
 module.exports = function(item) {
@@ -27,15 +26,12 @@ module.exports = function(item) {
       credentials: 'include'
     }).then(res => console.log(res.json()));
 
-    const counter = document.querySelector('#menuitem_cart');
-    const counterMobile = document.querySelector('#menuitem_cart_mobile');
+    const counter = document.querySelector('#menuitem_cart_mobile');
 
-    counter.dataset.counter--;
-    counterMobile.dataset.counter--;
+    counter.dataset.cartcounter--;
 
-    if (+counter.dataset.counter === 0) {
+    if (+counter.dataset.cartcounter === 0) {
       counter.classList.remove('show');
-      counterMobile.classList.remove('show');
     }
   });
 };

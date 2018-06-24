@@ -19,7 +19,7 @@ document.querySelector('.arrow.left').addEventListener('click', () => {
 
 function nextPromotion() {
   const active = +container.querySelector('.active').dataset.id;
-  const next = (active < 3) ? active + 1 : 1;
+  const next = (active < 2) ? active + 1 : 1;
 
   container.querySelectorAll('.promotion').forEach(item => {
     (+item.dataset.id === next) ? item.classList.add('active') : item.classList.remove('active');
@@ -28,7 +28,7 @@ function nextPromotion() {
 
 function prevPromotion() {
   const active = +container.querySelector('.active').dataset.id;
-  const prev = (active > 1) ? active - 1 : 3;
+  const prev = (active > 1) ? active - 1 : 2;
 
   container.querySelectorAll('.promotion').forEach(item => {
     (+item.dataset.id === prev) ? item.classList.add('active') : item.classList.remove('active');

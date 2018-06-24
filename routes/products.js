@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  let sql = `SELECT id, gyarto, termek, ar, akcios_ar, kep1, felbontas, keparany, valaszido, szinmegjelenites, atmero, IF(id > (SELECT MAX(id) FROM product) - 5, true, false) AS ujtermek FROM product_view WHERE aktiv = 1`;
+  let sql = `SELECT id, gyarto, termek, ar, akcios_ar, kiemelt, kep1, felbontas, keparany, valaszido, szinmegjelenites, atmero, IF(id > (SELECT MAX(id) FROM product) - 5, true, false) AS ujtermek FROM product_view WHERE aktiv = 1`;
 
   // Filter
   if (req.query.search) {
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
   if (req.query.order) sql += ` ORDER BY ${req.query.order}`;
   // Filter end
 
-  let n = await pool.query(sql)
+  let n = await pool.query(sql);
   n = n.length;
 
   const page = +req.query.p ? +req.query.p : 1;
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
   sql += ` LIMIT ${limit} OFFSET ${offset}`;
 
-  const result = await pool.query(sql)
+  const result = await pool.query(sql);
   const manufacturers = await pool.query('SELECT * FROM gyarto');
   const minMaxPrice = await pool.query('SELECT MIN(ar) AS "min", MAX(ar) AS "max" FROM product');
   const minMaxSize = await pool.query('SELECT MIN(CAST(property_description.description AS UNSIGNED)) AS "min", MAX(CAST(property_description.description AS UNSIGNED)) AS "max" FROM property_description WHERE property_description.property_id = 1;');
@@ -69,7 +69,8 @@ router.get('/', async (req, res) => {
     pagination: {
       actual: page,
       prev: (page > 1) ? page - 1 : null,
-      next: (page < pages) ? page + 1 : null
+      next: (page < pages) ? page + 1 : null,
+      pages
     }
   });
 });

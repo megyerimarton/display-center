@@ -44,9 +44,18 @@ module.exports = function(app) {
       },
 
       queryTransform: (object, query) => {
+        let string = '?';
+
+        if (!query) {
+          for (const key in object) {
+            if (object.hasOwnProperty(key)) {
+              string += `${key}=${object[key]}&`;
+            }
+          }
+          return string;
+        }
         const queryArray = (typeof query === 'string') ? query.split('=') : null;
 
-        let string = '?';
         let isIncludes = false;
 
         for (const key in object) {
@@ -62,7 +71,6 @@ module.exports = function(app) {
         return (queryArray && !isIncludes) ? `${string}${queryArray[0]}=${queryArray[1]}` : string.slice(0, -1);
       },
 
-      borderFooter: () => "['orders', 'wishlist', 'products', 'product', 'cart', 'register', 'checkout']",
       contentNoPadding: () => "['index', 'news', 'products', 'product', 'cart']"
     }
   }));

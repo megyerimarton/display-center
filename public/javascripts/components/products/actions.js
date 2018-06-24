@@ -2,8 +2,7 @@ const addToCart = require('../shared/addtocart');
 const addToWish = require('../shared/addtowish');
 
 
-const cartCounter = document.querySelector('#menuitem_cart');
-const cartCounterMobile = document.querySelector('#menuitem_cart_mobile');
+const cartCounter = document.querySelector('#menuitem_cart_mobile');
 const moreModal = document.querySelector('#moreModal');
 const orderDropdown = document.querySelector('#orderDropdown');
 const filtersPopup = document.querySelector('.filtersPopup');
@@ -37,9 +36,7 @@ document.querySelectorAll('.item').forEach(item => {
 
     addToCart(item.dataset.id).then(data => {
       cartCounter.classList.add('show');
-      cartCounterMobile.classList.add('show');
-      cartCounter.dataset.counter = data.size;
-      cartCounterMobile.dataset.counter = data.size;
+      cartCounter.dataset.cartcounter = data.size;
     });
 
     setTimeout(() => animationContainer.classList.remove('active', 'cart', 'wish'), 1000);

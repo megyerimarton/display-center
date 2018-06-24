@@ -17,8 +17,9 @@
 
       {{#each products}}
 			<div class="line" data-id="{{id}}">
-				<div class="box w-40"><span class="bold">{{id}}</span>&nbsp&nbsp&nbsp<p>{{gyarto}} {{termek}}</p></div>
-				<div class="box status w-20"><i class="material-icons status">info</i><p>{{#is aktiv 1}}{{../allapot}}{{else}}Archív{{/is}}</p></div>
+				<div class="box w-30"><span class="bold">{{id}}</span>&nbsp&nbsp&nbsp<p>{{gyarto}} {{termek}}</p></div>
+				<div class="box status w-10"><i class="material-icons status">info</i><p>{{#is aktiv 1}}{{../allapot}}{{else}}Archív{{/is}}</p></div>
+				<div class="box status w-10"><p>{{#is kiemelt 1}}Kiemelt{{/is}}</p></div>
 				<div class="box price w-20"><p>
 				{{#if akcios_ar}}<span class="line-through">{{numberFormat ar}} Ft  </span>{{/if}}
 				<span class="{{#if akcios_ar}}red{{/if}}">{{#if akcios_ar}}{{numberFormat akcios_ar}}{{else}}{{numberFormat ar}}{{/if}} Ft</span></p></div>
@@ -30,23 +31,25 @@
 			</div>
       {{/each}}
 
+      {{#if products}}
       <div class="pagination">
 
-        {{#if pagination.prev}}
-        <a href="/admin/products?p={{pagination.prev}}" class="btn-1 inactive">{{pagination.prev}}</a>
-        {{else}}
-        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
-        {{/if}}
+        <a href="/admin/products{{queryTransform query (add 'p=' pagination.prev)}}" class="prev {{#unless pagination.prev}}inactive{{/unless}}">
+          <i class="material-icons">keyboard_arrow_left</i>
+        </a>
 
-        <a href="/admin/products?p={{pagination.actual}}" class="btn-1">{{pagination.actual}}</a>
+        <a href="/admin/products{{queryTransform query (add 'p=' pagination.next)}}" class="next {{#unless pagination.next}}inactive{{/unless}}">
+          <i class="material-icons">keyboard_arrow_right</i>
+        </a>
 
-        {{#if pagination.next}}
-        <a href="/admin/products?p={{pagination.next}}" class="btn-1 inactive">{{pagination.next}}</a>
-        {{else}}
-        <a href="" class="btn-1 hidden">{{pagination.actual}}</a>
-        {{/if}}
+        <div class="pagination-pages">
+          <input type="number" name="p" value="{{pagination.actual}}" class="pagination-pages-input">
+          <span class="pagination-pages-separator">/</span>
+          <span class="pagination-pages-all">{{pagination.pages}}</span>
+        </div>
 
       </div>
+      {{/if}}
     </div>
   </div>
 </div>

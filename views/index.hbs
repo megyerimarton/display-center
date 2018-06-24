@@ -2,23 +2,33 @@
 
 
 <div class="background auto">
-  <div class="promo-container">
-    <div class="promotion active" data-id="1">
-      <img src="/images/slide1.png" alt="">
+  <img class="bg-image" src="/images/background.jpg"></img>
+  <div class="container-1500 w-100 h-100">
+    <div class="promo-container">
+      <div class="promotion active" data-id="1">
+        <div class="col">
+          <p class="big">Professzionális monitorok</p>
+          <p class="small">gamereknek, designereknek</p>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="promotion" data-id="2">
+        <div class="col">
+          <img src="/images/spring_sale.png" alt="spring sale" class="w-80">
+        </div>
+        <div class="col">
+          <p class="big">Tavaszi árzuhanás!</p>
+          <p class="small">Tekintsd meg akciós termékeinket.</p>
+        </div>
+      </div>
+      <div class="arrow left">
+        <i class="material-icons clickEffect">keyboard_arrow_left</i>
+      </div>
+      <div class="arrow right">
+        <i class="material-icons clickEffect">keyboard_arrow_right</i>
+      </div>
+      <div class="load-progress active1"></div>
     </div>
-    <div class="promotion" data-id="2">
-      <img src="/images/slide2.png" alt="">
-    </div>
-    <div class="promotion" data-id="3">
-      <img src="/images/slide3.png" alt="">
-    </div>
-    <div class="arrow left clickEffect">
-      <i class="material-icons">keyboard_arrow_left</i>
-    </div>
-    <div class="arrow right clickEffect">
-      <i class="material-icons">keyboard_arrow_right</i>
-    </div>
-    <div class="load-progress active1"></div>
   </div>
 </div>
 
@@ -35,36 +45,52 @@
 <div class="bg-light">
   <div class="container-1500">
 
+    <div class="products-bar-wrapper">
+      <div class="productsBar">
+        <div class="title">
+          <div class="badge kiemelt">
+            <p></p>
+          </div>
+          <h2 class="extra-bold">Kiemelt</h2>
+        </div>
+        <div class="boxContainer" id="mainProducts">
+
+          {{#each mainProducts}}
+          <div class="item kiemelt" id="item{{id}}">
+            <p class="kiemelt-text">kiemelt</p>
+            <a href="/products/{{id}}">
+              <img class="itemImg" id="itemImg{{ id }}" src="/images/products/{{kep1}}" />
+              <div class="productDescription">
+                <div class="top">
+                  {{#if akcios_ar}}
+                  <span class="price discounted">{{numberFormat ar}} Ft</span>
+                  <span class="price">{{ numberFormat akcios_ar}} Ft</span>
+                  {{else}}
+                  <span class="price">{{ numberFormat ar}} Ft</span>
+                  {{/if}}
+                </div>
+                <div class="bottom">
+                  <div class="title">{{gyarto}} {{termek}}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/each}}
+
+        </div>
+      </div>
+    </div>
+
     <div class="news-container-outer">
       <div class="top">
         <h2 class="extra-bold">Magazin</h2>
       </div>
 
       <div class="news-container">
-        <div class="new big">
-          <div class="share-button clickEffect">
-            <i class="material-icons">share</i>
-          </div>
-          <a href="/news/{{firstNew.id}}">
-            <div class="new-top-image">
-              <div class="date">
-                <p>{{dateFormat firstNew.datum}}</p>
-              </div>
-              <img src="images/news/{{#if firstNew.kep}}{{firstNew.kep}}{{else}}sample.png{{/if}}" alt="Kép" />
-            </div>
-            <div class="new-data-container">
-              <div class="new-title">
-                {{firstNew.cim}}
-              </div>
-              <div class="new-text">{{stripTags firstNew.tartalom}}</div>
-            </div>
-          </a>
-        </div>
 
-        <div class="news">
-
-          {{#each news}}
-          <div class="new">
+        {{#each news}} {{#is order 2}}
+        <div class="news-col">{{/is}}
+          <div class="new {{#is order 1}}big{{/is}}">
             <div class="share-button clickEffect">
               <i class="material-icons">share</i>
             </div>
@@ -73,7 +99,7 @@
                 <div class="date">
                   <p>{{dateFormat datum}}</p>
                 </div>
-                <img src="images/news/{{#if kep}}{{kep}}{{else}}sample.png{{/if}}" alt="Kép" />
+                <img src="/images/news/{{#if kep}}{{kep}}{{else}}sample.png{{/if}}" alt="Kép" />
               </div>
               <div class="new-data-container">
                 <div class="new-title">
@@ -84,8 +110,8 @@
             </a>
           </div>
           {{/each}}
-
         </div>
+
       </div>
       <div class="bottom">
         <a class="btn-1" href="/news">Korábbi hírek</a>
@@ -107,12 +133,12 @@
     <div class="boxContainer" id="saleProducts">
 
       {{#each saleProducts}}
-      <div class="item" id="item{{id}}">
+      <div class="item">
         <div class="badge inverse discount">
           <p>{{savePercent ar akcios_ar}}</p>
         </div>
         <a href="/products/{{id}}">
-          <img class="itemImg" id="itemImg{{ id }}" src="/images/products/{{kep1}}" />
+          <img class="itemImg" src="/images/products/{{kep1}}" />
           <div class="productDescription">
             <div class="top">
               {{#if akcios_ar}}
@@ -143,14 +169,17 @@
     <div class="boxContainer" id="newProducts">
 
       {{#each newProducts}}
-      <div class="item" id="item{{id}}">
+      <div class="item">
         <a href="/products/{{id}}">
-          <img class="itemImg" id="itemImg{{ id }}" src="/images/products/{{kep1}}" />
+          <img class="itemImg" src="/images/products/{{kep1}}" />
           <div class="productDescription">
             <div class="top">
               {{#if akcios_ar}}
-              <span class="price discounted">{{numberFormat ar}} Ft</span>{{/if}}
-              <span class="price">{{ numberFormat ar }} Ft</span>
+              <span class="price discounted">{{numberFormat ar}} Ft</span>
+              <span class="price">{{ numberFormat akcios_ar}} Ft</span>
+              {{else}}
+              <span class="price">{{ numberFormat ar}} Ft</span>
+              {{/if}}
             </div>
             <div class="bottom">
               <div class="title">{{gyarto}} {{termek}}</div>

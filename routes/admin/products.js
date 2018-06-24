@@ -19,7 +19,7 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
   const pages = Math.ceil(n / limit);
   const offset = (page - 1) * limit;
 
-  const products = await pool.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.allapot, product.ar, product.akcios_ar, product.aktiv
+  const products = await pool.query(`SELECT product.id, gyarto.name AS "gyarto", product.termek, product.kiemelt, product.allapot, product.ar, product.akcios_ar, product.aktiv
     FROM product INNER JOIN gyarto ON product.gyarto = gyarto.id ORDER BY product.id LIMIT ${limit} OFFSET ${offset}`);
 
   res.render('admin/products', {
@@ -29,7 +29,8 @@ router.get('/', [authAdmin, ordersCount], async (req, res) => {
     pagination: {
       actual: page,
       prev: (page > 1) ? page - 1 : null,
-      next: (page < pages) ? page + 1 : null
+      next: (page < pages) ? page + 1 : null,
+      pages
     }
   });
 });
@@ -60,7 +61,7 @@ router.get('/upload', authAdmin, async (req, res) => {
 
 
 router.get('/upload/:id', authAdmin, async (req, res) => {
-  let product = await pool.query(`SELECT product.id, product.gyarto, product.termek, product.ar, product.akcios_ar, product.allapot, product.leiras, product.darab, product.kep1, product.kep2, product.kep3
+  let product = await pool.query(`SELECT product.id, product.gyarto, product.termek, product.ar, product.akcios_ar, product.kiemelt, product.allapot, product.leiras, product.darab, product.kep1, product.kep2, product.kep3
     FROM product WHERE product.id = ${req.params.id}`);
   product = product[0];
   let properties = await pool.query(`SELECT property_description.description, LOWER(property.name) AS "name"
@@ -112,8 +113,8 @@ router.post('/upload', [authAdmin, upload.any()], async (req, res) => {
 
     // Set the sql query
     let sql = 'START TRANSACTION;';
-    sql += `INSERT INTO product (ar, allapot, gyarto, termek, leiras, darab, kep1, kep2, kep3) VALUES
-      (${pool.escape(req.body.ar)}, ${pool.escape(req.body.allapot)}, ${pool.escape(req.body.gyarto)}, ${pool.escape(req.body.name)}, ${pool.escape(req.body.leiras)},
+    sql += `INSERT INTO product (ar, kiemelt, allapot, gyarto, termek, leiras, darab, kep1, kep2, kep3) VALUES
+      (${pool.escape(req.body.ar)}, ${pool.escape(req.body.kiemelt)}, ${pool.escape(req.body.allapot)}, ${pool.escape(req.body.gyarto)}, ${pool.escape(req.body.name)}, ${pool.escape(req.body.leiras)},
       ${pool.escape(req.body.darab)}, "${imageNames[0]}", "${imageNames[1]}", "${imageNames[2]}");`;
     sql += 'SET @product_id = LAST_INSERT_ID();';
 
@@ -168,7 +169,7 @@ router.post('/upload/:id', [authAdmin, upload.any()], async (req, res) => {
     const discount = req.body.akcios_ar ? pool.escape(req.body.akcios_ar) : 'NULL';
 
     let sql = 'START TRANSACTION;';
-    sql += `UPDATE product SET ar = ${pool.escape(req.body.ar)}, akcios_ar = ${discount}, allapot = ${pool.escape(req.body.allapot)},
+    sql += `UPDATE product SET ar = ${pool.escape(req.body.ar)}, akcios_ar = ${discount}, kiemelt= ${pool.escape(req.body.kiemelt)}, allapot = ${pool.escape(req.body.allapot)},
       gyarto = ${pool.escape(req.body.gyarto)}, termek = ${pool.escape(req.body.name)}, leiras = ${pool.escape(req.body.leiras)},
       darab = ${pool.escape(req.body.darab)} WHERE id = ${pool.escape(req.params.id)};`;
 

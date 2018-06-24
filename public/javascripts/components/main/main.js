@@ -6,6 +6,7 @@ require('./login');
 require('./inprogress');
 require('./sidenav');
 require('./clickEffect');
+require('./pagination');
 
 
 const modal = document.querySelector('.in-progress-modal');

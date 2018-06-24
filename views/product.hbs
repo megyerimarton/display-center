@@ -3,14 +3,16 @@
 <div class="container-1500">
   <div class="product-container">
     <div class="product">
-      <div class="itemImages">
-        <img class="productImage active not-absolute" data-id="1" src="/images/products/{{product.kep1}}" />
-        <img class="productImage" data-id="2" src="/images/products/{{product.kep2}}" />
-        <img class="productImage" data-id="3" src="/images/products/{{product.kep3}}" />
-        <div class="btnPic left">
+      <div class="itemImages-container">
+        <div class="itemImages">
+          <img src="/images/products/{{product.kep1}}" />
+          <img src="/images/products/{{product.kep2}}" />
+          <img src="/images/products/{{product.kep3}}" />
+        </div>
+        <div class="btn-pic-change left">
           <i class="material-icons">keyboard_arrow_left</i>
         </div>
-        <div class="btnPic right">
+        <div class="btn-pic-change right">
           <i class="material-icons">keyboard_arrow_right</i>
         </div>
       </div>
@@ -91,15 +93,18 @@
     <div class="boxContainer" id="saleProducts">
 
       {{#each saleProducts}}
-      <div class="item" id="item{{id}}">
-        <div class="discount">{{savePercent ar akcios_ar}}%</div>
+      <div class="item">
+        <div class="badge inverse discount">
+          <p>{{savePercent ar akcios_ar}}</p>
+        </div>
         <a href="/products/{{id}}">
-          <img class="itemImg" id="itemImg{{ id }}" src="/images/products/{{kep1}}" />
+          <img class="itemImg" src="/images/products/{{kep1}}" />
           <div class="productDescription">
             <div class="top">
               {{#if akcios_ar}}
-              <span class="price discounted">{{numberFormat ar}} Ft</span>{{/if}}
-              <span class="price">{{ numberFormat ar }} Ft</span>
+              <span class="price discounted">{{numberFormat ar}} Ft</span>
+              {{/if}}
+              <span class="price">{{ numberFormat akcios_ar}} Ft</span>
             </div>
             <div class="bottom">
               <div class="title">{{gyarto}} {{termek}}</div>

@@ -41,6 +41,12 @@
           {{/if}}
 
           <li>
+            <select name="kiemelt">
+              <option value="0" {{#if product}}{{#is product.kiemelt 0}}selected{{/is}}{{/if}}>Nem kiemelt</option>
+              <option value="1" {{#if product}}{{#is product.kiemelt 1}}selected{{/is}}{{/if}}>Kiemelt</option>
+            </select>
+          </li>
+          <li>
             <select name="allapot">
               <option value="1" {{#if product}}{{#is product.allapot 'Raktáron'}}selected{{/is}}{{/if}}>Raktáron</option>
               <option value="2" {{#if product}}{{#is product.allapot 'Rendelésre'}}selected{{/is}}{{/if}}>Rendelésre</option>
