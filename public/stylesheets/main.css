@@ -3814,12 +3814,21 @@ footer {
 }
 
 @media (max-width: 650px) {
+  .article-new .row {
+    height: auto;
+    margin: 0;
+    padding: 20px 0;
+  }
   .article-new .row .left {
-    width: 80px;
+    min-width: 80px;
   }
   .article-new .row .left img {
     width: 80px;
-    height: auto;
+    height: 80px;
+    object-fit: cover;
+  }
+  .article-new .row .right .top .description .col .more {
+    display: none;
   }
 }
 
@@ -3831,15 +3840,11 @@ footer {
   .article-new .top-bar .description .col {
     margin: 2.5px 10px;
   }
-  .article-new .row {
-    padding: 25px 10px;
-  }
-  .article-new .row .right .top .description {
-    margin: 0;
-    flex-direction: column;
-  }
-  .article-new .row .right .top .description .col {
-    margin: 2.5px 0;
+}
+
+@media (max-width: 480px) {
+  .article-new .row .right .bottom .content {
+    margin: 25px 0 0 -105px;
   }
 }
 
