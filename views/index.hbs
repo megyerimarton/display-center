@@ -88,8 +88,14 @@
 
       <div class="news-container">
 
-        {{#each news}} {{#is order 2}}
-        <div class="news-col">{{/is}}
+        {{#each news}}
+        {{#is order 2}}
+        <div class="news-col">
+        {{/is}}
+        {{#is order 5}}
+        <div class="news-col-small">
+        {{/is}}
+
           <div class="new {{#is order 1}}big{{/is}}">
             <div class="share-button clickEffect">
               <i class="material-icons">share</i>
@@ -105,12 +111,21 @@
                 <div class="new-title">
                   {{cim}}
                 </div>
+                <div class="date-small">
+                  <p>{{dateFormat datum}}</p>
+                </div>
                 <div class="new-text">{{stripTags tartalom}}</div>
               </div>
             </a>
           </div>
-          {{/each}}
+        {{#is order 4}}
         </div>
+        {{/is}}
+        {{#is order 8}}
+        </div>
+        {{/is}}
+
+        {{/each}}
 
       </div>
       <div class="bottom">

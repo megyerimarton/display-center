@@ -100,7 +100,7 @@ router.post('/upload/:id', [authAdmin, upload.single('kep')], async (req, res) =
   const imageName = await pool.query(`SELECT kep FROM news WHERE id = ${pool.escape(req.params.id)}`);
 
   let fileName = imageName[0].kep;
-  if (!fileName) fileName = req.body.title.replace(/\s/g, '') + Date.now() + path.extname(req.file.originalname);
+  if (!fileName && req.file) fileName = req.body.title.replace(/\s/g, '') + Date.now() + path.extname(req.file.originalname);
   let tmpPath = '';
   let targetPath = '';
 

@@ -20,7 +20,6 @@ body {
 // Content ################
 #content {
   flex: 1; // Sticky footer miatt kell
-  position: relative;
   padding-bottom: 75px;
   &.no-padding {
     padding-bottom: 0;
@@ -117,13 +116,13 @@ hr {
 #sidenav {
   position: fixed;
   height: 100%;
-  width: 250px;
-  transform: translateX(250px);
+  width: 350px;
+  max-width: 100%;
+  transform: translateX(100%);
   z-index: 10;
   top: 0;
   right: 0;
-  padding-top: 50px;
-  background-color: $colorPrimary;
+  background-color: $colorPrimaryDarkest;
   transition: 0.5s;
   &::before {
     content: "";
@@ -142,29 +141,72 @@ hr {
   &.sideVisible::before {
     opacity: 1;
   }
+  .top-wrapper {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding: 0 10px;
+    &.big {
+      padding: 12px 10px;
+      .col {
+        height: 55px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .username {
+          margin: 0;
+          color: $light;
+        }
+      }
+    }
+    .top-menu-item {
+      justify-content: center;
+      background-color: $colorPrimary;
+      margin-right: 10px;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      &:hover {
+        background-color: $colorPrimaryLight;
+      }
+    }
+  }
   a {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     text-decoration: none;
     color: #ffffff;
-    font-size: 17px;
+    font-size: 13px;
+    font-weight: 700;
     text-transform: uppercase;
     text-align: center;
-    padding: 10px 0;
+    padding: 18px 0;
     white-space: nowrap;
+    background-color: $colorPrimary;
+    border-top: 1px solid rgba(50, 0, 100, 0.3);
     transition: 0.05s ease-in-out;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: $colorPrimaryLight;
     }
     i {
+      font-size: 20px;
       margin: 0 30px 0 20px;
-      opacity: 0.7;
+      opacity: 0.25;
+    }
+    i.arrow {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      opacity: .5;
     }
   }
   hr {
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 5px;
+    background-color: transparent;
+    margin: 3px;
   }
   .closeBtn {
     display: flex;
@@ -174,8 +216,8 @@ hr {
     position: absolute;
     top: 0;
     right: 0;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     color: #ffffff;
     cursor: pointer;
     transition: .1s ease-in-out;
@@ -185,6 +227,18 @@ hr {
     }
     i {
       font-size: 30px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #sidenav {
+    .closeBtn {
+      width: 60px;
+      height: 60px;
+    }
+    .top-wrapper {
+      height: 60px;
     }
   }
 }
@@ -204,6 +258,9 @@ hr {
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
+    #login {
+      transform: translate(-50%, -50%);
+    }
   }
   .popup-modal-bg {
     height: 100%;
@@ -212,14 +269,14 @@ hr {
   }
   #login {
     position: absolute;
-    z-index: 11;
+    z-index: 1;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%);
-    margin: 100px auto;
+    transform: translate(-50%, -55%);
     width: 400px;
-    border-radius: 5px;
     box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.7);
     background-color: #ffffff;
+    transition: .25s ease-in-out;
     #loginHeader {
       display: flex;
       flex-direction: column;
@@ -310,14 +367,22 @@ hr {
 }
 
 @media (max-width: 768px) {
-  #modal-login #login {
-    margin-top: 50px;
+  #modal-login {
+    &.active {
+      #login {
+        transform: translate(-50%, 0);
+      }
+    }
+    #login {
+      top: 0;
+      transform: translate(-50%, -10%);
+    }
   }
 }
 
 @media (max-width: 480px) {
   #modal-login #login {
-    width: 90%;
+    width: 100%;
   }
 }
 
@@ -330,11 +395,11 @@ hr {
   padding: 5px 10px;
   background-color: #ffffff;
   position: relative;
-  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
   will-change: box-shadow;
   transition: .2s ease-in-out;
   &:hover {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .15);
   }
   &.removed {
     display: none;
@@ -1691,19 +1756,93 @@ footer {
     .news-col {
       height: 100%;
       max-width: 475px;
+      margin: 0 6.25px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
+    .news-col-small {
+      height: 100%;
+      max-width: 375px;
+      margin: 0 6.25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+      .new {
+        height: calc(317px / 4);
+        margin: 0 6.25px;
+        box-shadow: none;
+        border-bottom: 2px solid #eee;
+        background-color: transparent;
+        transition: .05s ease-in-out;
+        &::before {
+          background: transparent;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+        &:hover {
+          .new-top-image img {
+            opacity: .75;
+          }
+          .new-data-container {
+            .new-title, .date-small {
+              opacity: .5;
+            }
+          }
+          box-shadow: none;
+        }
+        .share-button {
+          display: none;
+        }
+        .new-top-image {
+          order: 2;
+          position: static;
+          background: transparent;
+          .date {
+            display: none;
+          }
+          img {
+            height: 60px;
+            width: 60px;
+          }
+        }
+        .new-data-container {
+          height: auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          overflow: visible;
+          margin: 10px 0 10px 10px;
+          .new-title {
+            line-height: 20px;
+            margin: 0;
+            width: 100%;
+          }
+          .date-small {
+            display: flex;
+            align-items: center;
+            height: 15px;
+            margin-top: 5px;
+            color: $colorPrimary;
+            font-weight: 500;
+          }
+          .new-text {
+            display: none;
+          }
+        }
+      }
+    }
     .new {
       height: 100px;
-      margin: 0 15px;
       user-select: none;
       background-color: #ffffff;
-      box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
       position: relative;
       will-change: box-shadow;
-      transition: .2s ease-in-out;
+      transition: .1s ease-in-out;
       cursor: default;
       &::before {
         content: '';
@@ -1715,7 +1854,7 @@ footer {
         background: linear-gradient(to top, #ffffff 80%, transparent);
       }
       &:hover {
-        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .15);
+        box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .15);
       }
       a {
         display: flex;
@@ -1777,6 +1916,7 @@ footer {
             color: #ffffff;
             position: relative;
             z-index: 1;
+            white-space: nowrap;
           }
         }
         img {
@@ -1796,6 +1936,9 @@ footer {
           margin: 8px 60px 8px 20px;
           color: $dark;
         }
+        .date-small {
+          display: none;
+        }
         .new-text {
           display: flex;
           align-items: flex-start;
@@ -1810,6 +1953,7 @@ footer {
       &.big {
         height: 325px;
         width: 50%;
+        margin: 0 6.25px;
         &::before {
           height: 30px;
         }
@@ -1882,6 +2026,9 @@ footer {
 }
 
 @media (max-width: 1400px) {
+  .news-container-outer .news-container .news-col-small {
+    display: none;
+  }
   .background .promo-container .arrow {
     &.left {
       margin: 0;
@@ -2549,7 +2696,6 @@ footer {
     z-index: 10;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
-    border-radius: 7.5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     .header {
       display: flex;
@@ -2559,8 +2705,6 @@ footer {
       font-size: 18px;
       padding: 10px;
       position: relative;
-      border-top-left-radius: 7.5px;
-      border-top-right-radius: 7.5px;
       background-color: $colorAccent;
       &::before {
         content: "";
@@ -2569,8 +2713,6 @@ footer {
         left: 0;
         width: 100%;
         height: 100%;
-        border-top-left-radius: 7.5px;
-        border-top-right-radius: 7.5px;
         background: linear-gradient(90deg, rgba(255, 255, 255, 0.25), transparent);
       }
       i.close-in-progress-modal {
@@ -2870,20 +3012,20 @@ footer {
   }
   .filtersPopup {
     position: absolute;
-    top: 10px;
+    top: 50%;
     left: 50%;
     z-index: 6;
     visibility: hidden;
-    transform: translateX(-50%);
     width: 400px;
     height: 500px;
     opacity: 0;
-    border-radius: 5px;
+    transform: translate(-50%, -55%);
     background-color: #fff;
     box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 0.5);
-    transition: visibility 0s linear .15s, all .15s ease-in-out;
+    transition: opacity .15s linear, transform .25s ease-in-out, visibility 0s linear .15s;
     &.active {
       opacity: 1;
+      transform: translate(-50%, -50%);
       visibility: visible;
       transition-delay: 0s;
     }
@@ -3088,11 +3230,11 @@ footer {
     position: relative;
     overflow: hidden;
     background-color: #ffffff;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     will-change: box-shadow;
     transition: .2s ease-in-out;
     &:hover {
-      box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .15);
+      box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .15);
     }
     &.kiemelt {
       border: 2px solid $colorPrimary;
@@ -3432,35 +3574,17 @@ footer {
   }
 }
 
-@media (max-width: 675px) {
-  #searchContainer {
-    right: 20px;
-    bottom: 20px;
+@media (max-width: 768px) {
+  #filtersBar .filtersPopup {
+    top: 0;
+    transform: translate(-50%, -5%);
+    &.active {
+      transform: translate(-50%, 0);
+    }
   }
 }
 
 @media (max-width: 550px) {
-  #searchContainer {
-    #searchBar {
-      position: fixed;
-      bottom: 25px;
-      left: 1.25%;
-      width: 97.5%;
-    }
-    #searchIcon.active {
-      transform: scale(0);
-      opacity: 0;
-      .searchCircle {
-        opacity: 0;
-        transform: scale(0);
-      }
-      .searchLine {
-        opacity: 0;
-        height: 0;
-        transition: 0.1s;
-      }
-    }
-  }
   #filtersBar {
     margin-bottom: 0;
     #filtersContainer .fItem {
@@ -4189,6 +4313,7 @@ footer {
     left: 0;
     min-width: 250px;
     min-height: 100vh;
+    margin-top: 120px;
     padding-top: 25px;
     background-color: $light;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -4292,6 +4417,12 @@ footer {
 @media (max-width: 1800px) {
   .user-page-container .tab-content {
     margin: 0 auto 0 250px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .user-page-container .tab {
+    margin-top: 190px;
   }
 }
 
@@ -4609,19 +4740,18 @@ footer {
       visibility: hidden;
       opacity: 0;
       width: 500px;
-      height: 500px;
       position: absolute;
       top: 50%;
       left: 50%;
       z-index: 10;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -55%);
       background-color: #ffffff;
-      border-radius: 5px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      transition: visibility 0s linear .15s, all .15s ease-in-out;
+      transition: opacity .15s linear, transform .25s ease-in-out, visibility 0s linear .15s;
       &.active {
         visibility: visible;
         opacity: 1;
+        transform: translate(-50%, -50%);
         transition-delay: 0s;
       }
       .header {
@@ -4646,15 +4776,12 @@ footer {
         }
       }
       .content {
-        height: 440px;
         margin: 10px;
         opacity: 0;
-        transition: .25s ease-in-out;
         &.show {
           opacity: 1;
         }
         .data {
-          height: 400px;
           overflow: scroll;
           .row {
             display: flex;
@@ -4771,6 +4898,16 @@ footer {
   }
 }
 
+@media (max-width: 768px) {
+  .admin-page-container .tab-content .orderDescription-modal {
+    top: 0;
+    transform: translate(-50%, -5%);
+    &.active {
+      transform: translate(-50%, 0);
+    }
+  }
+}
+
 @media (max-width: 675px) {
   .admin-page-container .tab-content {
     form {
@@ -4819,7 +4956,7 @@ footer {
       }
     }
     .orderDescription-modal {
-      width: calc(100% - 20px);
+      width: 100%;
     }
     input[type=submit] {
       position: absolute;

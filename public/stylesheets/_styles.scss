@@ -730,11 +730,11 @@ form.style1 {
         position: relative;
         overflow: hidden;
         background-color: #ffffff;
-        box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
         will-change: box-shadow;
-        transition: .25s ease-in-out;
-        &:active {
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: .1s ease-in-out;
+        &:hover {
+          box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .15);
         }
         &.kiemelt {
           border: 2px solid $colorPrimary;
