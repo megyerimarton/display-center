@@ -43,8 +43,8 @@
 <script type="text/javascript">
   function initMap() {
     var mapOptions = {
-      zoom: 16,
-      center: new google.maps.LatLng(47.776691, 19.129995),
+      zoom: 14,
+      center: new google.maps.LatLng(47.5074939, 19.0445155),
       disableDefaultUI: true,
       styles: [
         {
@@ -338,10 +338,10 @@
     var map = new google.maps.Map(mapElement, mapOptions);
 
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(47.776691, 19.129995),
+      position: new google.maps.LatLng(47.5074939, 19.0445155),
       map: map,
       icon: {
-        url: "images/marker.png",
+        url: "/images/marker.png",
         scaledSize: new google.maps.Size(48, 48)
       }
     });
