@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 
@@ -23,10 +24,10 @@ router.post('/', (req, res) => {
 router.delete('/', (req, res) => {
   let cart;
 
-  if (req.cookies.cart) cart = JSON.parse(req.cookies.cart);
+  if (req.cookies.cart) {
+    cart = _.omit(JSON.parse(req.cookies.cart), `${req.body.id}`);
+  }
   else cart = {};
-
-  delete cart[req.body.id];
 
   res.cookie('cart', JSON.stringify(cart)).send({cart, size: Object.keys(cart).length});
 });

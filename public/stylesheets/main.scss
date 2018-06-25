@@ -1955,6 +1955,8 @@ footer {
     }
   }
   .news-container-outer {
+    padding-bottom: 25px;
+    padding-top: 0;
     .news-container {
       height: auto;
       flex-direction: column;
@@ -2004,6 +2006,9 @@ footer {
   }
   .categories-container .category {
     padding: 13.5px 15px;
+  }
+  .products-bar-wrapper.kiemelt {
+    padding-bottom: 0;
   }
 }
 
@@ -2099,7 +2104,9 @@ footer {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 120%;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
       transform: translate(-50%, -50%);
     }
     .title {
@@ -2107,7 +2114,7 @@ footer {
       z-index: 1;
       margin: 0 20px;
       h1 {
-        font-size: 48px;
+        @include rfs(48);
         font-weight: 700;
         color: #ffffff;
         text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
