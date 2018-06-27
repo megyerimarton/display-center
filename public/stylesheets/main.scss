@@ -1513,6 +1513,9 @@ footer {
   &.to-background {
     z-index: -100;
   }
+  &.fixed-height {
+    height: 350px;
+  }
   .bg-image {
     position: absolute;
     top: 0;
