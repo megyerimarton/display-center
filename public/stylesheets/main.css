@@ -2773,7 +2773,7 @@ footer {
 .background {
   display: flex;
   align-items: center;
-  height: 350px;
+  height: auto;
   width: 100%;
   position: relative;
   background-color: #6525d3;
@@ -3392,6 +3392,12 @@ footer {
   margin-left: 100px;
 }
 
+@media (min-width: 1600px) {
+  .background {
+    height: 450px;
+  }
+}
+
 @media (max-width: 1400px) {
   .news-container-outer .news-container .news-col-small {
     display: none;
@@ -3401,12 +3407,6 @@ footer {
   }
   .background .promo-container .arrow.right {
     margin: 0;
-  }
-}
-
-@media (max-width: 1090px) {
-  .background.auto {
-    height: auto;
   }
 }
 
