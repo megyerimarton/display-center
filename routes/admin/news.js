@@ -119,7 +119,7 @@ router.post('/upload/:id', [authAdmin, upload.single('kep')], async (req, res) =
   }
 
   try {
-    await pool.query(`UPDATE news SET cim = ${pool.escape(req.body.title)}, tartalom = ${pool.escape(req.body.content)} WHERE id = ${pool.escape(req.params.id)}`);
+    await pool.query(`UPDATE news SET cim = ${pool.escape(req.body.title)}, tartalom = ${pool.escape(req.body.content)}, kep = ${pool.escape(fileName)} WHERE id = ${pool.escape(req.params.id)}`);
   } catch (error) {
     return res.redirect(`/admin/news/upload/${req.params.id}?message=error&text=Hiba történt a feltöltés során`);
   }
