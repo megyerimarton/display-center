@@ -30,11 +30,11 @@
             <input type="email" id="email" name="email" maxlength="50" value="{{userData.email}}" {{#if userData}}class="used" {{/if}} {{#if user}}readonly{{/if}} required />
             <label for="email">E-mail</label>
           </li>
+          <div class="err" id="err_email"></div>
           <li>
             <input type="text" id="name" name="name" maxlength="100" value="{{userData.nev}}" {{#if userData}}class="used" {{/if}} required />
             <label for="name">Név</label>
           </li>
-          <div class="err" id="err_email"></div>
           <li>
             <input type="text" id="mobile" name="mobile" maxlength="11" value="{{userData.tel}}" {{#if userData}}class="used" {{/if}} required />
             <label for="mobile">Telefonszám</label>
