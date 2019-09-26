@@ -1443,17 +1443,10 @@ footer {
         font-weight: 400;
         a {
           margin-left: 10px;
-          width: 35px;
-          height: 35px;
-          border-radius: 50%;
-          background-color: $colorPrimaryDark;
+          color: white;
           transition: .1s ease-in-out;
           &:hover {
-            background-color: $colorPrimaryLight;
-          }
-          img {
-            width: 100%;
-            height: 100%;
+            opacity: 0.5;
           }
         }
       }
