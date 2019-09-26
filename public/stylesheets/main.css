@@ -1986,7 +1986,7 @@ footer {
         justify-content: flex-end;
         font-weight: 400; }
         .rights-container.bottom .rights .author a {
-          margin-left: 10px;
+          text-align: center;
           color: white;
           transition: .1s ease-in-out; }
           .rights-container.bottom .rights .author a:hover {
