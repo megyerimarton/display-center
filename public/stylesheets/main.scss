@@ -2573,7 +2573,6 @@ footer {
           width: 300px;
           margin: 7.5px 0;
           font-size: 17px;
-          font-weight: 500;
           text-decoration: none;
           color: $fontColor;
           i {
@@ -2582,7 +2581,7 @@ footer {
             align-items: center;
             justify-content: center;
             margin-right: 20px;
-            color: $colorAccent;
+            color: $greyDark;
           }
         }
       }

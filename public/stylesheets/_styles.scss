@@ -52,13 +52,13 @@ i {
 
 @for $i from 0 through 10 {
   .h-#{$i * 10} {
-    height: $i * 10 + '%';
+    height: unquote($i * 10 + "%");
   }
 }
 
 @for $i from 0 through 10 {
   .w-#{$i * 10} {
-    width: $i * 10 + '%';
+    width: unquote($i * 10 + "%");
   }
 }
 
